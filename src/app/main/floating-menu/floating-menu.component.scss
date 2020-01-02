@@ -1,0 +1,26 @@
+.menuCircle{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  cursor: pointer;
+
+  transform: translate(-50%, -50%);
+  background-color: rgb(14, 130, 207);
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: transform .075s ease-in-out;
+
+  &:hover{
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+.homeIcon{
+  width: 3.4rem;
+}
