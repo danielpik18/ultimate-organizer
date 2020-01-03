@@ -1,0 +1,7 @@
+<div *ngIf="isWindowOpen('todos')" class="wrapper" ngDraggable [handle]="handle">
+  <div #handle class="handle">
+    <div class="closeButton" (click)="closeWindow('todos')">
+      <img src="assets/svg/letter-x.svg" alt="" style="width: .7rem;">
+    </div>
+  </div>
+</div>
