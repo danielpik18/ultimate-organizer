@@ -1,7 +1,10 @@
-<div *ngIf="isWindowOpen('todos')" class="wrapper" ngDraggable [handle]="handle">
-  <div #handle class="handle">
-    <div class="closeButton" (click)="closeWindow('todos')">
-      <img src="assets/svg/letter-x.svg" alt="" style="width: .7rem;">
+<div *ngIf="isWindowOpen()" class="wrapper" cdkDrag #wrapper (click)="toggleFocus(wrapper)">
+  <div cdkDragHandle class="handle">
+    <div class="closeButton" (click)="closeWindow()">
+      <img src="assets/svg/letter-x.svg" alt="Close window button" style="width: .7rem;">
     </div>
   </div>
+
+  <ng-content></ng-content>
+
 </div>

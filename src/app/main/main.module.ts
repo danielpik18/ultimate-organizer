@@ -3,15 +3,17 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { FloatingMenuComponent } from './floating-menu/floating-menu.component';
 import { DraggableWindowComponent } from './draggable-window/draggable-window.component';
-import { AngularDraggableModule } from 'angular2-draggable';
+import { TodoListComponent } from './todo-list/todo-list.component';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, FloatingMenuComponent, DraggableWindowComponent],
+  declarations: [HomeComponent, FloatingMenuComponent, DraggableWindowComponent, TodoListComponent],
   imports: [
     CommonModule,
-    AngularDraggableModule
+    DragDropModule
   ],
   exports: [
     HomeComponent
