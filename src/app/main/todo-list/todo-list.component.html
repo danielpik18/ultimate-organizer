@@ -3,6 +3,6 @@
 
   <div class="todo-list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todos"
     (cdkDropListDropped)="drop($event)">
-    <div class="example-box" cdkDrag *ngFor="let todo of todos">{{todo}}</div>
+    <div class="example-box" cdkDrag *ngFor="let todo of todos">{{todo.task_title}}</div>
   </div>
 </div>

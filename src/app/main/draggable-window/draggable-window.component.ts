@@ -3,7 +3,7 @@ import { WindowsManagerService } from 'src/app/services/windows-manager.service'
 
 @Component({
   host: {
-    '(document:click)': 'onClick($event)'
+    '(document:click)': 'removeFocus($event)'
   },
   selector: 'app-draggable-window',
   templateUrl: './draggable-window.component.html',
@@ -11,6 +11,8 @@ import { WindowsManagerService } from 'src/app/services/windows-manager.service'
 })
 export class DraggableWindowComponent implements OnInit {
   @Input() windowTitle: string;
+  @Input() windowHeight: string;
+  @Input() windowWidth: string;
   @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
   windows: string[] = [];
 
@@ -32,13 +34,12 @@ export class DraggableWindowComponent implements OnInit {
     this.windowsManager.updateWindows(this.windows.filter(window => window !== this.windowTitle));
   }
 
-  toggleFocus() {
+  focusWindow() {
     this.wrapper.nativeElement.classList.add('wrapper-active');
-    console.log(this.wrapper.nativeElement.classList);
   }
 
-  onClick(event) {
-    if (!this._eref.nativeElement.contains(event.target)) // or some similar check
+  removeFocus(event) {
+    if (!this._eref.nativeElement.contains(event.target))
       if (this.wrapper) {
         this.wrapper.nativeElement.classList.remove('wrapper-active');
       }

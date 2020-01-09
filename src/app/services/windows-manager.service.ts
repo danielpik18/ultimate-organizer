@@ -5,7 +5,7 @@ import { Subject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WindowsManagerService {
-  private windows = new Subject<string[]>();
+  windows = new Subject<string[]>();
 
   constructor() { }
 

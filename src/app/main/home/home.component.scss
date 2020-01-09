@@ -1,1 +1,22 @@
+.spaceTitle{
+  text-align: center;
+  font-family: 'Bad Script', cursive;
+  font-size: 6rem;
+  font-weight: 400;
+  color: white;
 
+  animation-name: titleIntro;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+
+  transform: translate(0, -2rem);
+}
+
+@keyframes titleIntro {
+  from{
+    transform: translate(0, 1.4rem);
+  }
+  to{
+    transform: translate(0, -2rem);
+  }
+}
