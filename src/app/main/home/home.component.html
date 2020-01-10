@@ -5,10 +5,22 @@
 
   <app-floating-menu></app-floating-menu>
 
-  <app-draggable-window windowTitle='todos' windowWidth="40rem" windowHeight="28rem">
+
+  <app-draggable-window
+    *ngIf="windows.includes('todos')"
+    windowTitle='todos'
+    windowWidth="50rem"
+    windowHeight="34rem"
+    overflowY='hidden'
+  >
     <app-todo-list></app-todo-list>
   </app-draggable-window>
 
-  <app-draggable-window windowTitle='calendar' windowWidth="30rem" windowHeight="20rem">
+  <app-draggable-window
+    *ngIf="windows.includes('calendar')"
+    windowTitle='calendar'
+    windowWidth="30rem"
+    windowHeight="20rem"
+  >
   </app-draggable-window>
 </div>

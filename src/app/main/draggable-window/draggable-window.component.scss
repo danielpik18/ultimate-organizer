@@ -1,18 +1,19 @@
 @import './../../../scss/colors';
 
-.wrapper{
+.window{
   position: absolute;
   background-color: white;
   box-shadow: 4px 6px 10px 4px rgba(black, .15);
+  z-index: 9;
 
   &-active{
     z-index: 10;
   }
 }
 
-.content{
-  overflow-y: scroll;
-
+.contentWrapper{
+  position: relative;
+  width: 100%;
 }
 
 .handle{

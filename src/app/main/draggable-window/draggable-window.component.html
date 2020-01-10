@@ -1,12 +1,10 @@
-<div *ngIf="isWindowOpen()" class="wrapper" cdkDrag #wrapper (click)="focusWindow(wrapper)" [style.width]="windowWidth">
+<div class="window" cdkDrag #wrapper (click)="focusWindow(wrapper)" [style.width]="windowWidth">
   <div cdkDragHandle class="handle">
     <div class="closeButton" (click)="closeWindow()">
       <img src="assets/svg/letter-x.svg" alt="Close window button" style="width: .7rem;">
     </div>
   </div>
-
-  <div class="content" [ngStyle]="{'min-height': windowHeight, 'max-height': windowHeight}">
+  <div class="contentWrapper" [ngStyle]="{'min-height': windowHeight, 'max-height': windowHeight}">
     <ng-content></ng-content>
   </div>
-
 </div>

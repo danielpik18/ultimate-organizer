@@ -6,11 +6,12 @@ import { DraggableWindowComponent } from './draggable-window/draggable-window.co
 import { TodoListComponent } from './todo-list/todo-list.component';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoginComponent } from './login/login.component';
 
 
 
 @NgModule({
-  declarations: [HomeComponent, FloatingMenuComponent, DraggableWindowComponent, TodoListComponent],
+  declarations: [HomeComponent, FloatingMenuComponent, DraggableWindowComponent, TodoListComponent, LoginComponent],
   imports: [
     CommonModule,
     DragDropModule

@@ -1,8 +1,15 @@
 <div class="wrapper">
-  <h2>Todo</h2>
 
-  <div class="todo-list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todos"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" cdkDrag *ngFor="let todo of todos">{{todo.task_title}}</div>
+  <div class="row">
+    <div class="col-4">
+      here
+    </div>
+    <div class="col-8">
+      <div class="todo-list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todos"
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" cdkDrag *ngFor="let todo of todos">{{todo.task_title}}</div>
+      </div>
+    </div>
   </div>
+
 </div>

@@ -1,15 +1,21 @@
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .spaceTitle{
   text-align: center;
   font-family: 'Bad Script', cursive;
   font-size: 6rem;
   font-weight: 400;
   color: white;
+  margin-top: 3rem;
 
   animation-name: titleIntro;
   animation-duration: 2s;
   animation-timing-function: ease-out;
-
-  transform: translate(0, -2rem);
 }
 
 @keyframes titleIntro {
@@ -17,6 +23,6 @@
     transform: translate(0, 1.4rem);
   }
   to{
-    transform: translate(0, -2rem);
+    transform: translate(0, 0);
   }
 }

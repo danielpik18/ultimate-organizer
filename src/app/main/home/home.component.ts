@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WindowsManagerService } from 'src/app/services/windows-manager.service';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  windows: string[] = [];
 
-  constructor() { }
+  constructor(private windowManager: WindowsManagerService) { }
 
   ngOnInit() {
+    this.windowManager.getWindows().subscribe(windows => this.windows = windows);
   }
-
 }

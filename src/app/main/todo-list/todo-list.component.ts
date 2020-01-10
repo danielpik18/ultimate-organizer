@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { HttpManagerService } from 'src/app/services/http-manager.service';
-import { WindowsManagerService } from 'src/app/services/windows-manager.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -11,17 +10,10 @@ import { WindowsManagerService } from 'src/app/services/windows-manager.service'
 export class TodoListComponent implements OnInit {
   todos: any[];
 
-  constructor(private httpManager: HttpManagerService, private windowManager: WindowsManagerService) { }
+  constructor(private httpManager: HttpManagerService) { }
 
   ngOnInit() {
-
-    this.windowManager.getWindows().subscribe(windows => {
-      if (windows.includes('todos') && !this.todos) {
-        this.httpManager.getTodos().subscribe(data => this.todos = data);
-        console.log('fetching data');
-      }
-    });
-
+    this.httpManager.getTodos().subscribe(data => this.todos = data);
   }
 
   drop(event: CdkDragDrop<string[]>) {
