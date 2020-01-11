@@ -2,9 +2,6 @@ import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { WindowsManagerService } from 'src/app/services/windows-manager.service';
 
 @Component({
-  host: {
-    '(document:click)': 'onClick($event)'
-  },
   selector: 'app-draggable-window',
   templateUrl: './draggable-window.component.html',
   styleUrls: ['./draggable-window.component.scss']
@@ -15,7 +12,7 @@ export class DraggableWindowComponent implements OnInit {
   windows: string[] = [];
 
 
-  constructor(private windowsManager: WindowsManagerService, private _eref: ElementRef) {
+  constructor(private windowsManager: WindowsManagerService) {
   }
 
   ngOnInit() {
@@ -32,15 +29,14 @@ export class DraggableWindowComponent implements OnInit {
     this.windowsManager.updateWindows(this.windows.filter(window => window !== this.windowTitle));
   }
 
-  toggleFocus() {
+  focusWindow() {
+    console.log('hi m8');
     this.wrapper.nativeElement.classList.add('wrapper-active');
-    console.log(this.wrapper.nativeElement.classList);
+    console.log(this.wrapper.nativeElement.classList)
   }
 
-  onClick(event) {
-    if (!this._eref.nativeElement.contains(event.target)) // or some similar check
-      if (this.wrapper) {
-        this.wrapper.nativeElement.classList.remove('wrapper-active');
-      }
+  onClickedOutside() {
+    console.log('hola')
+    this.wrapper.nativeElement.classList.remove('wrapper-active');
   }
 }

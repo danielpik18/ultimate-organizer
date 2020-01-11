@@ -1,4 +1,5 @@
-<div *ngIf="isWindowOpen()" class="wrapper" cdkDrag #wrapper (click)="toggleFocus(wrapper)">
+<div *ngIf="isWindowOpen()" class="wrapper" cdkDrag #wrapper (click)="focusWindow()"
+  (clickOutside)="onClickedOutside($event)">
   <div cdkDragHandle class="handle">
     <div class="closeButton" (click)="closeWindow()">
       <img src="assets/svg/letter-x.svg" alt="Close window button" style="width: .7rem;">
