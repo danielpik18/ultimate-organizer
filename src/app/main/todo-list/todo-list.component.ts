@@ -17,7 +17,7 @@ export class TodoListComponent implements OnInit {
     this.httpManager.getTodos().subscribe(data => this.todos = data);
   }
 
-  test() {
-    console.log(this.todos);
+  filterData(filter: string) {
+    console.log('test', filter);
   }
 }

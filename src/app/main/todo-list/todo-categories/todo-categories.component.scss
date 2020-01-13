@@ -35,41 +35,27 @@
       & i{
         color: $blue;
       }
-
-      &:hover{
-        background-color: rgba($blue_light, .7);
-      }
-      &:active{
-        background-color: rgba($blue_light, 1) !important;
-      }
     }
     &:nth-child(2){
       & i{
         color: $red;
-      }
-
-      &:hover{
-        background-color: rgba($red_light, .7);
-      }
-      &:active{
-        background-color: rgba($red_light, .9);
       }
     }
     &:nth-child(3){
       & i{
         color: $green;
       }
+    }
 
-      &:hover{
-        background-color: rgba($green_light, .7);
-      }
-      &:active{
-        background-color: rgba($green_light, .9);
-      }
+    &:hover, :active{
+      color: rgba($grey_dark2, .7);
     }
 
     &:hover{
-      color: $grey_light;
+      background-color: rgba($blue_light, .7);
+    }
+    &:active{
+      background-color: rgba($blue_light, 1) !important;
     }
   }
 }

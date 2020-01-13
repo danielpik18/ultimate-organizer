@@ -16,6 +16,12 @@ export class TodoComponent implements OnInit {
   @ViewChild('priorityText', { static: true }) priorityText: ElementRef;
   @ViewChild('completeTaskButtonCheckmark', { static: true }) completeTaskButtonCheckmark: ElementRef;
 
+  //Elements for editing task
+  @ViewChild('input_title', { static: false }) input_title: ElementRef;
+
+  //Edit mode
+  editMode: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -83,6 +89,24 @@ export class TodoComponent implements OnInit {
     }
 
     this.toggleTodoState();
+  }
+
+  turnOnEditMode(){
+    if(!this.editMode){
+      this.editMode = true;
+      this.todoWrapper.nativeElement.parentElement.parentElement.removeAttribute('href');
+    }
+  }
+
+  turnOffEditMode(){
+    if(this.editMode){
+      this.editMode = false;
+      //this.todoWrapper.nativeElement.parentElement.parentElement.removeAttribute('href');
+    }
+  }
+
+  testi(){
+    console.log('out');
   }
 
 }

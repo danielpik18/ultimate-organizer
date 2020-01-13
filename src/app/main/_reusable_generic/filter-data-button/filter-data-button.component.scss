@@ -1,6 +1,9 @@
 @import './../../../../scss/colors';
 
 .wrapper{
+}
+
+.filterButton{
   position: fixed;
   bottom: 0;
   right: 0;
@@ -15,6 +18,7 @@
   opacity: .85;
   cursor: pointer;
   transition: opacity .4s ease-out;
+  z-index: 25;
 
   & i {
     font-size: 1.6rem;
@@ -24,4 +28,51 @@
   &:hover{
     opacity: 1;
   }
+}
+
+.filterPopover{
+  display: none !important;
+  position: fixed;
+  bottom: 2.4%;
+  right: 2.4%;
+  width: 10rem;
+  height: 12rem;
+  background: linear-gradient($grey, $grey_light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .9;
+  padding: .9rem;
+  border-radius: 5% 5% 30% 5%;
+
+  &--show{
+    display: block !important;
+  }
+}
+
+.filterByText{
+  font-weight: 600;
+  font-size: .8rem;
+  letter-spacing: 1px;
+}
+
+.form-check{
+  padding: .4rem .8rem !important;
+
+  & input, label{
+    cursor: pointer;
+  }
+
+  & input {
+    width: 2rem;
+  }
+
+  & label{
+    font-size: .8rem;
+  }
+}
+
+input[type=radio] {
+  width: 1rem;
+  height: 1rem;
 }

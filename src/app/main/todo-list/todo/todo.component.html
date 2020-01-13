@@ -1,18 +1,44 @@
-<div #todoWrapper class="todoWrapper">
-  <h5 class="todoTitle">{{title}}</h5>
+<div #todoWrapper class="todoWrapper" (click)="$event.stopPropagation(); turnOnEditMode()" (clickOutside)="turnOffEditMode()">
+
+  <!--Task title-->
+  <div>
+    <h5 *ngIf="!editMode" class="todoTitle">{{title}}</h5>
+    <input *ngIf="editMode" #input_title type="text" [value]="title" (change)="testi()">
+  </div>
+  <!---->
+
   <div class="d-flex justify-content-between">
     <div class="d-flex align-items-center">
-      <div class="completionTime mr-4">
-        <img src="assets/svg/calendar2.svg" alt="Task completion time">
-        <span>{{completionTime ? completionTime : 'Anytime'}}</span>
+
+      <!--Task completion time-->
+      <div>
+        <div class="completionTime mr-4" *ngIf="!editMode">
+          <img src="assets/svg/calendar2.svg" alt="Task completion time">
+          <span>{{completionTime ? completionTime : 'Anytime'}}</span>
+        </div>
+
+        <div>
+          <input *ngIf="editMode" type="date">
+        </div>
       </div>
-      <div class="priority">
-        <i #priorityIcon class="fas fa-dot-circle"></i>
-        <span #priorityText>{{priority.toLocaleUpperCase()}}</span>
+      <!---->
+
+      <!--Task priority-->
+      <div>
+        <div class="priority">
+          <i #priorityIcon class="fas fa-dot-circle"></i>
+          <span #priorityText>{{priority.toLocaleUpperCase()}}</span>
+        </div>
+
+        <div *ngIf="editMode">
+          heyheyhey
+        </div>
       </div>
+      <!---->
+
     </div>
 
-    <button class="completeTaskButton" (click)="toggleCompleted()">
+    <button class="completeTaskButton" (click)="$event.stopPropagation(); toggleCompleted()">
       <div class="completeTaskButton__bgCircles"></div>
       <div #completeTaskButtonCheckmark class="completeTaskButton__checkMark"></div>
     </button>

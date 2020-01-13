@@ -1,3 +1,22 @@
 <div class="wrapper">
-  <i class="fas fa-lg fa-cogs"></i>
+
+  <div class="filterButton" (click)="togglePopover()">
+    <i class="fas fa-lg fa-cogs"></i>
+  </div>
+
+  <div #filterPopover class="filterPopover">
+    <div>
+      <h6 class="filterByText">Order by:</h6>
+
+      <div #filterOptionsWrapper class="filterOptionsWrapper">
+        <div  class="form-check" *ngFor="let option of filterOptions">
+          <input class="form-check-input" type="radio" name="filterOptionsRadioButtons" [checked]="option === 'completed' ? true : false" id="{{option}}" value="{{option}}" (click)="testo()">
+          <label class="form-check-label ml-2" for="{{option}}">
+            {{option[0].toLocaleUpperCase() + option.slice(1)}}
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>

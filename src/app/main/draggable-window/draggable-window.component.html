@@ -1,5 +1,7 @@
 <div class="window window-active" cdkDrag #wrapper [style.width]="windowWidth" [ngStyle]="{'min-height': windowHeight, 'max-height': windowHeight}">
   <div cdkDragHandle class="handle">
+    <span class="window__title">{{windowTitle[0].toLocaleUpperCase() + windowTitle.slice(1)}}</span>
+
     <div class="closeButton" (click)="closeWindow()">
       <img src="assets/svg/letter-x.svg" alt="Close window button" style="width: .7rem;">
     </div>

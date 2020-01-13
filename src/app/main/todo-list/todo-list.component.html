@@ -5,7 +5,7 @@
         <app-todo-categories></app-todo-categories>
       </div>
 
-      <div class="col col-8 todosWrapper">
+      <div class="col col-8 todosWrapper customScrollbar customScrollbar__1">
         <app-loading-wheel *ngIf="!todos"></app-loading-wheel>
 
         <ul #todoList>
@@ -24,7 +24,12 @@
 
         <div style="height: 14rem;"></div>
 
-        <app-filter-data-button (click)="test()"></app-filter-data-button>
+        <app-filter-data-button
+          (onFilterChange)="filterData($event)"
+          [filterOptions]="['completed', 'overtime', 'pending']"
+          defaultFilter='completed'
+        >
+        </app-filter-data-button>
       </div>
     </div>
   </div>
