@@ -1,0 +1,20 @@
+<div #todoWrapper class="todoWrapper">
+  <h5 class="todoTitle">{{title}}</h5>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex align-items-center">
+      <div class="completionTime mr-4">
+        <img src="assets/svg/calendar2.svg" alt="Task completion time">
+        <span>{{completionTime ? completionTime : 'Anytime'}}</span>
+      </div>
+      <div class="priority">
+        <i #priorityIcon class="fas fa-dot-circle"></i>
+        <span #priorityText>{{priority.toLocaleUpperCase()}}</span>
+      </div>
+    </div>
+
+    <button class="completeTaskButton" (click)="toggleCompleted()">
+      <div class="completeTaskButton__bgCircles"></div>
+      <div #completeTaskButtonCheckmark class="completeTaskButton__checkMark"></div>
+    </button>
+  </div>
+</div>

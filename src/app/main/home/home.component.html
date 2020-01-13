@@ -1,12 +1,34 @@
-<div class="homeWrapper">
+<div class="wrapper">
+  <h1 class="spaceTitle">
+    Space
+  </h1>
+
   <app-floating-menu></app-floating-menu>
 
-  <app-draggable-window windowTitle='todos'>
+
+  <app-draggable-window
+    *ngIf="windows.includes('todos')"
+    windowTitle='todos'
+    windowWidth="46rem"
+    windowHeight="30rem"
+    overflowY='hidden'
+  >
     <app-todo-list></app-todo-list>
   </app-draggable-window>
 
-  <app-draggable-window windowTitle='calendar'>
-    <h1>Hello world</h1>
-    <button>Click me</button>
+  <app-draggable-window
+    *ngIf="windows.includes('calendar')"
+    windowTitle='calendar'
+    windowWidth="30rem"
+    windowHeight="20rem"
+  >
+  </app-draggable-window>
+
+  <app-draggable-window
+    *ngIf="windows.includes('journal')"
+    windowTitle='journal'
+    windowWidth="30rem"
+    windowHeight="20rem"
+  >
   </app-draggable-window>
 </div>

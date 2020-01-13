@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WindowsManagerService {
-  private windows = new Subject<string[]>();
+  private windows = new BehaviorSubject<string[]>([]);
 
   constructor() { }
 

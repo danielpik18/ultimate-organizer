@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
+import { HttpManagerService } from 'src/app/services/http-manager.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -7,25 +7,17 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-  todos: string[] = [
-    'Clean room',
-    'Wash clothes'
-  ];
+  @ViewChild('todoList', { static: true }) todoList: ElementRef;
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-  }
+  todos: any[];
 
-  constructor() { }
+  constructor(private httpManager: HttpManagerService) { }
 
   ngOnInit() {
+    this.httpManager.getTodos().subscribe(data => this.todos = data);
   }
 
+  test() {
+    console.log(this.todos);
+  }
 }

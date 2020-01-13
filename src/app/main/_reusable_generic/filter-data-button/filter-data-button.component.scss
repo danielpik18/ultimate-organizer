@@ -1,0 +1,27 @@
+@import './../../../../scss/colors';
+
+.wrapper{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 3.6rem;
+  height: 3rem;
+  border: $grey_dark;
+  background: linear-gradient($blue, $blue_light);
+  border-radius: 50% 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .85;
+  cursor: pointer;
+  transition: opacity .4s ease-out;
+
+  & i {
+    font-size: 1.6rem;
+    color: $grey_light2;
+  }
+
+  &:hover{
+    opacity: 1;
+  }
+}

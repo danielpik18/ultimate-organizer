@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { WindowsManagerService } from 'src/app/services/windows-manager.service';
 
 @Component({
@@ -8,35 +8,30 @@ import { WindowsManagerService } from 'src/app/services/windows-manager.service'
 })
 export class DraggableWindowComponent implements OnInit {
   @Input() windowTitle: string;
+  @Input() windowHeight: string;
+  @Input() windowWidth: string;
   @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
-  windows: string[] = [];
+  windows: string[];
 
+  // tslint:disable-next-line: variable-name
+  constructor(private windowsManager: WindowsManagerService, private _eref: ElementRef) {
+  }
 
-  constructor(private windowsManager: WindowsManagerService) {
+  @HostListener('document:click', ['$event']) toggleWindowFocus(event: Event) {
+    if (this.wrapper) {
+      if (this._eref.nativeElement.contains(event.target)) {
+        this.wrapper.nativeElement.classList.add('window-active');
+      } else {
+        this.wrapper.nativeElement.classList.remove('window-active');
+      }
+    }
   }
 
   ngOnInit() {
     this.windowsManager.getWindows().subscribe(windows => this.windows = windows);
   }
 
-  isWindowOpen() {
-    if (this.windows.length > 0) {
-      return this.windows.includes(this.windowTitle);
-    }
-  }
-
   closeWindow() {
     this.windowsManager.updateWindows(this.windows.filter(window => window !== this.windowTitle));
-  }
-
-  focusWindow() {
-    console.log('hi m8');
-    this.wrapper.nativeElement.classList.add('wrapper-active');
-    console.log(this.wrapper.nativeElement.classList)
-  }
-
-  onClickedOutside() {
-    console.log('hola')
-    this.wrapper.nativeElement.classList.remove('wrapper-active');
   }
 }

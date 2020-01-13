@@ -1,14 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import './scss/fonts';
+@import './scss/colors';
 
 body{
   max-height: 100vh;
   height: 100vh;
   overflow: hidden;
-  background: rgb(92, 153, 209);
   position: relative;
+  background: linear-gradient(220deg, rgba($blue, .85), rgba($blue_light, .85)), url('assets/img/abstract1.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: .9rem;
+  scroll-behavior: smooth;
+}
+
+//********************************
+//  Bootstrap tweaks
+//********************************
+
+.col{
+  padding: 0 !important;
+}
+
+.container{
+  margin: 0 !important;
+}
+
+
+
+
+//
+//

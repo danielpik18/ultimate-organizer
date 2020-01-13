@@ -1,8 +1,31 @@
 <div class="wrapper">
-  <h2>Todo</h2>
+  <div class="container">
+    <div class="row">
+      <div class="col col-4">
+        <app-todo-categories></app-todo-categories>
+      </div>
 
-  <div class="todo-list" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todos"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" cdkDrag *ngFor="let todo of todos">{{todo}}</div>
+      <div class="col col-8 todosWrapper">
+        <app-loading-wheel *ngIf="!todos"></app-loading-wheel>
+
+        <ul #todoList>
+          <li *ngFor="let todo of todos" id="task_{{todo.id}}">
+            <a href="#task_{{todo.id}}" style="text-decoration: none; outline: none;">
+              <app-todo
+              title='{{todo.title}}'
+              completionTime='{{todo.completion_time}}'
+              priority='{{todo.priority}}'
+              todoState='{{todo.state}}'
+            >
+            </app-todo>
+            </a>
+          </li>
+        </ul>
+
+        <div style="height: 14rem;"></div>
+
+        <app-filter-data-button (click)="test()"></app-filter-data-button>
+      </div>
+    </div>
   </div>
 </div>

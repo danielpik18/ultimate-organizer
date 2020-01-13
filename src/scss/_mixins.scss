@@ -1,0 +1,7 @@
+@mixin blurElement($blurAmount) {
+  -webkit-filter: blur($blurAmount);
+  -moz-filter: blur($blurAmount);
+  -o-filter: blur($blurAmount);
+  -ms-filter: blur($blurAmount);
+  filter: blur($blurAmount);
+}

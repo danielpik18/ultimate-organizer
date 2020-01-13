@@ -6,15 +6,31 @@ import { DraggableWindowComponent } from './draggable-window/draggable-window.co
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { LoginComponent } from './login/login.component';
+import { TodoCategoriesComponent } from './todo-list/todo-categories/todo-categories.component';
+import { TodoComponent } from './todo-list/todo/todo.component';
+import { LoadingWheelComponent } from './_reusable_generic/loading-wheel/loading-wheel.component';
+import { FilterDataButtonComponent } from './_reusable_generic/filter-data-button/filter-data-button.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
-  declarations: [HomeComponent, FloatingMenuComponent, DraggableWindowComponent, TodoListComponent],
+  declarations: [
+    HomeComponent,
+    FloatingMenuComponent,
+    DraggableWindowComponent,
+    TodoListComponent,
+    LoginComponent,
+    TodoCategoriesComponent,
+    TodoComponent,
+    LoadingWheelComponent,
+    FilterDataButtonComponent
+  ],
   imports: [
     CommonModule,
     DragDropModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    MatTooltipModule
   ],
   exports: [
     HomeComponent

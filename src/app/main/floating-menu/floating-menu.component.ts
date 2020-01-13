@@ -17,7 +17,9 @@ export class FloatingMenuComponent implements OnInit {
 
   toggleWindows(windowTitle: string) {
     if (this.windows.includes(windowTitle)) {
+      console.log(this.windows);
       this.windowsManager.updateWindows(this.windows.filter(window => window !== windowTitle));
+      console.log(this.windows);
     } else {
       this.windows.push(windowTitle);
       this.windowsManager.updateWindows(this.windows);
