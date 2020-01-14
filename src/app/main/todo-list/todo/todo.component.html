@@ -1,9 +1,9 @@
-<div #todoWrapper class="todoWrapper" (click)="$event.stopPropagation(); turnOnEditMode()" (clickOutside)="turnOffEditMode()">
+<div #todoWrapper class="todoWrapper" (clickOutside)="turnOffEditMode()">
 
   <!--Task title-->
-  <div>
+  <div style="width: 85%;">
     <h5 *ngIf="!editMode" class="todoTitle">{{title}}</h5>
-    <input *ngIf="editMode" #input_title type="text" [value]="title" (change)="testi()">
+    <input *ngIf="editMode" #input_title class="input_title" type="text" [value]="title">
   </div>
   <!---->
 
@@ -11,28 +11,31 @@
     <div class="d-flex align-items-center">
 
       <!--Task completion time-->
-      <div>
-        <div class="completionTime mr-4" *ngIf="!editMode">
-          <img src="assets/svg/calendar2.svg" alt="Task completion time">
-          <span>{{completionTime ? completionTime : 'Anytime'}}</span>
-        </div>
+      <div class="completionTime mr-4">
+        <img src="assets/svg/calendar2.svg" alt="Task completion time">
 
-        <div>
-          <input *ngIf="editMode" type="date">
-        </div>
+        <span *ngIf="!editMode">{{completionTime ? completionTime : 'Anytime'}}</span>
+        <input *ngIf="editMode" type="date">
       </div>
+
       <!---->
 
       <!--Task priority-->
       <div>
         <div class="priority">
           <i #priorityIcon class="fas fa-dot-circle"></i>
-          <span #priorityText>{{priority.toLocaleUpperCase()}}</span>
+          <span #priorityText>{{priority.toUpperCase()}}</span>
         </div>
 
+        <!--
         <div *ngIf="editMode">
-          heyheyhey
+          <select>
+            <option value="0">Low</option>
+            <option value="1">Normal</option>
+            <option value="2">High</option>
+          </select>
         </div>
+        -->
       </div>
       <!---->
 

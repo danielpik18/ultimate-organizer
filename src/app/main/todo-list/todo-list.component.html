@@ -10,7 +10,7 @@
 
         <ul #todoList>
           <li *ngFor="let todo of todos" id="task_{{todo.id}}">
-            <a href="#task_{{todo.id}}" style="text-decoration: none; outline: none;">
+            <a href="#task_{{todo.id}}" style="text-decoration: none; outline: none; cursor: default;">
               <app-todo
               title='{{todo.title}}'
               completionTime='{{todo.completion_time}}'

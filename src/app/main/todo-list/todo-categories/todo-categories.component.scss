@@ -52,10 +52,7 @@
     }
 
     &:hover{
-      background-color: rgba($blue_light, .7);
-    }
-    &:active{
-      background-color: rgba($blue_light, 1) !important;
+      background-color: rgba($grey_light2, .7);
     }
   }
 }

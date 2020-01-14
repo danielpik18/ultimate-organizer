@@ -4,7 +4,6 @@ import { HomeComponent } from './home/home.component';
 import { FloatingMenuComponent } from './floating-menu/floating-menu.component';
 import { DraggableWindowComponent } from './draggable-window/draggable-window.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { ClickOutsideModule } from 'ng-click-outside';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { LoginComponent } from './login/login.component';
 import { TodoCategoriesComponent } from './todo-list/todo-categories/todo-categories.component';
@@ -29,7 +28,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [
     CommonModule,
     DragDropModule,
-    ClickOutsideModule,
     MatTooltipModule
   ],
   exports: [

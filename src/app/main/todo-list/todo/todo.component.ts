@@ -1,32 +1,52 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent implements OnInit, AfterViewInit {
   @Input() todoState: string;
   @Input() title: string;
   @Input() completionTime: string;
   @Input() priority: string;
 
   @ViewChild('todoWrapper', { static: true }) todoWrapper: ElementRef;
-  @ViewChild('priorityIcon', { static: true }) priorityIcon: ElementRef;
-  @ViewChild('priorityText', { static: true }) priorityText: ElementRef;
+  @ViewChild('priorityIcon', { static: false }) priorityIcon: ElementRef;
+  @ViewChild('priorityText', { static: false }) priorityText: ElementRef;
   @ViewChild('completeTaskButtonCheckmark', { static: true }) completeTaskButtonCheckmark: ElementRef;
 
   //Elements for editing task
   @ViewChild('input_title', { static: false }) input_title: ElementRef;
 
+  @HostListener('document:click', ['$event.target']) onMouseEnter(targetElement) {
+    const clickedInside = this._elementRef.nativeElement.contains(targetElement);
+    if (clickedInside) {
+      this.turnOnEditMode();
+    } else {
+      this.turnOffEditMode();
+    }
+  }
+
   //Edit mode
+  editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   editMode: boolean = false;
 
-  constructor() { }
+  constructor(private _elementRef: ElementRef) { }
 
   ngOnInit() {
     this.toggleTodoState();
-    this.toggleTodoPriority();
+
+    this.editModeSubject.subscribe(mode => {
+      this.editMode = mode;
+    });
+  }
+
+  ngAfterViewInit(){
+    if(!this.editMode){
+      this.setPriorityStyles();
+    }
   }
 
   toggleTodoState() {
@@ -41,12 +61,13 @@ export class TodoComponent implements OnInit {
         checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
         break;
       case 'overtime':
-        //console.log('task overtime');
+        break;
+      case 'pending':
         break;
     }
   }
 
-  toggleTodoPriority() {
+  setPriorityStyles() {
     switch (this.priority) {
       case 'low':
         this.priorityIcon.nativeElement.classList.add('priority__icon--low');
@@ -92,21 +113,15 @@ export class TodoComponent implements OnInit {
   }
 
   turnOnEditMode(){
-    if(!this.editMode){
-      this.editMode = true;
+      this.editModeSubject.next(true);
       this.todoWrapper.nativeElement.parentElement.parentElement.removeAttribute('href');
-    }
   }
 
   turnOffEditMode(){
     if(this.editMode){
-      this.editMode = false;
-      //this.todoWrapper.nativeElement.parentElement.parentElement.removeAttribute('href');
+      this.editModeSubject.next(false);
+      this.todoWrapper.nativeElement.parentElement.parentElement.removeAttribute('href');
     }
-  }
-
-  testi(){
-    console.log('out');
   }
 
 }
