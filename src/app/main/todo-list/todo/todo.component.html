@@ -14,7 +14,7 @@
       <div>
         <div class="priority mr-4">
           <i #priorityIcon class="fas fa-dot-circle"></i>
-          <span #priorityText (click)="editMode && test()">{{priority.toUpperCase()}}</span>
+          <span #priorityText (click)="editMode && togglePriorityStyles()">{{priority.toUpperCase()}}</span>
         </div>
       </div>
       <!---->
@@ -24,7 +24,7 @@
         <img src="assets/svg/calendar2.svg" alt="Task completion time">
 
         <span *ngIf="!editMode">{{completionTime ? completionTime : 'Anytime'}}</span>
-        <input *ngIf="editMode" type="datetime-local">
+        <input *ngIf="editMode" type="date">
       </div>
       <!---->
 

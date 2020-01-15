@@ -72,6 +72,18 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   setPriorityStyles() {
+
+    //reset styles
+    this.priorityText.nativeElement.classList.forEach(className => {
+      this.priorityText.nativeElement.classList.remove(className);
+    });
+
+    this.priorityIcon.nativeElement.classList.forEach(className => {
+      if (className.includes('priority__icon')) {
+        this.priorityIcon.nativeElement.classList.remove(className);
+      }
+    });
+
     switch (this.priority) {
       case 'low':
         this.priorityIcon.nativeElement.classList.add('priority__icon--low');
@@ -137,29 +149,43 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
       this.toggleEditModeStyles('off');
 
-        this.editModeSubject.next(false);
+      this.editModeSubject.next(false);
     }
   }
 
-  toggleEditModeStyles(action: string){
-    if(action === 'on') {
+  toggleEditModeStyles(action: string) {
+    if (action === 'on') {
       this.completeTaskButton.nativeElement.classList.remove('completeTaskButton--return');
       this.completeTaskButton.nativeElement.classList.add('completeTaskButton--hide');
       this.removeTaskButton.nativeElement.classList.add('removeTaskButton--reveal');
       this.removeTaskButton.nativeElement.classList.remove('removeTaskButton--hide');
       this.todoWrapper.nativeElement.classList.add('todoWrapper__editMode');
+      this.priorityIcon.nativeElement.parentElement.classList.add('priority--editMode');
 
-    } else if(action === 'off') {
+    } else if (action === 'off') {
       this.completeTaskButton.nativeElement.classList.remove('completeTaskButton--hide');
       this.completeTaskButton.nativeElement.classList.add('completeTaskButton--return');
       this.removeTaskButton.nativeElement.classList.remove('removeTaskButton--reveal');
       this.removeTaskButton.nativeElement.classList.add('removeTaskButton--hide');
       this.todoWrapper.nativeElement.classList.remove('todoWrapper__editMode');
+      this.priorityIcon.nativeElement.parentElement.classList.remove('priority--editMode');
     }
   }
 
 
-  test() {
+  togglePriorityStyles() {
+    switch (this.priority) {
+      case 'low':
+        this.priority = 'normal';
+        break;
+      case 'normal':
+        this.priority = 'high';
+        break;
+      case 'high':
+        this.priority = 'low';
+        break;
+    }
 
+    this.setPriorityStyles();
   }
 }
