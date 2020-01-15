@@ -234,11 +234,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: translate(6rem, 0);
 
-  animation-name: revealRemoveTaskButton;
-  animation-duration: .8s;
-  animation-delay: .4s;
-  animation-fill-mode: both;
+  &--reveal{
+    animation-name: revealRemoveTaskButton;
+    animation-duration: .8s;
+    animation-delay: .4s;
+    animation-fill-mode: both;
+  }
 
   &--hide{
     animation-name: hideRemoveTaskButton;

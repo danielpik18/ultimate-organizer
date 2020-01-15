@@ -137,9 +137,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
       this.toggleEditModeStyles('off');
 
-      setTimeout(() => {
         this.editModeSubject.next(false);
-      }, 1000);
     }
   }
 
@@ -147,11 +145,14 @@ export class TodoComponent implements OnInit, AfterViewInit {
     if(action === 'on') {
       this.completeTaskButton.nativeElement.classList.remove('completeTaskButton--return');
       this.completeTaskButton.nativeElement.classList.add('completeTaskButton--hide');
+      this.removeTaskButton.nativeElement.classList.add('removeTaskButton--reveal');
+      this.removeTaskButton.nativeElement.classList.remove('removeTaskButton--hide');
       this.todoWrapper.nativeElement.classList.add('todoWrapper__editMode');
 
     } else if(action === 'off') {
       this.completeTaskButton.nativeElement.classList.remove('completeTaskButton--hide');
       this.completeTaskButton.nativeElement.classList.add('completeTaskButton--return');
+      this.removeTaskButton.nativeElement.classList.remove('removeTaskButton--reveal');
       this.removeTaskButton.nativeElement.classList.add('removeTaskButton--hide');
       this.todoWrapper.nativeElement.classList.remove('todoWrapper__editMode');
     }
