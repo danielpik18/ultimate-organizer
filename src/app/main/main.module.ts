@@ -11,6 +11,7 @@ import { TodoComponent } from './todo-list/todo/todo.component';
 import { LoadingWheelComponent } from './_reusable_generic/loading-wheel/loading-wheel.component';
 import { FilterDataButtonComponent } from './_reusable_generic/filter-data-button/filter-data-button.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ClickOusideDirective } from '../directives/click-ouside.directive';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     TodoCategoriesComponent,
     TodoComponent,
     LoadingWheelComponent,
-    FilterDataButtonComponent
+    FilterDataButtonComponent,
+    ClickOusideDirective
   ],
   imports: [
     CommonModule,

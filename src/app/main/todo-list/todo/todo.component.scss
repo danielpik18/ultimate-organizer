@@ -14,10 +14,19 @@
 .todoWrapper{
   position: relative;
   padding: .6rem 1rem;
+  cursor: pointer;
   word-wrap: break-word;
 
   &:hover{
     background-color: $grey_light2;
+  }
+
+  &__editMode{
+    background-color: rgba($grey, .45);
+
+    &:hover{
+      background-color: rgba($grey, .4);
+    }
   }
 }
 
@@ -25,7 +34,6 @@
   font-size: .9rem;
   font-weight: 600;
   color: $grey_dark2;
-  cursor: pointer;
   width: fit-content;
 }
 
@@ -33,7 +41,7 @@
   display: flex;
   align-items: center;
   font-weight: 800;
-  font-size: .8rem;
+  font-size: .68rem;
 
   &__icon{
     &--low{
@@ -68,7 +76,6 @@
   }
   & span{
     color: $red_light;
-    margin-bottom: .1rem;
   }
 }
 
@@ -93,6 +100,20 @@
   outline: 0;
   margin: 0;
   padding: 0;
+
+  &--hide{
+    animation-name: hideCompleteTaskButton;
+    animation-duration: 1s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: both;
+  }
+
+  &--return{
+    animation-name: returnCompleteTaskButton;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+  }
 
   &__bgCircles{
     transition: opacity .4s ease-in-out;
@@ -165,7 +186,7 @@
     filter: grayscale(100%);
   }
 
-  & > h5, .completionTime{
+  & h5, .completionTime{
     color: $grey !important;
   }
 
@@ -188,14 +209,99 @@
   display: inline-block;
   border: none;
   outline: none;
-  background: transparent !important;
+  background: white;
 
   font-size: .9rem;
   font-weight: 600;
   color: $grey_dark2;
   margin-bottom: .5rem;
-  line-height: 1.1;
+  //line-height: 1.1;
   vertical-align: middle;
   width: 100%;
   height: 17px;
+}
+
+.removeTaskButton{
+  position: absolute;
+  width: 4.2rem;
+  height: 5rem;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba($red, .8), rgba($red_light, .9));
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 0 100%, 0 86%);
+  opacity: .94;
+  transition: opacity .35s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation-name: revealRemoveTaskButton;
+  animation-duration: .8s;
+  animation-delay: .4s;
+  animation-fill-mode: both;
+
+  &--hide{
+    animation-name: hideRemoveTaskButton;
+    animation-duration: .85s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+  }
+
+  & i {
+    font-size: 1.8rem;
+    color: $grey_light2;
+    position: absolute;
+    bottom: 14%;
+    right: 12%;
+  }
+
+  &:hover{
+    opacity: .74;
+  }
+}
+
+
+
+//keyframes
+
+@keyframes hideCompleteTaskButton{
+  0%{
+    transform: translate(0, 0);
+  }
+  25%{
+    transform: translate(-.5rem, 0);
+  }
+  40%{
+    transform: translate(-.5rem, 0);
+  }
+  100%{
+    transform: translate(8rem, 0);
+  }
+}
+
+@keyframes returnCompleteTaskButton{
+  0%{
+    transform: translate(6rem, 0);
+  }
+  100%{
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes revealRemoveTaskButton{
+  0%{
+    transform: translate(6rem, 0);
+  }
+  100%{
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes hideRemoveTaskButton{
+  0%{
+    transform: translate(0, 0);
+  }
+  100%{
+    transform: translate(6rem, 0);
+  }
 }

@@ -16,22 +16,26 @@ export class TodoComponent implements OnInit, AfterViewInit {
   @ViewChild('priorityIcon', { static: false }) priorityIcon: ElementRef;
   @ViewChild('priorityText', { static: false }) priorityText: ElementRef;
   @ViewChild('completeTaskButtonCheckmark', { static: true }) completeTaskButtonCheckmark: ElementRef;
+  @ViewChild('completeTaskButton', { static: true }) completeTaskButton: ElementRef;
+  @ViewChild('removeTaskButton', { static: false }) removeTaskButton: ElementRef;
 
-  //Elements for editing task
+  //  Elements for editing task
   @ViewChild('input_title', { static: false }) input_title: ElementRef;
+
+  //  Edit mode
+  editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  editMode = false;
+  _temp_hrefID: string;
+
 
   @HostListener('document:click', ['$event.target']) onMouseEnter(targetElement) {
     const clickedInside = this._elementRef.nativeElement.contains(targetElement);
     if (clickedInside) {
-      this.turnOnEditMode();
+
     } else {
       this.turnOffEditMode();
     }
   }
-
-  //Edit mode
-  editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  editMode: boolean = false;
 
   constructor(private _elementRef: ElementRef) { }
 
@@ -43,8 +47,8 @@ export class TodoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit(){
-    if(!this.editMode){
+  ngAfterViewInit() {
+    if (!this.editMode) {
       this.setPriorityStyles();
     }
   }
@@ -84,12 +88,12 @@ export class TodoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  resetTaskStateStyle(){
-    let wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
-    let checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
+  resetTaskStateStyle() {
+    const wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
+    const checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
 
     wrapperClassList.forEach(className => {
-      if(className.includes('taskState')){
+      if (className.includes('taskState')) {
         wrapperClassList.remove(className);
       }
     });
@@ -99,29 +103,62 @@ export class TodoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  toggleCompleted(){
-    switch(this.todoState){
-      case 'completed':
-        this.todoState = 'pending';
-        break;
-      case 'pending':
-        this.todoState = 'completed';
-        break;
-    }
+  toggleCompleted() {
+    if (!this.editMode) {
+      switch (this.todoState) {
+        case 'completed':
+          this.todoState = 'pending';
+          break;
+        case 'pending':
+          this.todoState = 'completed';
+          break;
+      }
 
-    this.toggleTodoState();
+      this.toggleTodoState();
+    }
   }
 
-  turnOnEditMode(){
+  turnOnEditMode() {
+    if (!this.editMode) {
+      const linkElement = this.todoWrapper.nativeElement.parentElement.parentElement;
+      this._temp_hrefID = linkElement.getAttribute('href');
+      linkElement.removeAttribute('href');
+
+      this.toggleEditModeStyles('on');
+
       this.editModeSubject.next(true);
-      this.todoWrapper.nativeElement.parentElement.parentElement.removeAttribute('href');
-  }
-
-  turnOffEditMode(){
-    if(this.editMode){
-      this.editModeSubject.next(false);
-      this.todoWrapper.nativeElement.parentElement.parentElement.removeAttribute('href');
     }
   }
 
+  turnOffEditMode() {
+    if (this.editMode) {
+      const linkElement = this.todoWrapper.nativeElement.parentElement.parentElement;
+      linkElement.setAttribute('href', this._temp_hrefID);
+
+      this.toggleEditModeStyles('off');
+
+      setTimeout(() => {
+        this.editModeSubject.next(false);
+      }, 1000);
+    }
+  }
+
+  toggleEditModeStyles(action: string){
+    if(action === 'on') {
+      this.completeTaskButton.nativeElement.classList.remove('completeTaskButton--return');
+      this.completeTaskButton.nativeElement.classList.add('completeTaskButton--hide');
+      this.todoWrapper.nativeElement.classList.add('todoWrapper__editMode');
+
+    } else if(action === 'off') {
+      this.completeTaskButton.nativeElement.classList.remove('completeTaskButton--hide');
+      this.completeTaskButton.nativeElement.classList.add('completeTaskButton--return');
+      this.removeTaskButton.nativeElement.classList.add('removeTaskButton--hide');
+      this.todoWrapper.nativeElement.classList.remove('todoWrapper__editMode');
+    }
+  }
+
+
+  test() {
+
+  }
 }

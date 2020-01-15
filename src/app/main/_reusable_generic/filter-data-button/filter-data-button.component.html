@@ -1,10 +1,9 @@
 <div class="wrapper">
-
-  <div class="filterButton" (click)="togglePopover()">
+  <div class="filterButton" (click)="togglePopover(false); $event.stopPropagation();">
     <i class="fas fa-lg fa-cogs"></i>
   </div>
 
-  <div #filterPopover class="filterPopover">
+  <div  #filterPopover class="filterPopover" (clickOutside)="togglePopover(true)">
     <div>
       <h6 class="filterByText">Order by:</h6>
 
@@ -18,5 +17,5 @@
       </div>
 
     </div>
-  </div>
+  </div >
 </div>

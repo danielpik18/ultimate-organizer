@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, AfterViewInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-filter-data-button',
@@ -8,8 +8,8 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, 
 export class FilterDataButtonComponent implements OnInit, AfterViewInit {
   @ViewChild('filterPopover', { static: true }) filterPopover: ElementRef;
   @ViewChild('filterOptionsWrapper', { static: false }) filterOptionsWrapper: ElementRef;
-  @Input('filterOptions') filterOptions: string[];
-  @Input('defaultFilter') defaultFilter: string;
+  @Input() filterOptions: string[];
+  @Input() defaultFilter: string;
   @Output() onFilterChange: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
@@ -17,22 +17,26 @@ export class FilterDataButtonComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit(){
-    for(let index = 0; index < this.filterOptionsWrapper.nativeElement.childElementCount; index++){
-      let currentInputElement = this.filterOptionsWrapper.nativeElement.children[index].children[0];
+  ngAfterViewInit() {
+    for (let index = 0; index < this.filterOptionsWrapper.nativeElement.childElementCount; index++) {
+      const currentInputElement = this.filterOptionsWrapper.nativeElement.children[index].children[0];
 
-      if(currentInputElement.id === this.defaultFilter){
+      if (currentInputElement.id === this.defaultFilter) {
         currentInputElement.checked = true;
       }
     }
   }
 
-  testo(){
-    this.onFilterChange.emit('heyoooo');
+  testo() {
+    console.log('heyloeoeo');
   }
 
-  togglePopover(){
-    this.filterPopover.nativeElement.classList.toggle('filterPopover--show');
+  togglePopover(justClose = false) {
+    if (!justClose) {
+      this.filterPopover.nativeElement.classList.toggle('filterPopover--show');
+    } else if (this.filterPopover.nativeElement.classList.contains('filterPopover--show')) {
+      this.filterPopover.nativeElement.classList.toggle('filterPopover--show');
+    }
   }
 
 }
