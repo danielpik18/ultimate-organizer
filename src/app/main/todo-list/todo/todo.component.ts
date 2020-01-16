@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, HostListener, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -7,10 +7,13 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent implements OnInit, AfterViewInit {
+  @Input() taskId: string;
   @Input() todoState: string;
   @Input() title: string;
   @Input() completionDate: string;
   @Input() priority: string;
+
+  @Output() onRemoveTaskButtonClick: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('todoWrapper', { static: true }) todoWrapper: ElementRef;
   @ViewChild('priorityIcon', { static: false }) priorityIcon: ElementRef;
@@ -32,7 +35,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
-    this.toggleTodoStateStyles();
+    this.setTaskStateStyles();
 
     this.editModeSubject.subscribe(mode => {
       this.editMode = mode;
@@ -45,11 +48,11 @@ export class TodoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleTodoStateStyles() {
+  setTaskStateStyles() {
     const wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
     const checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
 
-    this.resetTaskStateStyle();
+    this.resetTaskStateStyles();
 
     switch (this.todoState) {
       case 'completed':
@@ -61,6 +64,25 @@ export class TodoComponent implements OnInit, AfterViewInit {
       case 'pending':
         break;
     }
+  }
+
+  resetTaskStateStyles() {
+    const wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
+    const checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
+
+    //  setTimeout workaround / classes getting skipped for some reason
+    setTimeout(() => {
+      this.todoWrapper.nativeElement.classList.forEach(className => {
+
+        if (className.includes('taskState')) {
+          wrapperClassList.remove(className);
+        }
+      });
+    }, 1);
+
+    checkmarkClassList.forEach(className => {
+      checkmarkClassList.remove(className);
+    });
   }
 
   setPriorityStyles() {
@@ -80,21 +102,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
         this.priorityText.nativeElement.classList.add('priority__text--high');
         break;
     }
-  }
-
-  resetTaskStateStyle() {
-    const wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
-    const checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
-
-    wrapperClassList.forEach(className => {
-      if (className.includes('taskState')) {
-        wrapperClassList.remove(className);
-      }
-    });
-
-    checkmarkClassList.forEach(className => {
-      checkmarkClassList.remove(className);
-    });
   }
 
   resetPriorityStyles(){
@@ -120,7 +127,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
           break;
       }
 
-      this.toggleTodoStateStyles();
+      this.setTaskStateStyles();
     }
   }
 
@@ -141,6 +148,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
       this.editModeSubject.next(true);
 
+      //  setTimeout workaround
       setTimeout(() => {
         this.input_title.nativeElement.focus();
       }, 0);

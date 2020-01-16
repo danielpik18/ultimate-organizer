@@ -1,0 +1,5 @@
+<div #wrapper class="wrapper" (click)="onBackdropClick.emit();">
+  <div class="modalBox" [style.width]="modalWidth" [style.height]="modalHeight" (click)="$event.stopPropagation();">
+    <ng-content></ng-content>
+  </div>
+</div>

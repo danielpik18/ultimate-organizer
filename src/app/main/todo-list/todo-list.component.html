@@ -8,19 +8,28 @@
       <div class="col col-8 todosWrapper customScrollbar customScrollbar__1">
         <app-loading-wheel *ngIf="!todos"></app-loading-wheel>
 
+        <div *ngIf="todos" class="doubleClickTip">
+          <i class="fas fa-mouse mr-2"></i>
+          <span>Double-click on a task to edit</span>
+        </div>
+
+        <!--Tasks list-->
         <ul #todoList>
           <li *ngFor="let todo of todos" id="task_{{todo.id}}">
             <a href="#task_{{todo.id}}" style="text-decoration: none; outline: none; cursor: default;">
               <app-todo
+              taskId="{{todo.id}}"
               title='{{todo.title}}'
               completionDate='{{todo.completion_date}}'
               priority='{{todo.priority}}'
               todoState='{{todo.state}}'
+              (onRemoveTaskButtonClick)="toggleDeleteModal($event)"
             >
             </app-todo>
             </a>
           </li>
         </ul>
+        <!---->
 
         <div style="height: 14rem;"></div>
 
@@ -34,3 +43,13 @@
     </div>
   </div>
 </div>
+
+<app-basic-modal
+  *ngIf="showDeleteModal"
+  modalWidth="40%"
+  modalHeight="36%"
+  (onBackdropClick)="toggleDeleteModal()"
+>
+  <app-confirmation-modal></app-confirmation-modal>
+</app-basic-modal>
+

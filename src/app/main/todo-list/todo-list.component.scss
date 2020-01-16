@@ -37,6 +37,13 @@ $testlist: ();
   }
 }
 
+.doubleClickTip{
+  color: $grey_dark;
+  font-size: .7rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
 .taskItemFadeIn{
   animation-name: taskFadeIn;
 }
