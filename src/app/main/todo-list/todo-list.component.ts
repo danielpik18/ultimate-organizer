@@ -6,7 +6,7 @@ import { HttpManagerService } from 'src/app/services/http-manager.service';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss']
 })
-export class TodoListComponent implements OnInit {
+export class TodoListComponent implements OnInit, AfterViewInit {
   @ViewChild('todoList', { static: true }) todoList: ElementRef;
 
   todos: any[];
@@ -17,7 +17,11 @@ export class TodoListComponent implements OnInit {
     this.httpManager.getTodos().subscribe(data => this.todos = data);
   }
 
+  ngAfterViewInit() {
+  }
+
   filterData(filter: string) {
+
     console.log('test', filter);
   }
 }

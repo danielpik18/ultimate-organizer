@@ -239,8 +239,9 @@
   height: 5rem;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, rgba($red, .8), rgba($red_light, .9));
-  clip-path: polygon(100% 0, 100% 0, 100% 100%, 0 100%, 0 86%);
+  background: linear-gradient(45deg, rgba($red, .7), rgba($red_light, .8));
+  border-radius: 50% 0 0 0;
+  clip-path: polygon(0 92%, 100% 0, 100% 100%, 0% 100%);
   opacity: .94;
   transition: opacity .35s ease-in-out;
   display: flex;
@@ -263,18 +264,17 @@
   }
 
   & i {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     color: $grey_light2;
     position: absolute;
-    bottom: 14%;
-    right: 12%;
+    bottom: 16%;
+    right: 16%;
   }
 
   &:hover{
     opacity: .74 !important;
   }
 }
-
 
 
 //keyframes

@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 export class TodoComponent implements OnInit, AfterViewInit {
   @Input() todoState: string;
   @Input() title: string;
-  @Input() completionTime: string;
+  @Input() completionDate: string;
   @Input() priority: string;
 
   @ViewChild('todoWrapper', { static: true }) todoWrapper: ElementRef;
@@ -21,26 +21,18 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
   //  Elements for editing task
   @ViewChild('input_title', { static: false }) input_title: ElementRef;
+  @ViewChild('input_completionDate', { static: false }) input_completionDate: ElementRef;
 
   //  Edit mode
   editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   editMode = false;
   _temp_hrefID: string;
+  _tempTaskDataValues: { title: string, completionDate: string, priority: string };
 
-
-  @HostListener('document:click', ['$event.target']) onMouseEnter(targetElement) {
-    const clickedInside = this._elementRef.nativeElement.contains(targetElement);
-    if (clickedInside) {
-
-    } else {
-      this.turnOffEditMode();
-    }
-  }
-
-  constructor(private _elementRef: ElementRef) { }
+  constructor() { }
 
   ngOnInit() {
-    this.toggleTodoState();
+    this.toggleTodoStateStyles();
 
     this.editModeSubject.subscribe(mode => {
       this.editMode = mode;
@@ -53,9 +45,9 @@ export class TodoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleTodoState() {
-    let wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
-    let checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
+  toggleTodoStateStyles() {
+    const wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
+    const checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
 
     this.resetTaskStateStyle();
 
@@ -72,17 +64,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   setPriorityStyles() {
-
-    //reset styles
-    this.priorityText.nativeElement.classList.forEach(className => {
-      this.priorityText.nativeElement.classList.remove(className);
-    });
-
-    this.priorityIcon.nativeElement.classList.forEach(className => {
-      if (className.includes('priority__icon')) {
-        this.priorityIcon.nativeElement.classList.remove(className);
-      }
-    });
+    this.resetPriorityStyles();
 
     switch (this.priority) {
       case 'low':
@@ -115,6 +97,18 @@ export class TodoComponent implements OnInit, AfterViewInit {
     });
   }
 
+  resetPriorityStyles(){
+    this.priorityText.nativeElement.classList.forEach(className => {
+      this.priorityText.nativeElement.classList.remove(className);
+    });
+
+    this.priorityIcon.nativeElement.classList.forEach(className => {
+      if (className.includes('priority__icon')) {
+        this.priorityIcon.nativeElement.classList.remove(className);
+      }
+    });
+  }
+
   toggleCompleted() {
     if (!this.editMode) {
       switch (this.todoState) {
@@ -126,7 +120,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
           break;
       }
 
-      this.toggleTodoState();
+      this.toggleTodoStateStyles();
     }
   }
 
@@ -138,7 +132,18 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
       this.toggleEditModeStyles('on');
 
+      //  Temporarily saving the task values before turning edit mode ON
+      this._tempTaskDataValues = {
+        title: this.title,
+        priority: this.priority,
+        completionDate: this.completionDate
+      };
+
       this.editModeSubject.next(true);
+
+      setTimeout(() => {
+        this.input_title.nativeElement.focus();
+      }, 0);
     }
   }
 
@@ -148,6 +153,17 @@ export class TodoComponent implements OnInit, AfterViewInit {
       linkElement.setAttribute('href', this._temp_hrefID);
 
       this.toggleEditModeStyles('off');
+
+      //  make an object with the possibly updated values
+      const updatedTaskValues = {
+        title: this.input_title.nativeElement.value,
+        priority: this.priority,
+        completionDate: this.input_completionDate.nativeElement.value
+      };
+
+      if (JSON.stringify(this._tempTaskDataValues) !== JSON.stringify(updatedTaskValues)) {
+        this.updateTask(updatedTaskValues);
+      }
 
       this.editModeSubject.next(false);
     }
@@ -187,5 +203,9 @@ export class TodoComponent implements OnInit, AfterViewInit {
     }
 
     this.setPriorityStyles();
+  }
+
+  updateTask(updatedTaskValues: any) {
+    console.log('updating tasks with values: ', updatedTaskValues);
   }
 }

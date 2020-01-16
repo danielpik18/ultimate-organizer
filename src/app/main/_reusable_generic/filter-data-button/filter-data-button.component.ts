@@ -27,8 +27,8 @@ export class FilterDataButtonComponent implements OnInit, AfterViewInit {
     }
   }
 
-  testo() {
-    console.log('heyloeoeo');
+  onFilterSelected() {
+    this.onFilterChange.emit('holahola');
   }
 
   togglePopover(justClose = false) {

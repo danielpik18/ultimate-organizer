@@ -1,4 +1,9 @@
-<div #todoWrapper class="todoWrapper" (dblclick)="todoState !== 'completed' && this.turnOnEditMode();" (clickOutside)="turnOffEditMode()">
+<div
+  #todoWrapper
+  class="todoWrapper red-tooltip"
+  (dblclick)="todoState !== 'completed' && this.turnOnEditMode();"
+  (clickOutside)="turnOffEditMode()"
+>
 
   <!--Task title-->
   <div style="width: 85%;">
@@ -12,9 +17,9 @@
 
       <!--Task priority-->
       <div>
-        <div class="priority mr-4">
+        <div class="priority mr-4" (click)="editMode && togglePriorityStyles()">
           <i #priorityIcon class="fas fa-dot-circle"></i>
-          <span #priorityText (click)="editMode && togglePriorityStyles()">{{priority.toUpperCase()}}</span>
+          <span #priorityText>{{priority.toUpperCase()}}</span>
         </div>
       </div>
       <!---->
@@ -23,20 +28,26 @@
       <div class="completionTime d-flex align-items-center mr-5">
         <img src="assets/svg/calendar2.svg" alt="Task completion time">
 
-        <span *ngIf="!editMode">{{completionTime ? completionTime : 'Anytime'}}</span>
-        <input *ngIf="editMode" type="date">
+        <span *ngIf="!editMode">{{completionDate ? completionDate : 'Anytime'}}</span>
+        <input #input_completionDate *ngIf="editMode" type="date" [value]="completionDate">
       </div>
       <!---->
 
     </div>
 
+    <!--Complete button-->
     <button #completeTaskButton class="completeTaskButton" (click)="toggleCompleted()">
       <div class="completeTaskButton__bgCircles"></div>
       <div #completeTaskButtonCheckmark class="completeTaskButton__checkMark"></div>
     </button>
+    <!---->
+
   </div>
 
+  <!--Remove Button-->
   <div #removeTaskButton class="removeTaskButton">
     <i class="fas fa-trash-alt"></i>
   </div>
+  <!---->
+
 </div>

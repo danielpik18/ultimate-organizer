@@ -9,7 +9,15 @@
 
       <div #filterOptionsWrapper class="filterOptionsWrapper">
         <div  class="form-check" *ngFor="let option of filterOptions">
-          <input class="form-check-input" type="radio" name="filterOptionsRadioButtons" [checked]="option === 'completed' ? true : false" id="{{option}}" value="{{option}}" (click)="testo()">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="filterOptionsRadioButtons"
+            [checked]="option === 'completed' ? true : false"
+            id="{{option}}"
+            value="{{option}}"
+            (click)="onFilterSelected()"
+          >
           <label class="form-check-label ml-2" for="{{option}}">
             {{option[0].toLocaleUpperCase() + option.slice(1)}}
           </label>
