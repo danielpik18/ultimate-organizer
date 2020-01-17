@@ -1,0 +1,15 @@
+<div class="wrapper" cdkDrag cdkDragBoundary=".homeWrapper">
+  <h6 class="recentActionsText">Recent actions:</h6>
+
+  <ul #notificationsList class="notifications customScrollbar customScrollbar__2">
+    <li *ngFor="let notification of notifications" class="notification">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="notification__windowName" [style.color]="notification.colorHex">{{notification.windowName}}</div>
+        <div class="notification__time">{{notification.time}}</div>
+      </div>
+
+      <div class="notification__message">{{notification.message}}</div>
+    </li>
+  </ul>
+
+</div>
