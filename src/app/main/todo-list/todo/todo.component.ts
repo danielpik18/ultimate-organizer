@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, HostListener, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { NotificationsManagerService } from 'src/app/services/notifications-manager.service';
+import { HelperFunctionsService } from 'src/app/services/helper-functions.service';
 
 @Component({
   selector: 'app-todo',
@@ -32,7 +34,10 @@ export class TodoComponent implements OnInit, AfterViewInit {
   _temp_hrefID: string;
   _tempTaskDataValues: { title: string, completionDate: string, priority: string };
 
-  constructor() { }
+  constructor(
+    private _notificationsManager: NotificationsManagerService,
+    private _helperFunctions: HelperFunctionsService
+  ) { }
 
   ngOnInit() {
     this.setTaskStateStyles();
@@ -228,5 +233,9 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
   updateTask(updatedTaskValues: any) {
     console.log('updating tasks with values: ', updatedTaskValues);
+
+
+
+    this._notificationsManager.pushNotification('Tasks', updatedTaskValues.title, this._helperFunctions.getCurrentTimeIn12HourFormat(), '#ccc');
   }
 }
