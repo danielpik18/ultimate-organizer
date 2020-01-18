@@ -54,33 +54,46 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
     this.resetTaskStateStyles();
 
-    switch (this.todoState) {
-      case 'completed':
-        wrapperClassList.add('taskState', 'taskState__completed');
-        checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
-        break;
-      case 'overtime':
-        break;
-      case 'pending':
-        break;
-    }
+    setTimeout(() => {
+      switch (this.todoState) {
+        case 'completed':
+          wrapperClassList.add('taskState', 'taskState__completed');
+          checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
+          break;
+        case 'overtime':
+          break;
+        case 'pending':
+          break;
+      }
+    }, 100);
   }
 
   resetTaskStateStyles() {
     const wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
     const checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;
 
-    //  setTimeout workaround / classes getting skipped for some reason
-    setTimeout(() => {
-      this.todoWrapper.nativeElement.classList.forEach(className => {
+    const wrapperClassesToRemove = [];
+    const checkmarkClassesToRemove = [];
 
-        if (className.includes('taskState')) {
-          wrapperClassList.remove(className);
-        }
-      });
-    }, 1);
+    wrapperClassList.forEach(className => {
+      if (className.includes('taskState')) {
+        wrapperClassesToRemove.push(className);
+      }
+    });
 
     checkmarkClassList.forEach(className => {
+      if (className.includes('completeTaskButton__checkMark--')) {
+        checkmarkClassesToRemove.push(className);
+      }
+    });
+
+    //
+
+    wrapperClassesToRemove.forEach(className => {
+      wrapperClassList.remove(className);
+    });
+
+    checkmarkClassesToRemove.forEach(className => {
       checkmarkClassList.remove(className);
     });
   }
@@ -104,7 +117,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
     }
   }
 
-  resetPriorityStyles(){
+  resetPriorityStyles() {
     this.priorityText.nativeElement.classList.forEach(className => {
       this.priorityText.nativeElement.classList.remove(className);
     });

@@ -31,22 +31,6 @@
     font-weight: 600;
     letter-spacing: 1px;
 
-    &:nth-child(1){
-      & i{
-        color: $blue;
-      }
-    }
-    &:nth-child(2){
-      & i{
-        color: $red;
-      }
-    }
-    &:nth-child(3){
-      & i{
-        color: $green;
-      }
-    }
-
     &:hover, :active{
       color: rgba($grey_dark2, .7);
     }
@@ -58,10 +42,13 @@
 }
 
 .addCategoryButton{
-  width: 100%;
+  width: 33.3%;
   border: none;
   outline: none;
   padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 
   transition: background-color .26s ease-in-out;
   background-color: $grey_light2;

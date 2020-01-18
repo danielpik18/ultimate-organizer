@@ -42,6 +42,7 @@
   align-items: center;
   font-weight: 800;
   font-size: .68rem;
+  width: 5.4rem;
 
   &__icon{
     &--low{
@@ -168,6 +169,7 @@
 
   &__checkMark{
     opacity: 0;
+    transition: opacity .05s ease-out;
 
     &--show{
       opacity: 1;
@@ -210,6 +212,25 @@
 
   &__completed{
     background-color:rgba($grey_dark, .1);
+
+    &::after{
+      content: "";
+      width: 1px;
+      height: 100%;
+      background-color: $green;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top;
+
+
+      animation-name: completeTaskLeftBorder;
+      animation-duration: .32s;
+      animation-timing-function: ease-in-out;
+      animation-delay: .1s;
+      animation-fill-mode: both;
+    }
   }
 }
 
@@ -323,5 +344,16 @@
   100%{
     opacity: 0;
     transform: translate(6rem, 0);
+  }
+}
+
+@keyframes completeTaskLeftBorder{
+  from{
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to{
+    opacity: 1;
+    transform: scaleY(1);
   }
 }

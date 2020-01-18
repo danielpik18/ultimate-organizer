@@ -1,13 +1,8 @@
 <div class="wrapper">
   <ul class="todoCategoriesList">
-    <li class="todoCategoriesList__item">
-      <i class="fas fa-lg fa-dumbbell mr-3"></i>Fitness
-    </li>
-    <li class="todoCategoriesList__item">
-      <i class="fas fa-lg fa-heartbeat mr-3"></i>Health
-    </li>
-    <li class="todoCategoriesList__item">
-      <i class="fas fa-lg fa-briefcase mr-3"></i>Work
+    <li class="todoCategoriesList__item" *ngFor="let category of categories">
+      <i class="fas fa-lg mr-3" [ngClass]="category.faIconClass" [style.color]="getColorHex(category.colorHex)"></i>
+      {{category.name}}
     </li>
   </ul>
 

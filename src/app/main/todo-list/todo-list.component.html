@@ -50,6 +50,10 @@
   modalHeight="36%"
   (onBackdropClick)="toggleDeleteModal()"
 >
-  <app-confirmation-modal></app-confirmation-modal>
+  <app-confirmation-modal
+    (onCancel)="toggleDeleteModal()"
+  >
+
+  </app-confirmation-modal>
 </app-basic-modal>
 

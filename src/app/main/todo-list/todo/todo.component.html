@@ -17,7 +17,7 @@
 
       <!--Task priority-->
       <div>
-        <div class="priority mr-4" (click)="editMode && togglePriorityStyles()">
+        <div class="priority" (click)="editMode && togglePriorityStyles()">
           <i #priorityIcon class="fas fa-dot-circle"></i>
           <span #priorityText>{{priority.toUpperCase()}}</span>
         </div>
@@ -45,7 +45,7 @@
   </div>
 
   <!--Remove Button-->
-  <div #removeTaskButton (click)="onRemoveTaskButtonClick.emit(taskId)" class="removeTaskButton">
+  <div #removeTaskButton (click)="editMode && onRemoveTaskButtonClick.emit(taskId)" class="removeTaskButton">
     <i class="fas fa-trash-alt"></i>
   </div>
   <!---->
