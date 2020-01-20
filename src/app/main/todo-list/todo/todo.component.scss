@@ -35,13 +35,6 @@
   }
 }
 
-.todoTitle{
-  font-size: .9rem;
-  font-weight: 600;
-  color: $grey_dark2;
-  width: fit-content;
-}
-
 .priority{
   display: flex;
   align-items: center;
@@ -83,13 +76,6 @@
   }
   & span{
     color: $red_light;
-
-    &::selection {
-      background: transparent; /* WebKit/Blink Browsers */
-    }
-    &::-moz-selection {
-      background: transparent; /* Gecko Browsers */
-    }
   }
 
   &--editMode{
@@ -108,8 +94,18 @@
     width: 1rem;
     margin-right: .4rem;
   }
+
   font-size: .8rem;
   color: $grey_dark;
+}
+
+.completionTime span, .priority span{
+  &::selection {
+    background: transparent;
+  }
+  &::-moz-selection {
+    background: transparent;
+  }
 }
 
 .completeTaskButton{
@@ -244,21 +240,6 @@
 
 
 //Edit mode styles
-
-.input_title{
-  display: inline-block;
-  border: none;
-  outline: none;
-  background: rgba(white, .5);
-
-  font-size: .9rem;
-  font-weight: 600;
-  color: $grey_dark2;
-  margin-bottom: .5rem;
-  vertical-align: middle;
-  width: 100%;
-  height: 17px;
-}
 
 .removeTaskButton{
   position: absolute;

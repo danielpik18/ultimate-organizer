@@ -39,7 +39,8 @@ export class TodoListComponent implements OnInit {
 
     setTimeout(() => {
       this.enableNewTaskClickAway = !this.enableNewTaskClickAway;
-    }, 500);
+    }, 400);
+
   }
 
   toggleCreatingTaskMode(mode: string) {

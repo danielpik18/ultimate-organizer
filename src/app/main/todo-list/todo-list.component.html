@@ -40,9 +40,6 @@
             </a>
           </li>
 
-          <!--Filler space-->
-          <li style="height: 14rem;"></li>
-
         </ul>
         <!---->
 
@@ -86,6 +83,7 @@
   <app-confirmation-modal
     title="Discard new task?"
     (onCancel)="toggleDiscardNewTaskModal();"
+    (onConfirm)="toggleDiscardNewTaskModal(); toggleCreatingTaskMode('off');"
   >
   </app-confirmation-modal>
 </app-basic-modal>

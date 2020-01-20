@@ -14,11 +14,11 @@
             type="radio"
             name="filterOptionsRadioButtons"
             [checked]="option === 'completed' ? true : false"
-            id="{{option}}"
             value="{{option}}"
+            id={{option}}
             (click)="onFilterSelected()"
           >
-          <label class="form-check-label ml-2" for="{{option}}">
+          <label class="form-check-label ml-2" (click)="selectFilter(option)">
             {{option[0].toLocaleUpperCase() + option.slice(1)}}
           </label>
         </div>

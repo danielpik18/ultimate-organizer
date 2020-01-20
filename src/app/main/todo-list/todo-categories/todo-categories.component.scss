@@ -22,7 +22,9 @@
   padding: 0;
 
   &__item{
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     width: 100%;
     border: none;
     outline: none;

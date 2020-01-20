@@ -1,0 +1,26 @@
+<div class="editableText" [style.width]="width">
+
+  <div
+    *ngIf="!editing.getValue()"
+    class="editableText__text"
+    [style.color]="color ? color : _colorPalette.getColorHex('grey_dark2')"
+    [style.fontWeight]="fontWeight"
+    [style.fontSize]="fontSize"
+  >
+    {{text}}
+  </div>
+
+  <input
+    *ngIf="editing.getValue()"
+    #text_input
+    class="text_input"
+    type="text"
+    [value]="text"
+    (change)="returnInputValue()"
+
+    [style.background]="inputBackground"
+    [style.color]="color ? color : _colorPalette.getColorHex('grey_dark2')"
+    [style.fontWeight]="fontWeight"
+    [style.fontSize]="fontSize"
+  >
+</div>

@@ -1,4 +1,4 @@
-<div #todoWrapper class="todoWrapper" (clickOutside)="!_clickAwayOmittedFirst ? _clickAwayOmittedFirst = true : onClickAway.emit()">
+<div #todoWrapper class="todoWrapper" (clickOutside)="!_clickAwayOmittedFirst ? _clickAwayOmittedFirst = true : onClickAway.emit();">
   <!--Task title-->
   <div style="width: 85%;">
     <label for="input_title">Title</label>
@@ -13,7 +13,7 @@
         <label>Priority</label>
         <div class="priority" (click)="togglePriority()">
           <i #priorityIcon class="fas fa-dot-circle"></i>
-          <span #priorityText>High</span>
+          <span #priorityText>{{priority.toLocaleUpperCase()}}</span>
         </div>
       </div>
       <!---->

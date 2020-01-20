@@ -2,7 +2,7 @@
   <h3 class="title">{{title}}</h3>
 
   <div class="d-flex justify-content-between">
-    <button class="modalButton modalButton__confirm">Confirm</button>
+    <button class="modalButton modalButton__confirm" (click)="onConfirm.emit()">Confirm</button>
     <button class="modalButton modalButton__cancel" (click)="onCancel.emit()">Cancel</button>
   </div>
 </div>

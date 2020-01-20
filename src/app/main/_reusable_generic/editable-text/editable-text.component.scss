@@ -1,0 +1,27 @@
+@import "./../../../../scss/colors";
+
+.editableText {
+  &__text {
+    width: fit-content;
+
+    &::-moz-selection {
+      /* Code for Firefox */
+      background: transparent;
+    }
+
+    &::selection {
+      background: transparent;
+    }
+  }
+}
+
+.text_input {
+  display: inline-block;
+  border: none;
+  outline: none;
+
+  margin-bottom: 0.5rem;
+  vertical-align: middle;
+  width: 100%;
+  height: 17px;
+}

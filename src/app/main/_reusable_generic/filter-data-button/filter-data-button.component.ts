@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-filter-data-button',
@@ -9,7 +9,7 @@ export class FilterDataButtonComponent implements OnInit, AfterViewInit {
   @ViewChild('filterPopover', { static: true }) filterPopover: ElementRef;
   @ViewChild('filterOptionsWrapper', { static: false }) filterOptionsWrapper: ElementRef;
   @Input() filterOptions: string[];
-  @Input() defaultFilter: string;
+  @Input() defaultFilterId: string;
   @Output() onFilterChange: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
@@ -18,13 +18,7 @@ export class FilterDataButtonComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    for (let index = 0; index < this.filterOptionsWrapper.nativeElement.childElementCount; index++) {
-      const currentInputElement = this.filterOptionsWrapper.nativeElement.children[index].children[0];
-
-      if (currentInputElement.id === this.defaultFilter) {
-        currentInputElement.checked = true;
-      }
-    }
+    this.selectFilter(this.defaultFilterId);
   }
 
   onFilterSelected() {
@@ -36,6 +30,16 @@ export class FilterDataButtonComponent implements OnInit, AfterViewInit {
       this.filterPopover.nativeElement.classList.toggle('filterPopover--show');
     } else if (this.filterPopover.nativeElement.classList.contains('filterPopover--show')) {
       this.filterPopover.nativeElement.classList.toggle('filterPopover--show');
+    }
+  }
+
+  selectFilter(filterID: string){
+    for (let index = 0; index < this.filterOptionsWrapper.nativeElement.childElementCount; index++) {
+      const currentInputElement = this.filterOptionsWrapper.nativeElement.children[index].children[0];
+
+      if (currentInputElement.id === filterID) {
+        currentInputElement.checked = true;
+      }
     }
   }
 

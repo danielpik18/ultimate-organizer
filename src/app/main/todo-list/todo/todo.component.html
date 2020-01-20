@@ -6,14 +6,27 @@
 >
 
   <!--Task title-->
+
+  <!--
   <div style="width: 85%;">
     <h5 *ngIf="!editMode" class="todoTitle">{{title}}</h5>
     <input *ngIf="editMode" #input_title class="input_title" type="text" [value]="title">
   </div>
+  -->
+
   <!---->
 
-  <div class="d-flex justify-content-between align-items-center ">
-    <div class="d-flex ">
+  <app-editable-text
+    width="85%"
+    inputBackground="rgba(white, .5)"
+    [text]="title"
+    [editing]="editModeSubject"
+    (onTextChange)="editMode && title = $event"
+  >
+  </app-editable-text>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
 
       <!--Task priority-->
       <div>

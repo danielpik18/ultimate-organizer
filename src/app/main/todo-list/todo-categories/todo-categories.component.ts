@@ -10,6 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 export class TodoCategoriesComponent implements OnInit, AfterViewInit {
   @ViewChild('taskCategoriesList', { static: true }) taskCategoriesList: ElementRef;
 
+  editModeSubject: BehaviorSubject<any> = new BehaviorSubject(false);
+
   categories: any = [
     {
       name: 'Fitness',

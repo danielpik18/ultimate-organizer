@@ -32,6 +32,8 @@ export class TodoComponent implements OnInit, AfterViewInit {
   //  Edit mode
   editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   editMode = false;
+
+  //
   _tempTaskDataValues: { title: string, completionDate: string, priority: string };
 
   constructor(
@@ -91,8 +93,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
       }
     });
 
-    //
-
     wrapperClassesToRemove.forEach(className => {
       wrapperClassList.remove(className);
     });
@@ -150,9 +150,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
   turnOnEditMode() {
     if (!this.editMode) {
-      const linkElement = this.todoWrapper.nativeElement.parentElement.parentElement;
-      linkElement.removeAttribute('href');
-
       this.toggleEditModeStyles('on');
 
       //  Temporarily saving the task values before turning edit mode ON
@@ -163,23 +160,16 @@ export class TodoComponent implements OnInit, AfterViewInit {
       };
 
       this.editModeSubject.next(true);
-
-      //  setTimeout workaround
-      setTimeout(() => {
-        this.input_title.nativeElement.focus();
-      }, 0);
     }
   }
 
   turnOffEditMode() {
     if (this.editMode) {
-      const linkElement = this.todoWrapper.nativeElement.parentElement.parentElement;
-
       this.toggleEditModeStyles('off');
 
       //  make an object with the possibly updated values
-      const updatedTaskValues = {
-        title: this.input_title.nativeElement.value,
+        const updatedTaskValues = {
+        title: this.title,
         priority: this.priority,
         completionDate: this.input_completionDate.nativeElement.value
       };
