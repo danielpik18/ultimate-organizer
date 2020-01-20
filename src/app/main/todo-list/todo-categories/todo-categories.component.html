@@ -1,10 +1,10 @@
 <div class="wrapper">
-  <ul class="todoCategoriesList">
-    <li class="todoCategoriesList__item" *ngFor="let category of categories">
+  <ul #taskCategoriesList class="taskCategoriesList customScrollbar customScrollbar__none">
+    <li class="taskCategoriesList__item" *ngFor="let category of categories">
+      <span>{{category.name}}</span>
       <i class="fas fa-lg mr-3" [ngClass]="category.faIconClass" [style.color]="getColorHex(category.colorHex)"></i>
-      {{category.name}}
     </li>
   </ul>
 
-  <button class="addCategoryButton"><i class="far fa-lg fa-plus-square mr-1"></i> Add new</button>
+  <button class="addCategoryButton" (click)="pushNewCategory()"><i class="far fa-lg fa-plus-square mr-1"></i> Add new</button>
 </div>

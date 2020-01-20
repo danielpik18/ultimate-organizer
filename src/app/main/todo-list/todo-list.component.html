@@ -8,6 +8,8 @@
       <div class="col col-8 todosWrapper customScrollbar customScrollbar__1">
         <app-loading-wheel *ngIf="!todos"></app-loading-wheel>
 
+        <div *ngIf="creatingTaskMode" class="createTaskDarkBg"></div>
+
         <div *ngIf="todos" class="doubleClickTip">
           <i class="fas fa-mouse mr-2"></i>
           <span>Double-click on a task to edit</span>
@@ -15,8 +17,17 @@
 
         <!--Tasks list-->
         <ul #todoList>
-          <li *ngFor="let todo of todos" id="task_{{todo.id}}">
-            <a href="#task_{{todo.id}}" style="text-decoration: none; outline: none; cursor: default;">
+
+          <!--New todo-->
+          <app-create-todo
+            *ngIf="creatingTaskMode"
+            (onClickAway)="enableNewTaskClickAway && toggleDiscardNewTaskModal();"
+          >
+          </app-create-todo>
+          <!---->
+
+          <li *ngFor="let todo of todos" id="task_{{todo.id}}" [ngClass]="creatingTaskMode && 'taskItem--blur'">
+            <a style="text-decoration: none; outline: none; cursor: default;">
               <app-todo
               taskId="{{todo.id}}"
               title='{{todo.title}}'
@@ -28,10 +39,16 @@
             </app-todo>
             </a>
           </li>
+
+          <!--Filler space-->
+          <li style="height: 14rem;"></li>
+
         </ul>
         <!---->
 
-        <div style="height: 14rem;"></div>
+        <div class="createTaskButton" (click)="toggleCreatingTaskMode('on')">
+          <i class="fas fa-plus-circle"></i>
+        </div>
 
         <app-filter-data-button
           (onFilterChange)="filterData($event)"
@@ -44,6 +61,7 @@
   </div>
 </div>
 
+<!--Remove task modal-->
 <app-basic-modal
   *ngIf="showDeleteModal"
   modalWidth="40%"
@@ -51,9 +69,25 @@
   (onBackdropClick)="toggleDeleteModal()"
 >
   <app-confirmation-modal
+    title="Would you like to delete this item?"
     (onCancel)="toggleDeleteModal()"
   >
-
   </app-confirmation-modal>
 </app-basic-modal>
+<!---->
+
+<!--Discar new task modal-->
+<app-basic-modal
+  *ngIf="showDiscardNewTaskModal"
+  modalWidth="40%"
+  modalHeight="36%"
+  (onBackdropClick)="toggleDiscardNewTaskModal();"
+>
+  <app-confirmation-modal
+    title="Discard new task?"
+    (onCancel)="toggleDiscardNewTaskModal();"
+  >
+  </app-confirmation-modal>
+</app-basic-modal>
+<!---->
 

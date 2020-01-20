@@ -69,6 +69,26 @@ body {
       background: rgba($grey_light, .6);
     }
   }
+
+  &__3{
+    &::-webkit-scrollbar {
+      width: 3px;
+    }
+    &::-webkit-scrollbar-track {
+      background: rgba($grey_light, .15);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba($grey_dark, .45);
+    }
+  }
+
+  &__none{
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+  }
 }
 
 //

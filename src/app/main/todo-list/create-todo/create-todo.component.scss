@@ -1,0 +1,46 @@
+@import './../../../../scss/colors';
+@import './../../../../scss/animations';
+
+.todoWrapper{
+  height: 7.8rem !important;
+  background-color: $grey_light2 !important;
+  border: solid 1px $grey;
+  animation: fadeInFromBottom--short .6s ease-out both;
+}
+
+.todoWrapper:hover label{
+  color: $grey_dark;
+}
+
+label{
+  font-size: .66rem;
+  color: rgba($grey_dark, .7);
+  margin: 0 0 .2rem 0;
+}
+
+.createConfirmButton{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 4.2rem;
+  height: 4.8rem;
+  background: linear-gradient($green, $green_light);
+  border: 0;
+  outline: 0;
+  border-radius: 50% 0 0 0;
+  clip-path: polygon(0 92%, 100% 0, 100% 100%, 0% 100%);
+
+  opacity: .75;
+
+  & i {
+    position: absolute;
+    bottom: 8%;
+    right: 10%;
+    font-size: 1.85rem;
+    color: $grey_light2;
+  }
+
+  &:hover{
+    opacity: 1;
+  }
+}

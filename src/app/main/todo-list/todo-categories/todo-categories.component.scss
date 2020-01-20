@@ -11,10 +11,13 @@
   flex-direction: column;
   justify-content: space-between;
 
-  background-color: $grey_light;
+  background: linear-gradient(115deg, $grey_light, $grey_light2);
 }
 
-.todoCategoriesList{
+.taskCategoriesList{
+  overflow-y: scroll;
+  direction: rtl;
+  height: 100%;
   list-style-type: none;
   padding: 0;
 
@@ -31,6 +34,15 @@
     font-weight: 600;
     letter-spacing: 1px;
 
+    & span{
+      &::selection {
+        background: transparent; /* WebKit/Blink Browsers */
+      }
+      &::-moz-selection {
+        background: transparent; /* Gecko Browsers */
+      }
+    }
+
     &:hover, :active{
       color: rgba($grey_dark2, .7);
     }
@@ -42,11 +54,11 @@
 }
 
 .addCategoryButton{
-  width: 33.3%;
+  width: 100%;
   border: none;
   outline: none;
   padding: 1rem;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
 

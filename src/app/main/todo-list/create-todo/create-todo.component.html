@@ -1,0 +1,39 @@
+<div #todoWrapper class="todoWrapper" (clickOutside)="!_clickAwayOmittedFirst ? _clickAwayOmittedFirst = true : onClickAway.emit()">
+  <!--Task title-->
+  <div style="width: 85%;">
+    <label for="input_title">Title</label>
+    <input #input_title class="input_title" id="input_title" type="text" placeholder="Check my emails">
+  </div>
+  <!---->
+
+  <div class="d-flex justify-content-between">
+    <div class="d-flex" style="align-items: baseline;">
+      <!--Task priority-->
+      <div>
+        <label>Priority</label>
+        <div class="priority" (click)="togglePriority()">
+          <i #priorityIcon class="fas fa-dot-circle"></i>
+          <span #priorityText>High</span>
+        </div>
+      </div>
+      <!---->
+
+      <!--Task completion time-->
+      <div class="d-flex flex-column">
+        <label>Completion date</label>
+        <div class="completionTime d-flex align-items-center mr-5">
+          <img src="assets/svg/calendar2.svg" alt="Task completion time">
+
+          <input #input_completionDate type="date" />
+        </div>
+      </div>
+      <!---->
+    </div>
+
+    <!--Confirm creation button-->
+    <button class="createConfirmButton">
+      <i class="fas fa-check"></i>
+    </button>
+    <!---->
+  </div>
+</div>

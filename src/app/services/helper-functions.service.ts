@@ -8,13 +8,21 @@ export class HelperFunctionsService {
   getCurrentTimeIn12HourFormat() {
     const now = new Date();
     now.setHours(now.getHours());
-    const isPM = now.getHours() >= 12;
-    const isMidday = now.getHours() == 12;
-    const time = [now.getHours() - (isPM && !isMidday ? 12 : 0),
-    now.getMinutes()].join(':') +
-      (isPM ? ' pm' : 'am');
 
-    return time
+    const isPM = now.getHours() >= 12;
+    const isMidday = now.getHours() === 12;
+
+    const nowHours = now.getHours();
+    const nowMinutes = now.getMinutes();
+
+    const time =
+    [
+      nowHours - (isPM && !isMidday ? 12 : 0),
+      nowMinutes.toString().length === 1 ? '0' + nowMinutes : nowMinutes
+    ]
+    .join(':') + (isPM ? ' pm' : ' am');
+
+    return time;
   }
 
   constructor() { }

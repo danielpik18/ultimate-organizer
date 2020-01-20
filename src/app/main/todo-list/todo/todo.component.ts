@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, HostLis
 import { BehaviorSubject } from 'rxjs';
 import { NotificationsManagerService } from 'src/app/services/notifications-manager.service';
 import { HelperFunctionsService } from 'src/app/services/helper-functions.service';
+import { ColorPaletteService } from 'src/app/services/color-palette.service';
 
 @Component({
   selector: 'app-todo',
@@ -31,12 +32,12 @@ export class TodoComponent implements OnInit, AfterViewInit {
   //  Edit mode
   editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   editMode = false;
-  _temp_hrefID: string;
   _tempTaskDataValues: { title: string, completionDate: string, priority: string };
 
   constructor(
     private _notificationsManager: NotificationsManagerService,
-    private _helperFunctions: HelperFunctionsService
+    private _helperFunctions: HelperFunctionsService,
+    private _colorPalette: ColorPaletteService
   ) { }
 
   ngOnInit() {
@@ -59,18 +60,16 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
     this.resetTaskStateStyles();
 
-    setTimeout(() => {
-      switch (this.todoState) {
-        case 'completed':
-          wrapperClassList.add('taskState', 'taskState__completed');
-          checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
-          break;
-        case 'overtime':
-          break;
-        case 'pending':
-          break;
-      }
-    }, 100);
+    switch (this.todoState) {
+      case 'completed':
+        wrapperClassList.add('taskState', 'taskState__completed');
+        checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
+        break;
+      case 'overtime':
+        break;
+      case 'pending':
+        break;
+    }
   }
 
   resetTaskStateStyles() {
@@ -152,7 +151,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
   turnOnEditMode() {
     if (!this.editMode) {
       const linkElement = this.todoWrapper.nativeElement.parentElement.parentElement;
-      this._temp_hrefID = linkElement.getAttribute('href');
       linkElement.removeAttribute('href');
 
       this.toggleEditModeStyles('on');
@@ -176,7 +174,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
   turnOffEditMode() {
     if (this.editMode) {
       const linkElement = this.todoWrapper.nativeElement.parentElement.parentElement;
-      linkElement.setAttribute('href', this._temp_hrefID);
 
       this.toggleEditModeStyles('off');
 
@@ -215,7 +212,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
 
-  togglePriorityStyles() {
+  togglePriority() {
     switch (this.priority) {
       case 'low':
         this.priority = 'normal';
@@ -235,7 +232,11 @@ export class TodoComponent implements OnInit, AfterViewInit {
     console.log('updating tasks with values: ', updatedTaskValues);
 
 
-
-    this._notificationsManager.pushNotification('Tasks', updatedTaskValues.title, this._helperFunctions.getCurrentTimeIn12HourFormat(), '#ccc');
+    this._notificationsManager.pushNotification(
+      'Tasks',
+      updatedTaskValues.title,
+      this._helperFunctions.getCurrentTimeIn12HourFormat(),
+      this._colorPalette.getColorHex('red_light')
+    );
   }
 }

@@ -12,12 +12,12 @@
   </div>
   <!---->
 
-  <div class="d-flex justify-content-between">
-    <div class="d-flex align-items-center">
+  <div class="d-flex justify-content-between align-items-center ">
+    <div class="d-flex ">
 
       <!--Task priority-->
       <div>
-        <div class="priority" (click)="editMode && togglePriorityStyles()">
+        <div class="priority" (click)="editMode && togglePriority()">
           <i #priorityIcon class="fas fa-dot-circle"></i>
           <span #priorityText>{{priority.toUpperCase()}}</span>
         </div>

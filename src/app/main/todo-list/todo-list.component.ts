@@ -8,7 +8,12 @@ import { HttpManagerService } from 'src/app/services/http-manager.service';
 })
 export class TodoListComponent implements OnInit {
   @ViewChild('todoList', { static: true }) todoList: ElementRef;
-  showDeleteModal: boolean = false;
+  showDeleteModal = false;
+  showDiscardNewTaskModal = false;
+  creatingTaskMode = false;
+
+  //
+  enableNewTaskClickAway = true;
 
   todos: any[];
 
@@ -22,10 +27,34 @@ export class TodoListComponent implements OnInit {
     console.log('test', filter);
   }
 
-  toggleDeleteModal(taskId: string = null){
-    if(taskId){
+  toggleDeleteModal(taskId: string = null) {
+    if (taskId) {
       console.log(taskId);
     }
     this.showDeleteModal = !this.showDeleteModal;
   }
+
+  toggleDiscardNewTaskModal() {
+    this.showDiscardNewTaskModal = !this.showDiscardNewTaskModal;
+
+    setTimeout(() => {
+      this.enableNewTaskClickAway = !this.enableNewTaskClickAway;
+    }, 500);
+  }
+
+  toggleCreatingTaskMode(mode: string) {
+    switch (mode) {
+      case 'on':
+        if (!this.creatingTaskMode) {
+          this.creatingTaskMode = true;
+        }
+        break;
+      case 'off':
+        if (this.creatingTaskMode) {
+          this.creatingTaskMode = false;
+        }
+        break;
+    }
+  }
+
 }

@@ -14,8 +14,13 @@
 .todoWrapper{
   position: relative;
   padding: .6rem 1rem;
+  height: 5.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   cursor: pointer;
   word-wrap: break-word;
+  color: $grey_light2;
 
   &:hover{
     background-color: $grey_light2;
@@ -43,6 +48,7 @@
   font-weight: 800;
   font-size: .68rem;
   width: 5.4rem;
+  transform-origin: 0 0;
 
   &__icon{
     &--low{
@@ -88,7 +94,8 @@
 
   &--editMode{
     &:hover{
-      border-bottom: 1px $grey solid;
+      transform: scale(1.04);
+      opacity: .75;
     }
   }
 }

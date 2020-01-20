@@ -14,6 +14,7 @@ import { ClickOusideDirective } from '../directives/click-ouside.directive';
 import { BasicModalComponent } from './_reusable_generic/basic-modal/basic-modal.component';
 import { ConfirmationModalComponent } from './_reusable_generic/modals/confirmation-modal/confirmation-modal.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { CreateTodoComponent } from './todo-list/create-todo/create-todo.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     ClickOusideDirective,
     BasicModalComponent,
     ConfirmationModalComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    CreateTodoComponent
   ],
   imports: [
     CommonModule,
