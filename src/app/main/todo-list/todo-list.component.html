@@ -27,8 +27,7 @@
           <!---->
 
           <li *ngFor="let todo of todos" id="task_{{todo.id}}" [ngClass]="creatingTaskMode && 'taskItem--blur'">
-            <a style="text-decoration: none; outline: none; cursor: default;">
-              <app-todo
+            <app-todo
               taskId="{{todo.id}}"
               title='{{todo.title}}'
               completionDate='{{todo.completion_date}}'
@@ -37,7 +36,6 @@
               (onRemoveTaskButtonClick)="toggleDeleteModal($event)"
             >
             </app-todo>
-            </a>
           </li>
 
         </ul>

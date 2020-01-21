@@ -15,7 +15,7 @@ export class EditableTextComponent implements OnInit {
   @Input() color: string;
   @Input() fontWeight: string = '600';
   @Input() fontSize: string = '.9rem';
-  @Input() inputBackground = 'transparent';
+  @Input() inputBackground;
 
   @Input() text: string;
   @Input() editing: BehaviorSubject<any> = new BehaviorSubject(false);

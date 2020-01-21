@@ -16,6 +16,8 @@ import { ConfirmationModalComponent } from './_reusable_generic/modals/confirmat
 import { NotificationsComponent } from './notifications/notifications.component';
 import { CreateTodoComponent } from './todo-list/create-todo/create-todo.component';
 import { EditableTextComponent } from './_reusable_generic/editable-text/editable-text.component';
+import { TaskCategoryComponent } from './todo-list/task-category/task-category.component';
+import { IconPickerComponent } from './_reusable_generic/icon-picker/icon-picker.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { EditableTextComponent } from './_reusable_generic/editable-text/editabl
     ConfirmationModalComponent,
     NotificationsComponent,
     CreateTodoComponent,
-    EditableTextComponent
+    EditableTextComponent,
+    TaskCategoryComponent,
+    IconPickerComponent
   ],
   imports: [
     CommonModule,

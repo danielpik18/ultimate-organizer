@@ -18,7 +18,7 @@
     [value]="text"
     (change)="returnInputValue()"
 
-    [style.background]="inputBackground"
+    [style.backgroundColor]="inputBackground && inputBackground"
     [style.color]="color ? color : _colorPalette.getColorHex('grey_dark2')"
     [style.fontWeight]="fontWeight"
     [style.fontSize]="fontSize"

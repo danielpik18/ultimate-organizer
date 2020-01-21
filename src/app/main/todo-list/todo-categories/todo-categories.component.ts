@@ -1,45 +1,34 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { ColorPaletteService } from 'src/app/services/color-palette.service';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-todo-categories',
   templateUrl: './todo-categories.component.html',
   styleUrls: ['./todo-categories.component.scss']
 })
-export class TodoCategoriesComponent implements OnInit, AfterViewInit {
+export class TodoCategoriesComponent implements OnInit {
   @ViewChild('taskCategoriesList', { static: true }) taskCategoriesList: ElementRef;
-
-  editModeSubject: BehaviorSubject<any> = new BehaviorSubject(false);
 
   categories: any = [
     {
       name: 'Fitness',
       faIconClass: 'fas fa-dumbbell',
-      colorHex: 'blue'
+      color: 'blue'
     },
     {
       name: 'Health',
       faIconClass: 'fas fa-heartbeat',
-      colorHex: 'red'
+      color: 'red'
     },
     {
       name: 'Work',
       faIconClass: 'fas fa-briefcase',
-      colorHex: 'green'
+      color: 'green'
     }
   ];
 
-  constructor(private _colorPaletteService: ColorPaletteService) { }
-
-  getColorHex(colorName: string) {
-    return this._colorPaletteService.getColorHex(colorName);
-  }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
   }
 
   pushNewCategory() {
@@ -48,8 +37,6 @@ export class TodoCategoriesComponent implements OnInit, AfterViewInit {
       faIconClass: 'fas fa-dumbbell',
       colorHex: 'red_dark'
     });
-
-    console.log(this.taskCategoriesList.nativeElement.scrollHeight, this.taskCategoriesList.nativeElement.clientHeight)
   }
 
 }

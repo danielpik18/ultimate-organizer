@@ -1,22 +1,16 @@
 <div class="wrapper">
   <ul #taskCategoriesList class="taskCategoriesList customScrollbar customScrollbar__none">
 
-    <!-- // Crear su propio componente al item de categoria-->
     <li
       *ngFor="let category of categories"
       class="taskCategoriesList__item"
-      (dblclick)="editModeSubject.next(true)"
-      (clickOutside)="editModeSubject.next(false)"
     >
-      <app-editable-text
-        inputBackground="rgba(white, .5)"
-        [text]="category.name"
-        fontSize="0.78rem"
-        [editing]='editModeSubject'
+      <app-task-category
+        [categoryName]="category.name"
+        [categoryFaIconClass]="category.faIconClass"
+        [categoryColorName]="category.color"
       >
-      </app-editable-text>
-
-      <i class="fas fa-lg mr-3" [ngClass]="category.faIconClass" [style.color]="getColorHex(category.colorHex)"></i>
+      </app-task-category>
     </li>
 
   </ul>

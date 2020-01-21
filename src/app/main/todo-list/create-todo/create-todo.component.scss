@@ -18,6 +18,16 @@ label{
   margin: 0 0 .2rem 0;
 }
 
+.input_title{
+  display: block;
+  border: none;
+  width: 100%;
+  outline: none;
+  background-color: rgba(white, .5);
+  color: $grey_dark2;
+  font-weight: 600;
+}
+
 .createConfirmButton{
   position: absolute;
   bottom: 0;

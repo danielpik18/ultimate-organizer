@@ -1,0 +1,26 @@
+<div
+  class="wrapper"
+  (dblclick)="editModeSubject.next(true)"
+  (clickOutside)="editModeSubject.next(false)"
+>
+
+  <div class="d-flex">
+    <div>
+      <app-icon-picker *ngIf="editMode"></app-icon-picker>
+      <i class="fas fa-lg mr-3" [ngClass]="categoryFaIconClass" [style.color]="_colorPalette.getColorHex(categoryColorName)"></i>
+    </div>
+
+    <app-editable-text
+          [text]="categoryName"
+          fontSize="0.78rem"
+          [editing]='editModeSubject'
+          width="85%"
+    >
+    </app-editable-text>
+  </div>
+
+  <button *ngIf="editMode" class="removeCategoryButton">
+    <i class="fas fa-trash"></i>
+  </button>
+
+</div>
