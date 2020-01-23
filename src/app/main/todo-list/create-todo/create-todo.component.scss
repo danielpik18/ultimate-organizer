@@ -1,11 +1,12 @@
 @import './../../../../scss/colors';
 @import './../../../../scss/animations';
+@import './../../../../scss/zindexes';
 
 .todoWrapper{
   height: 7.8rem !important;
   background-color: $grey_light2 !important;
-  border: solid 1px rgba($grey, .7);
-  animation: fadeInFromBottom--short .6s ease-out both;
+  animation: fadeInFromBottom-short .6s ease-out both;
+  z-index: $onTopOfClickPreventer;
 }
 
 .todoWrapper:hover label{

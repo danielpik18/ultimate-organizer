@@ -1,4 +1,6 @@
 <div class="wrapper">
+  <app-click-preventer *ngIf="creatingTaskMode"></app-click-preventer>
+
   <div class="container">
     <div class="row">
       <div class="col col-4">
@@ -71,7 +73,7 @@
 </app-basic-modal>
 <!---->
 
-<!--Discar new task modal-->
+<!--Discard new task modal-->
 <app-basic-modal
   *ngIf="showDiscardNewTaskModal"
   modalWidth="40%"

@@ -18,6 +18,7 @@ import { CreateTodoComponent } from './todo-list/create-todo/create-todo.compone
 import { EditableTextComponent } from './_reusable_generic/editable-text/editable-text.component';
 import { TaskCategoryComponent } from './todo-list/task-category/task-category.component';
 import { IconPickerComponent } from './_reusable_generic/icon-picker/icon-picker.component';
+import { ClickPreventerComponent } from './_reusable_generic/click-preventer/click-preventer.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { IconPickerComponent } from './_reusable_generic/icon-picker/icon-picker
     CreateTodoComponent,
     EditableTextComponent,
     TaskCategoryComponent,
-    IconPickerComponent
+    IconPickerComponent,
+    ClickPreventerComponent
   ],
   imports: [
     CommonModule,

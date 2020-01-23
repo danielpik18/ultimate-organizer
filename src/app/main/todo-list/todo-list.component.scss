@@ -86,19 +86,5 @@ $testlist: ();
   text-align: center;
   padding: 1rem 0;
 
-  animation-name: doubleClickTipComeIn;
-  animation-duration: .5s;
-  animation-fill-mode: both;
-  animation-timing-function: ease-out;
-}
-
-@keyframes doubleClickTipComeIn{
-  from{
-    transform: translateY(-10%);
-    opacity: 0;
-  }
-  to{
-    transform: translateY(0);
-    opacity: 1;
-  }
+  animation: fadeInFromTop-veryShort .5s ease-in-out both;
 }

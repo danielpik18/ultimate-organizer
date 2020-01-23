@@ -1,5 +1,5 @@
 //Distances
-$distance--veryShort: .75rem;
+$distance--veryShort: .5rem;
 $distance--short: 1.25rem;
 $distance--regular: 2rem;
 $distance--long: 3.4rem;
@@ -51,6 +51,16 @@ $distance--veryLong: 5rem;
 @keyframes fadeInFromTop-short{
   from{
     transform: translateY(-$distance--short);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeInFromTop-veryShort{
+  from{
+    transform: translateY(-$distance--veryShort);
     opacity: 0;
   }
   to{
