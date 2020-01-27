@@ -5,3 +5,12 @@
   -ms-filter: blur($blurAmount);
   filter: blur($blurAmount);
 }
+
+@mixin hideTextHighlight(){
+  &::selection {
+    background: transparent !important;
+  }
+  &::-moz-selection {
+    background: transparent !important;
+  }
+}

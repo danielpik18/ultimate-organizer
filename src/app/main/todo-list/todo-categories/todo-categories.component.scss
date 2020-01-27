@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 100%;
+  width: 33.3%;
 
   display: flex;
   flex-direction: column;
@@ -24,10 +24,10 @@
   &__item{
     & span{
       &::selection {
-        background: transparent; /* WebKit/Blink Browsers */
+        background: transparent;
       }
       &::-moz-selection {
-        background: transparent; /* Gecko Browsers */
+        background: transparent;
       }
     }
 

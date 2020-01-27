@@ -25,5 +25,21 @@ export class HelperFunctionsService {
     return time;
   }
 
+  findParentElementByClass(initialElement: Element, className: string){
+    let targetElement: Element;
+
+
+    while (initialElement.parentElement) {
+      initialElement = initialElement.parentElement;
+
+      if(initialElement.className === className){
+        targetElement = initialElement;
+        break;
+      }
+    }
+
+    return targetElement;
+  }
+
   constructor() { }
 }

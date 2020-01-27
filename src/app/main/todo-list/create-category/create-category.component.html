@@ -1,0 +1,22 @@
+<div
+  class="wrapper"
+  (clickOutside)="$event.stopPropagation()"
+>
+
+  <div class="d-flex">
+    <div>
+      <app-icon-picker></app-icon-picker>
+      <i class="fa-lg fas fa-dumbbell mr-3" [style.color]="_colorPalette.getColorHex('blue_light')"></i>
+    </div>
+
+    <app-editable-text
+      [placeholder]="'Fitness'"
+      fontSize="0.78rem"
+      [editing]="editModeSubject"
+      width="85%"
+      display='flex'
+    >
+    </app-editable-text>
+  </div>
+
+</div>

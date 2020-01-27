@@ -16,8 +16,10 @@
     class="text_input"
     type="text"
     [value]="text"
+    [placeholder]="placeholder"
     (change)="returnInputValue()"
 
+    [style.display]="display && display"
     [style.backgroundColor]="inputBackground && inputBackground"
     [style.color]="color ? color : _colorPalette.getColorHex('grey_dark2')"
     [style.fontWeight]="fontWeight"

@@ -98,7 +98,7 @@
   color: $grey_dark;
 }
 
-.completionTime span, .priority span{
+.completionTime > *, .priority span{
   &::selection {
     background: transparent;
   }
@@ -214,6 +214,7 @@
   }
 
   &__completed{
+    cursor: default !important;
     background-color:rgba($grey_dark, .1);
 
     &::after{

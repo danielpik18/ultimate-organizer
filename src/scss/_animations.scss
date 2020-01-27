@@ -91,6 +91,17 @@ $distance--veryLong: 5rem;
   }
 }
 
+@keyframes fadeInFromBottom-veryShort{
+  from{
+    transform: translateY($distance--veryShort);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @keyframes fadeInFromLeft{
   from{
     transform: translateX(-$distance--regular);

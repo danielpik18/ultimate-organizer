@@ -1,3 +1,5 @@
+@import './../../../scss/mixins';
+
 .homeWrapper{
   position: relative;
   width: 100%;
@@ -10,11 +12,14 @@
   font-size: 6rem;
   font-weight: 400;
   color: white;
+  cursor: default;
   padding-top: 2.2rem;
 
   animation-name: titleIntro;
   animation-duration: 1.8s;
   animation-timing-function: ease-out;
+
+  @include hideTextHighlight;
 }
 
 @keyframes titleIntro {

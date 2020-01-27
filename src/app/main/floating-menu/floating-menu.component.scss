@@ -1,10 +1,4 @@
-
-
-//*********************************************
-//---------------------------------------------
-//  STYLES
-//---------------------------------------------
-//*********************************************
+@import './../../../scss/mixins';
 
 .wrapper{
   text-align: center;
@@ -47,10 +41,6 @@ $item-transition: .5s;
   border-radius: $toggler-size/16;
   background: rgba($toggler-color, 0.7);
   transition: $toggler-transition;
-}
-
-.homeIcon{
-  width: 3.4rem;
 }
 
 
@@ -103,6 +93,10 @@ $item-transition: .5s;
   .menu-item a {
     pointer-events: auto;
   }
+}
+
+.wrapper, ul, .menu-item, .menu-item > *{
+  @include hideTextHighlight;
 }
 
 .menu-toggler + label {

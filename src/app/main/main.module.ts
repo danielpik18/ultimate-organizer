@@ -19,6 +19,7 @@ import { EditableTextComponent } from './_reusable_generic/editable-text/editabl
 import { TaskCategoryComponent } from './todo-list/task-category/task-category.component';
 import { IconPickerComponent } from './_reusable_generic/icon-picker/icon-picker.component';
 import { ClickPreventerComponent } from './_reusable_generic/click-preventer/click-preventer.component';
+import { CreateCategoryComponent } from './todo-list/create-category/create-category.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ClickPreventerComponent } from './_reusable_generic/click-preventer/cli
     EditableTextComponent,
     TaskCategoryComponent,
     IconPickerComponent,
-    ClickPreventerComponent
+    ClickPreventerComponent,
+    CreateCategoryComponent
   ],
   imports: [
     CommonModule,

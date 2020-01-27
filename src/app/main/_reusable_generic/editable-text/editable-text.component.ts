@@ -11,13 +11,15 @@ export class EditableTextComponent implements OnInit {
   @ViewChild('text_input', { static: false }) text_input: ElementRef;
 
   //Style inputs
+  @Input() display: string;
   @Input() width: string = '100%';
   @Input() color: string;
   @Input() fontWeight: string = '600';
   @Input() fontSize: string = '.9rem';
   @Input() inputBackground;
 
-  @Input() text: string;
+  @Input() text: string = '';
+  @Input() placeholder: string = '';
   @Input() editing: BehaviorSubject<any> = new BehaviorSubject(false);
 
   @Output() onTextChange: EventEmitter<any> = new EventEmitter();

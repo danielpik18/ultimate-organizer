@@ -5,17 +5,6 @@
   (clickOutside)="turnOffEditMode()"
 >
 
-  <!--Task title-->
-
-  <!--
-  <div style="width: 85%;">
-    <h5 *ngIf="!editMode" class="todoTitle">{{title}}</h5>
-    <input *ngIf="editMode" #input_title class="input_title" type="text" [value]="title">
-  </div>
-  -->
-
-  <!---->
-
   <app-editable-text
     width="85%"
     [text]="title"

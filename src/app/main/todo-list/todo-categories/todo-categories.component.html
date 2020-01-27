@@ -1,14 +1,20 @@
 <div class="wrapper">
   <ul #taskCategoriesList class="taskCategoriesList customScrollbar customScrollbar__none">
 
+    <li *ngIf="creatingCategory" class="taskCategoriesList__item">
+      <app-create-category></app-create-category>
+    </li>
+
     <li
       *ngFor="let category of categories"
       class="taskCategoriesList__item"
     >
       <app-task-category
+        [categoryID]="category.id"
         [categoryName]="category.name"
         [categoryFaIconClass]="category.faIconClass"
         [categoryColorName]="category.color"
+        (onRemoveCategoryButtonClick)="toggleRemoveModal($event)"
       >
       </app-task-category>
     </li>
@@ -17,3 +23,19 @@
 
   <button class="addCategoryButton" (click)="pushNewCategory()"><i class="far fa-lg fa-plus-square mr-1"></i> Add new</button>
 </div>
+
+<!--Remove task modal-->
+<app-basic-modal
+  *ngIf="showRemoveModal"
+  modalWidth="40%"
+  modalHeight="36%"
+  [elementToBlur]="tasksWrapperElement"
+  (onBackdropClick)="toggleRemoveModal()"
+>
+  <app-confirmation-modal
+    title="Would you like to delete this item?"
+    (onCancel)="toggleRemoveModal()"
+  >
+  </app-confirmation-modal>
+</app-basic-modal>
+<!---->
