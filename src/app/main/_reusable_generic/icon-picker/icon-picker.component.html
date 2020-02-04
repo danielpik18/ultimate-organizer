@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="iconsWrapper customScrollbar customScrollbar__1">
+    <i
+      *ngFor="let icon of faSolid"
+      [ngClass]="'fas fa-' + icon"
+      (click)="onIconClick.emit($event.target.classList.value)"
+    >
+    </i>
+  </div>
+
+  <div
+    class="colorPicker"
+  >
+    <input type="color" [value]="iconsColor" (change)="changeColor($event.target.value)" />
+    <div class="colorPicker__colorBlock pl-2" [style.background]="iconsColor"></div>
+    <span class="colorPicker__text pl-2">Choose icon color</span>
+  </div>
+</div>

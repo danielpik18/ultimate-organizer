@@ -137,6 +137,17 @@ $distance--veryLong: 5rem;
 
 @keyframes fadeInFromRight-short{
   from{
+    transform: translateX($distance--short);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInFromRight-veryShort{
+  from{
     transform: translateX($distance--veryShort);
     opacity: 0;
   }

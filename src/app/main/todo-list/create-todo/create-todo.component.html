@@ -1,4 +1,7 @@
-<div #todoWrapper class="todoWrapper" (clickOutside)="!_clickAwayOmittedFirst ? _clickAwayOmittedFirst = true : onClickAway.emit();">
+<div
+  #todoWrapper class="todoWrapper"
+  (clickOutside)="!_clickAwayOmittedFirst ? _clickAwayOmittedFirst = true : onClickAway.emit();"
+>
   <!--Task title-->
   <div style="width: 85%;">
     <label for="input_title">Title</label>

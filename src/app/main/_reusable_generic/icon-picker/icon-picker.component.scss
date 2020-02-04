@@ -1,0 +1,75 @@
+@import './../../../../scss/colors';
+@import './../../../../scss/animations';
+
+.wrapper{
+  position: fixed;
+  top: 0%;
+  left: -34%;
+  width: 15rem;
+  background: linear-gradient(rgba($grey, .8), rgba($grey_light, .8));
+  border-radius: 3%;
+  cursor: default;
+  box-sizing: border-box;
+
+  animation: fadeInFromRight-veryShort .45s ease-out both;
+}
+
+.iconsWrapper{
+  width: 100%;
+  height: 12rem;
+  padding: .6rem;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+
+  & i{
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+    padding: .6rem;
+    margin: .3rem;
+    cursor: pointer;
+    color: $grey_dark2;
+
+    &:hover{
+      color: $grey_dark;
+      transform: scale(1.085);
+    }
+  }
+}
+
+.colorPicker{
+  position: relative;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: $grey_light;
+  transition: opacity .15s ease-out;
+
+  &:hover{
+    opacity: .9;
+  }
+
+  &__colorBlock{
+    width: 30px;
+    height: 100%;
+    border: solid 2px $grey_light;
+  }
+
+  &__text{
+    color: $grey_dark2;
+    font-size: .75rem;
+    font-weight: 600;
+  }
+
+  & input{
+    position: absolute;
+    height: 100%;
+    opacity: 0;
+    width: 100%;
+    cursor: pointer;
+  }
+}

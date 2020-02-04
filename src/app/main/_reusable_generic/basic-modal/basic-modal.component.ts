@@ -11,18 +11,12 @@ export class BasicModalComponent implements OnInit, OnDestroy {
   @Input() modalHeight: string;
   @Output() onBackdropClick: EventEmitter<any> = new EventEmitter();
 
-  @Input() elementToBlur: Element;
-
   constructor() { }
 
   ngOnInit() {
-    this.elementToBlur.classList.remove('unblurElement');
-    this.elementToBlur.classList.add('blurElement');
   }
 
   ngOnDestroy() {
-    this.elementToBlur.classList.remove('blurElement');
-    this.elementToBlur.classList.add('unblurElement');
   }
 
 }

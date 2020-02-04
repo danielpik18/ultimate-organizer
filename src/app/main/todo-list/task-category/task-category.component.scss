@@ -19,7 +19,7 @@
   & i {
     color: $red_light;
     font-size: 1.1rem;
-    animation: fadeInFromRight-short .6s ease-out both;
+    //animation: fadeInFromRight-short .6s ease-out both;
   }
 
   &:hover{
@@ -30,6 +30,7 @@
 .categoryIcon{
   width: 2rem;
   height: 2rem;
+  font-size: 1.2rem;
   display: flex;
   justify-content: center;
   align-items: center;

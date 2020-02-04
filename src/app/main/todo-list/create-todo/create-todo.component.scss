@@ -1,35 +1,38 @@
-@import './../../../../scss/colors';
-@import './../../../../scss/animations';
-@import './../../../../scss/zindexes';
+@import "./../../../../scss/colors";
+@import "./../../../../scss/animations";
+@import "./../../../../scss/zindexes";
 
-.todoWrapper{
+.todoWrapper {
   height: 7.8rem !important;
   background-color: $grey_light2 !important;
-  animation: fadeInFromBottom-short .6s ease-out both;
+  animation: fadeInFromBottom-short 0.6s ease-out both;
   z-index: $onTopOfClickPreventer;
+
+  border-top: white 2px solid;
+  border-bottom: white 2px solid;
 }
 
-.todoWrapper:hover label{
+.todoWrapper:hover label {
   color: $grey_dark;
 }
 
-label{
-  font-size: .66rem;
-  color: rgba($grey_dark, .7);
-  margin: 0 0 .2rem 0;
+label {
+  font-size: 0.66rem;
+  color: rgba($grey_dark, 0.7);
+  margin: 0 0 0.2rem 0;
 }
 
-.input_title{
+.input_title {
   display: block;
   border: none;
   width: 100%;
   outline: none;
-  background-color: rgba(white, .5);
+  background-color: rgba(white, 0.5);
   color: $grey_dark2;
   font-weight: 600;
 }
 
-.createConfirmButton{
+.createConfirmButton {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -41,7 +44,7 @@ label{
   border-radius: 50% 0 0 0;
   clip-path: polygon(0 92%, 100% 0, 100% 100%, 0% 100%);
 
-  opacity: .75;
+  opacity: 0.75;
 
   & i {
     position: absolute;
@@ -51,7 +54,7 @@ label{
     color: $grey_light2;
   }
 
-  &:hover{
+  &:hover {
     opacity: 1;
   }
 }

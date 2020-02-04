@@ -1,4 +1,5 @@
 @import './../../../../scss/colors';
+@import './../../../../scss/animations';
 @import './../../../../scss/mixins';
 
 @mixin checkMarkPseudoElement($width, $height) {
@@ -19,10 +20,10 @@
   justify-content: space-between;
   cursor: pointer;
   word-wrap: break-word;
-  color: $grey_light2;
+  //color: $grey_light2;
 
   &:hover{
-    background-color: $grey_light2;
+    background-color: rgba($grey_light, .75);
   }
 
   &__editMode{
@@ -108,7 +109,7 @@
 }
 
 .completeTaskButton{
-  background-color:transparent;
+  background-color: transparent;
   position: relative;
   width: 2.4rem;
   height: 2.4rem;
@@ -131,7 +132,7 @@
     animation-fill-mode: both;
   }
 
-  &__bgCircles{
+  &__backgroundCircle{
     transition: opacity .4s ease-in-out;
 
     opacity: .6;

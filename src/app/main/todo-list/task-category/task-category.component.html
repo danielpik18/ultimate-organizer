@@ -6,8 +6,20 @@
 
   <div class="d-flex align-items-center">
     <div>
-      <app-icon-picker *ngIf="editMode"></app-icon-picker>
-      <i class="fa-lg mr-3 categoryIcon" [ngClass]="categoryFaIconClass" [style.color]="_colorPalette.getColorHex(categoryColorName)"></i>
+      <app-icon-picker
+        *ngIf="editMode"
+        [iconsColor]="_colorPalette.getColorHex(categoryColorName)"
+        (onIconClick)="changeIcon($event)"
+        (onColorChange)="changeIconColor($event)"
+      >
+      </app-icon-picker>
+      <i
+        #categoryIcon
+        class="categoryIcon mr-3"
+        [ngClass]="categoryFaIconClass"
+        [style.color]="_colorPalette.getColorHex(categoryColorName)"
+      >
+      </i>
     </div>
 
     <app-editable-text

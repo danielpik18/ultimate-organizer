@@ -5,6 +5,7 @@ $testlist: ();
 
 .tasksWrapper{
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
@@ -25,7 +26,7 @@ $testlist: ();
 .todosWrapper{
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  //overflow-y: scroll;
   overflow-x: hidden;
 
   ul{
@@ -73,10 +74,10 @@ $testlist: ();
 }
 
 .createTaskDarkBg{
-  position: fixed;
+  position: absolute;
   background-color: rgba($grey_dark2, .16);
   width: 100%;
-  height: 100%;
+  height: 100vh;
   animation: fadeIn .8s ease-in-out both;
 }
 

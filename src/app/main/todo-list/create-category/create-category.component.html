@@ -1,12 +1,22 @@
 <div
   class="wrapper"
-  (clickOutside)="$event.stopPropagation()"
+  (clickOutside)="!_clickAwayOmittedFirst ? _clickAwayOmittedFirst = true : returnCategoryData();"
 >
 
-  <div class="d-flex">
+  <div class="d-flex align-items-center">
     <div>
-      <app-icon-picker></app-icon-picker>
-      <i class="fa-lg fas fa-dumbbell mr-3" [style.color]="_colorPalette.getColorHex('blue_light')"></i>
+      <app-icon-picker
+        [iconsColor]="_colorPalette.getColorHex('blue')"
+        (onIconClick)="changeIcon($event)"
+        (onColorChange)="changeIconColor($event)"
+      >
+      </app-icon-picker
+      >
+      <i
+        #categoryIcon
+        class="categoryIcon mr-3 fas fa-dumbbell"
+        [style.color]="categoryColor">
+      </i>
     </div>
 
     <app-editable-text
@@ -15,6 +25,7 @@
       [editing]="editModeSubject"
       width="85%"
       display='flex'
+      (onTextChange)="categoryTitle = $event"
     >
     </app-editable-text>
   </div>

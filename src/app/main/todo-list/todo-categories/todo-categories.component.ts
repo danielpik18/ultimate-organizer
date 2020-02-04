@@ -13,10 +13,15 @@ export class TodoCategoriesComponent implements OnInit {
   creatingCategory = false;
 
   //  Modals
-  tasksWrapperElement: Element;
   showRemoveModal = false;
 
   categories: any = [
+    {
+      id: 'A01',
+      name: 'Fitness',
+      faIconClass: 'fas fa-dumbbell',
+      color: 'blue'
+    },
     {
       id: 'A03',
       name: 'Work',
@@ -28,31 +33,27 @@ export class TodoCategoriesComponent implements OnInit {
       name: 'Health',
       faIconClass: 'fas fa-heartbeat',
       color: 'red'
-    },
-    {
-      id: 'A01',
-      name: 'Fitness',
-      faIconClass: 'fas fa-dumbbell',
-      color: 'blue'
     }
   ];
 
-  constructor(
-    private _elementRef: ElementRef,
-    private _helperFunctinos: HelperFunctionsService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.tasksWrapperElement = this._helperFunctinos.findParentElementByClass(this._elementRef.nativeElement, 'tasksWrapper');
   }
 
-  pushNewCategory() {
+  toggleCreatingCategory() {
     this.creatingCategory = !this.creatingCategory;
   }
 
   toggleRemoveModal(id: string){
-    console.log('Deleting category with ID: ', id);
+    if(id){
+      console.log('Deleting category with ID: ', id);
+    }
     this.showRemoveModal = !this.showRemoveModal;
+  }
+
+  saveCategory(categoryData: string){
+    console.log('saving category with title: ', categoryData);
   }
 
 }
