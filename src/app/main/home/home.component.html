@@ -3,34 +3,32 @@
     Space
   </h1>
 
-  <app-floating-menu></app-floating-menu>
-
-
-  <!--Windows-->
-  <app-draggable-window
-    *ngIf="windows.includes('tasks')"
-    windowTitle='tasks'
-    windowWidth="46rem"
-    windowHeight="30rem"
+  <app-login
+    *ngIf="!loggedIn"
+    (onLogin)="loggedIn = true"
   >
-    <app-todo-list></app-todo-list>
-  </app-draggable-window>
+  </app-login>
 
-  <app-draggable-window
-    *ngIf="windows.includes('calendar')"
-    windowTitle='calendar'
-    windowWidth="30rem"
-    windowHeight="20rem"
-  >
-  </app-draggable-window>
+  <div *ngIf="loggedIn">
 
-  <app-draggable-window
-    *ngIf="windows.includes('journal')"
-    windowTitle='journal'
-    windowWidth="30rem"
-    windowHeight="20rem"
-  >
-  </app-draggable-window>
+    <app-floating-menu></app-floating-menu>
 
-  <app-notifications></app-notifications>
+
+    <!--Windows-->
+    <app-draggable-window *ngIf="windows.includes('tasks')" windowTitle='tasks' windowWidth="46rem"
+      windowHeight="30rem">
+      <app-todo-list></app-todo-list>
+    </app-draggable-window>
+
+    <app-draggable-window *ngIf="windows.includes('calendar')" windowTitle='calendar' windowWidth="30rem"
+      windowHeight="20rem">
+    </app-draggable-window>
+
+    <app-draggable-window *ngIf="windows.includes('journal')" windowTitle='journal' windowWidth="30rem"
+      windowHeight="20rem">
+    </app-draggable-window>
+
+    <app-notifications></app-notifications>
+  </div>
+
 </div>

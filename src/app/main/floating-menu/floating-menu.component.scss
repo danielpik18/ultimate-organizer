@@ -1,7 +1,9 @@
 @import './../../../scss/mixins';
+@import './../../../scss/animations';
 
 .wrapper{
   text-align: center;
+  animation: fadeIn .35s ease-out both;
 }
 
 

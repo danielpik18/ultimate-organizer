@@ -9,6 +9,9 @@ import { WindowsManagerService } from 'src/app/services/windows-manager.service'
 export class HomeComponent implements OnInit {
   windows: string[] = [];
 
+  //  meanwhile...
+  loggedIn = false;
+
   constructor(private windowManager: WindowsManagerService) { }
 
   ngOnInit() {

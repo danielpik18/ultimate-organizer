@@ -1,4 +1,4 @@
-<div class="tasksWrapper">
+<div class="wrapper">
   <app-click-preventer *ngIf="creatingTaskMode"></app-click-preventer>
 
   <div class="container">
@@ -7,7 +7,7 @@
         <app-todo-categories></app-todo-categories>
       </div>
 
-      <div class="col col-8 todosWrapper customScrollbar customScrollbar__1">
+      <div #tasksWrapper class="col col-8 tasksWrapper customScrollbar customScrollbar__1">
         <app-loading-wheel *ngIf="!todos"></app-loading-wheel>
 
         <div *ngIf="creatingTaskMode" class="createTaskDarkBg"></div>
@@ -18,7 +18,7 @@
         </div>
 
         <!--Tasks list-->
-        <ul #todoList>
+        <ul #todoList [style.marginBottom]="!creatingTaskMode ? '26rem' : '0'">
 
           <!--New todo-->
           <app-create-todo
@@ -43,9 +43,11 @@
         </ul>
         <!---->
 
+        <!--Create new task button-->
         <div class="createTaskButton" (click)="toggleCreatingTaskMode('on')">
           <i class="fas fa-plus-circle"></i>
         </div>
+        <!---->
 
         <app-filter-data-button
           (onFilterChange)="filterData($event)"

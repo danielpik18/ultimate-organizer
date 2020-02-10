@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { TaskSuggestionsService } from 'src/app/services/task-suggestions.service';
 
 @Component({
   selector: 'app-create-todo',
@@ -13,16 +14,24 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
   @ViewChild('input_title', { static: true }) input_title: ElementRef;
 
   priority = 'normal';
+  taskPlaceholder: string;
+  taskValue: string = "";
   _clickAwayOmittedFirst = false;
 
-  constructor() { }
+  constructor(private _tasksSuggestions: TaskSuggestionsService) { }
 
   ngOnInit() {
     this.input_title.nativeElement.focus();
+    this.taskPlaceholder = this.getRandomTaskSuggestion();
   }
 
   ngAfterViewInit() {
     this.setPriorityStyles();
+  }
+
+  getRandomTaskSuggestion() {
+    const randomIndexFromArray = Math.floor(Math.random() * this._tasksSuggestions.tasksSuggestions.length);
+    return this._tasksSuggestions.tasksSuggestions[randomIndexFromArray];
   }
 
   togglePriority() {
@@ -72,4 +81,14 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
     });
   }
 
+  saveTask() {
+    if (this.taskValue !== '') {
+      console.log('saving: ', this.taskValue);
+    }
+  }
+
+  setPlaceholderAsValue(event: Event){
+    event.preventDefault();
+    this.taskValue = this.taskPlaceholder;
+  }
 }

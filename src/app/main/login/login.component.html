@@ -1,6 +1,19 @@
 <div class="wrapper">
-  <div class="inputGroup">
-    <label for="input_email">Enter your email</label>
-    <input type="text" placeholder="Email" id="input_email">
-  </div>
+
+  <form>
+    <div class="d-flex flex-column" style="width: 15rem;">
+      <div class="inputGroup">
+        <label for="input_email">Email or username</label>
+        <input type="text" placeholder="" id="input_email">
+      </div>
+
+      <div class="inputGroup">
+        <label for="input_password">Password</label>
+        <input type="password" placeholder="" id="input_password">
+      </div>
+
+      <button class="loginButton" (click)="onLogin.emit()"><i class="fas fa-sign-in-alt mr-2"></i>Log in</button>
+    </div>
+  </form>
+
 </div>

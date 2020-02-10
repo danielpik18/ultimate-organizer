@@ -5,7 +5,16 @@
   <!--Task title-->
   <div style="width: 85%;">
     <label for="input_title">Title</label>
-    <input #input_title class="input_title" id="input_title" type="text" placeholder="Check my emails">
+    <input
+      #input_title
+      class="input_title"
+      id="input_title"
+      type="text"
+      [placeholder]="taskPlaceholder"
+      [(ngModel)]="taskValue"
+      (keydown.enter)="saveTask()"
+      (keydown.tab)="setPlaceholderAsValue($event)"
+    >
   </div>
   <!---->
 

@@ -8,6 +8,8 @@ import { HttpManagerService } from 'src/app/services/http-manager.service';
 })
 export class TodoListComponent implements OnInit {
   @ViewChild('todoList', { static: true }) todoList: ElementRef;
+  @ViewChild('tasksWrapper', { static: true }) tasksWrapper: ElementRef;
+
   showDeleteModal = false;
   showDiscardNewTaskModal = false;
   creatingTaskMode = false;
@@ -48,6 +50,10 @@ export class TodoListComponent implements OnInit {
       case 'on':
         if (!this.creatingTaskMode) {
           this.creatingTaskMode = true;
+
+          setTimeout(() => {
+            this.tasksWrapper.nativeElement.scrollTop = 0;
+          }, 0);
         }
         break;
       case 'off':

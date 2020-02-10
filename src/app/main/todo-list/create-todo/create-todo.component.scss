@@ -8,8 +8,7 @@
   animation: fadeInFromBottom-short 0.6s ease-out both;
   z-index: $onTopOfClickPreventer;
 
-  border-top: white 2px solid;
-  border-bottom: white 2px solid;
+  border-bottom: $grey_light2 2px solid;
 }
 
 .todoWrapper:hover label {
@@ -29,7 +28,6 @@ label {
   outline: none;
   background-color: rgba(white, 0.5);
   color: $grey_dark2;
-  font-weight: 600;
 }
 
 .createConfirmButton {
