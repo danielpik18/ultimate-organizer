@@ -12,7 +12,6 @@ import { HomeComponent } from './home/home.component';
 import { FloatingMenuComponent } from './floating-menu/floating-menu.component';
 import { DraggableWindowComponent } from './draggable-window/draggable-window.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { LoginComponent } from './login/login.component';
 import { TodoCategoriesComponent } from './todo-list/todo-categories/todo-categories.component';
 import { TodoComponent } from './todo-list/todo/todo.component';
 import { LoadingWheelComponent } from './_reusable_generic/loading-wheel/loading-wheel.component';
@@ -28,7 +27,7 @@ import { ClickPreventerComponent } from './_reusable_generic/click-preventer/cli
 import { CreateCategoryComponent } from './todo-list/create-category/create-category.component';
 
 //  Directives
-import { ClickOusideDirective } from '../directives/click-ouside.directive';
+import { ClickOusideDirective } from '../directives/click-ouside.directive'
 
 
 @NgModule({
@@ -37,7 +36,6 @@ import { ClickOusideDirective } from '../directives/click-ouside.directive';
     FloatingMenuComponent,
     DraggableWindowComponent,
     TodoListComponent,
-    LoginComponent,
     TodoCategoriesComponent,
     TodoComponent,
     LoadingWheelComponent,
@@ -51,7 +49,7 @@ import { ClickOusideDirective } from '../directives/click-ouside.directive';
     TaskCategoryComponent,
     IconPickerComponent,
     ClickPreventerComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
   ],
   imports: [
     CommonModule,

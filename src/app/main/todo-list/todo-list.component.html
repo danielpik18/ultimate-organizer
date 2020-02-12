@@ -10,6 +10,8 @@
       <div #tasksWrapper class="col col-8 tasksWrapper customScrollbar customScrollbar__1">
         <app-loading-wheel *ngIf="!todos"></app-loading-wheel>
 
+        <div *ngIf="todos && todos.length === 0">No registry</div>
+
         <div *ngIf="creatingTaskMode" class="createTaskDarkBg"></div>
 
         <div *ngIf="todos" class="doubleClickTip">

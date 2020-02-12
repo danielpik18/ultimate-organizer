@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpManagerService } from 'src/app/services/http-manager.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class TodoListComponent implements OnInit {
   constructor(private httpManager: HttpManagerService) { }
 
   ngOnInit() {
-    this.httpManager.getTodos().subscribe(data => this.todos = data);
+    this.httpManager.getTodos().subscribe(data => this.todos = [...data]);
   }
 
   filterData(filter: string) {

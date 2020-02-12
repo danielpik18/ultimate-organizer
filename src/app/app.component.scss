@@ -1,0 +1,21 @@
+@import './../scss/mixins';
+@import './../scss/animations';
+
+.wrapper{
+}
+
+.spaceTitle{
+  text-align: center;
+  font-family: 'Bad Script', cursive;
+  font-size: 6rem;
+  font-weight: 400;
+  color: white;
+  cursor: default;
+  padding-top: 2.2rem;
+
+  animation-name: fadeInFromBottom-short;
+  animation-duration: 1.4s;
+  animation-timing-function: ease-out;
+
+  @include hideTextHighlight;
+}

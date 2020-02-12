@@ -10,7 +10,7 @@ export class DraggableWindowComponent implements OnInit {
   @Input() windowTitle: string;
   @Input() windowHeight: string;
   @Input() windowWidth: string;
-  @ViewChild('wrapper', { static: false }) wrapper: ElementRef;
+  @ViewChild('wrapper') wrapper: ElementRef;
   windows: string[];
 
   // tslint:disable-next-line: variable-name

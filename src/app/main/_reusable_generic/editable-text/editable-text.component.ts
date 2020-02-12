@@ -8,7 +8,7 @@ import { ColorPaletteService } from 'src/app/services/color-palette.service';
   styleUrls: ['./editable-text.component.scss']
 })
 export class EditableTextComponent implements OnInit {
-  @ViewChild('text_input', { static: false }) text_input: ElementRef;
+  @ViewChild('text_input') text_input: ElementRef;
 
   //Style inputs
   @Input() display: string;
@@ -26,7 +26,7 @@ export class EditableTextComponent implements OnInit {
 
   //
 
-  constructor(private _colorPalette: ColorPaletteService) { }
+  constructor(public _colorPalette: ColorPaletteService) { }
 
   ngOnInit() {
     this.editing.subscribe(isBeingEdited => {

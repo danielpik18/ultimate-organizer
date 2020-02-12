@@ -1,18 +1,7 @@
 <div class="homeWrapper">
-  <h1 class="spaceTitle">
-    Space
-  </h1>
-
-  <app-login
-    *ngIf="!loggedIn"
-    (onLogin)="loggedIn = true"
-  >
-  </app-login>
-
-  <div *ngIf="loggedIn">
+  <div>
 
     <app-floating-menu></app-floating-menu>
-
 
     <!--Windows-->
     <app-draggable-window *ngIf="windows.includes('tasks')" windowTitle='tasks' windowWidth="46rem"

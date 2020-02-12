@@ -7,7 +7,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, 
 })
 export class FilterDataButtonComponent implements OnInit, AfterViewInit {
   @ViewChild('filterPopover', { static: true }) filterPopover: ElementRef;
-  @ViewChild('filterOptionsWrapper', { static: false }) filterOptionsWrapper: ElementRef;
+  @ViewChild('filterOptionsWrapper') filterOptionsWrapper: ElementRef;
   @Input() filterOptions: string[];
   @Input() defaultFilterId: string;
   @Output() onFilterChange: EventEmitter<any> = new EventEmitter();

@@ -19,15 +19,15 @@ export class TodoComponent implements OnInit, AfterViewInit {
   @Output() onRemoveTaskButtonClick: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('todoWrapper', { static: true }) todoWrapper: ElementRef;
-  @ViewChild('priorityIcon', { static: false }) priorityIcon: ElementRef;
-  @ViewChild('priorityText', { static: false }) priorityText: ElementRef;
+  @ViewChild('priorityIcon') priorityIcon: ElementRef;
+  @ViewChild('priorityText') priorityText: ElementRef;
   @ViewChild('completeTaskButtonCheckmark', { static: true }) completeTaskButtonCheckmark: ElementRef;
   @ViewChild('completeTaskButton', { static: true }) completeTaskButton: ElementRef;
-  @ViewChild('removeTaskButton', { static: false }) removeTaskButton: ElementRef;
+  @ViewChild('removeTaskButton') removeTaskButton: ElementRef;
 
   //  Elements for editing task
-  @ViewChild('input_title', { static: false }) input_title: ElementRef;
-  @ViewChild('input_completionDate', { static: false }) input_completionDate: ElementRef;
+  @ViewChild('input_title') input_title: ElementRef;
+  @ViewChild('input_completionDate') input_completionDate: ElementRef;
 
   //  Edit mode
   editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);

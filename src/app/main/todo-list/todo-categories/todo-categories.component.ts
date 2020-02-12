@@ -45,7 +45,7 @@ export class TodoCategoriesComponent implements OnInit {
     this.creatingCategory = !this.creatingCategory;
   }
 
-  toggleRemoveModal(id: string){
+  toggleRemoveModal(id: string = null){
     if(id){
       console.log('Deleting category with ID: ', id);
     }

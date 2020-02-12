@@ -18,7 +18,7 @@ export class CreateCategoryComponent implements OnInit {
   categoryTitle: string = "";
   categoryColor: string = this._colorPalette.getColorHex('blue');
 
-  constructor(private _colorPalette: ColorPaletteService) { }
+  constructor(public _colorPalette: ColorPaletteService) { }
 
   ngOnInit() {
   }

@@ -23,7 +23,7 @@ export class TaskCategoryComponent implements OnInit {
   tasksWrapperElement: Element;
 
   constructor(
-    private _colorPalette: ColorPaletteService
+    public _colorPalette: ColorPaletteService
   ) { }
 
   ngOnInit() {
