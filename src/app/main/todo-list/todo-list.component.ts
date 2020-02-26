@@ -22,7 +22,7 @@ export class TodoListComponent implements OnInit {
   constructor(private httpManager: HttpManagerService) { }
 
   ngOnInit() {
-    this.httpManager.getTodos().subscribe(data => this.todos = [...data]);
+    this.httpManager.getTodos().subscribe(res => this.todos = [...res.data]);
   }
 
   filterData(filter: string) {
