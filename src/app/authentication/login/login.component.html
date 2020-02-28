@@ -1,10 +1,12 @@
 <div class="wrapper">
 
-  <button class="registerButton">Register</button>
+  <button class="registerButton" [routerLink]="['/register']">Register</button>
 
   <div class="formWrapper">
+    <h1 class="formTitle"><i class="fas fa-sign-in-alt mr-2"></i>Sign in</h1>
+
     <div class="inputGroup">
-      <label for="input_email">Email or username</label>
+      <label for="input_email">Email</label>
       <input type="text" placeholder="" id="input_email">
     </div>
 
@@ -13,7 +15,12 @@
       <input type="password" placeholder="" id="input_password">
     </div>
 
-    <button class="loginButton" (click)="onLogin.emit()"><i class="fas fa-sign-in-alt mr-2"></i>Log in</button>
+    <button
+      class="formButton mt-4"
+      (click)="login()"
+    >
+      Log in
+    </button>
   </div>
 
 </div>

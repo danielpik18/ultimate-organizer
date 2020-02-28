@@ -28,6 +28,7 @@ import { CreateCategoryComponent } from './todo-list/create-category/create-cate
 
 //  Directives
 import { ClickOusideDirective } from '../directives/click-ouside.directive'
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -56,8 +57,6 @@ import { ClickOusideDirective } from '../directives/click-ouside.directive'
     DragDropModule,
     FormsModule
   ],
-  exports: [
-    HomeComponent
-  ]
+  exports: []
 })
 export class MainModule { }

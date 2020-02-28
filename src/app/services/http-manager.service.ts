@@ -5,11 +5,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpManagerService {
-  private apiUrl: string = "http://space.local/api";
+  private apiUrl: string = "http://space.test/api";
 
   constructor(private http: HttpClient) { }
 
   getTodos(): any {
-    return this.http.get(`${this.apiUrl}/todos`);
+    return this.http.get(`${this.apiUrl}/tasks`);
   }
 }

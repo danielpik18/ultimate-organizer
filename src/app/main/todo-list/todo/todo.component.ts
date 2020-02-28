@@ -11,9 +11,9 @@ import { ColorPaletteService } from 'src/app/services/color-palette.service';
 })
 export class TodoComponent implements OnInit, AfterViewInit {
   @Input() taskId: string;
-  @Input() todoState: string;
+  @Input() isTaskCompleted: number;
   @Input() title: string;
-  @Input() completionDate: string;
+  @Input() date: string;
   @Input() priority: string;
 
   @Output() onRemoveTaskButtonClick: EventEmitter<any> = new EventEmitter();
@@ -27,14 +27,14 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
   //  Elements for editing task
   @ViewChild('input_title') input_title: ElementRef;
-  @ViewChild('input_completionDate') input_completionDate: ElementRef;
+  @ViewChild('input_date') input_date: ElementRef;
 
   //  Edit mode
   editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   editMode = false;
 
   //
-  _tempTaskDataValues: { title: string, completionDate: string, priority: string };
+  _tempTaskDataValues: any;
 
   constructor(
     private _notificationsManager: NotificationsManagerService,
@@ -62,15 +62,9 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
     this.resetTaskStateStyles();
 
-    switch (this.todoState) {
-      case 'completed':
-        wrapperClassList.add('taskState', 'taskState__completed');
-        checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
-        break;
-      case 'overtime':
-        break;
-      case 'pending':
-        break;
+    if (this.isTaskCompleted == 1) {
+      wrapperClassList.add('taskState', 'taskState__completed');
+      checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
     }
   }
 
@@ -106,15 +100,18 @@ export class TodoComponent implements OnInit, AfterViewInit {
     this.resetPriorityStyles();
 
     switch (this.priority) {
-      case 'low':
+      case '1':
+        console.log('here 1')
         this.priorityIcon.nativeElement.classList.add('priority__icon--low');
         this.priorityText.nativeElement.classList.add('priority__text--low');
         break;
-      case 'normal':
+      case '2':
+        console.log('here 2')
         this.priorityIcon.nativeElement.classList.add('priority__icon--normal');
         this.priorityText.nativeElement.classList.add('priority__text--normal');
         break;
-      case 'high':
+      case '3':
+        console.log('here 3')
         this.priorityIcon.nativeElement.classList.add('priority__icon--high');
         this.priorityText.nativeElement.classList.add('priority__text--high');
         break;
@@ -135,13 +132,11 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
   toggleCompleted() {
     if (!this.editMode) {
-      switch (this.todoState) {
-        case 'completed':
-          this.todoState = 'pending';
-          break;
-        case 'pending':
-          this.todoState = 'completed';
-          break;
+
+      if (this.isTaskCompleted == 0) {
+        this.isTaskCompleted = 1;
+      } else {
+        this.isTaskCompleted = 0;
       }
 
       this.setTaskStateStyles();
@@ -156,7 +151,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
       this._tempTaskDataValues = {
         title: this.title,
         priority: this.priority,
-        completionDate: this.completionDate
+        date: this.date
       };
 
       this.editModeSubject.next(true);
@@ -168,10 +163,10 @@ export class TodoComponent implements OnInit, AfterViewInit {
       this.toggleEditModeStyles('off');
 
       //  make an object with the possibly updated values
-        const updatedTaskValues = {
+      const updatedTaskValues = {
         title: this.title,
         priority: this.priority,
-        completionDate: this.input_completionDate.nativeElement.value
+        date: this.input_date.nativeElement.value
       };
 
       if (JSON.stringify(this._tempTaskDataValues) !== JSON.stringify(updatedTaskValues)) {
@@ -204,14 +199,14 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
   togglePriority() {
     switch (this.priority) {
-      case 'low':
-        this.priority = 'normal';
+      case '1':
+        this.priority = '2';
         break;
-      case 'normal':
-        this.priority = 'high';
+      case '2':
+        this.priority = '3';
         break;
-      case 'high':
-        this.priority = 'low';
+      case '3':
+        this.priority = '1';
         break;
     }
 

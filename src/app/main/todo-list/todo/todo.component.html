@@ -1,7 +1,7 @@
 <div
   #todoWrapper
   class="todoWrapper"
-  (dblclick)="todoState !== 'completed' && this.turnOnEditMode();"
+  (dblclick)="isTaskCompleted == 0 && this.turnOnEditMode();"
   (clickOutside)="turnOffEditMode()"
 >
 
@@ -20,7 +20,13 @@
       <div>
         <div class="priority" (click)="editMode && togglePriority()">
           <i #priorityIcon class="fas fa-dot-circle"></i>
-          <span #priorityText>{{priority.toUpperCase()}}</span>
+          <span #priorityText>
+            {{
+              priority == '1' ? 'LOW'
+                : priority == '2' ? 'NORMAL'
+                : 'HIGH'
+            }}
+          </span>
         </div>
       </div>
       <!---->
@@ -29,8 +35,8 @@
       <div class="completionTime d-flex align-items-center mr-5">
         <img src="assets/svg/calendar2.svg" alt="Task completion time">
 
-        <span *ngIf="!editMode">{{completionDate ? completionDate : 'Anytime'}}</span>
-        <input #input_completionDate *ngIf="editMode" type="date" [value]="completionDate">
+        <span *ngIf="!editMode">{{date ? date : 'Anytime'}}</span>
+        <input #input_date *ngIf="editMode" type="date" [value]="date">
       </div>
       <!---->
 
