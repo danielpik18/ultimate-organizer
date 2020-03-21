@@ -4,11 +4,11 @@
   (clickOutside)="editModeSubject.next(false)"
 >
 
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center w-100">
     <div>
       <app-icon-picker
         *ngIf="editMode"
-        [iconsColor]="_colorPalette.getColorHex(categoryColorName)"
+        [iconsColor]="colorHex"
         (onIconClick)="changeIcon($event)"
         (onColorChange)="changeIconColor($event)"
       >
@@ -17,7 +17,7 @@
         #categoryIcon
         class="categoryIcon mr-3"
         [ngClass]="categoryFaIconClass"
-        [style.color]="_colorPalette.getColorHex(categoryColorName)"
+        [style.color]="colorHex"
       >
       </i>
     </div>

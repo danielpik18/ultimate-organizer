@@ -8,13 +8,17 @@
       </div>
 
       <div #tasksWrapper class="col col-8 tasksWrapper customScrollbar customScrollbar__1">
-        <app-loading-wheel *ngIf="!todos"></app-loading-wheel>
 
-        <div *ngIf="todos && todos.length === 0">No registry</div>
-
+        <!--Visual elements-->
+        <app-loading-wheel *ngIf="!tasks"></app-loading-wheel>
         <div *ngIf="creatingTaskMode" class="createTaskDarkBg"></div>
+        <!---->
 
-        <div *ngIf="todos" class="doubleClickTip">
+        <div *ngIf="(tasks && tasks.length === 0) && !creatingTaskMode" class="nothingFoundText">
+          <span>You haven't created any tasks yet.</span>
+        </div>
+
+        <div *ngIf="tasks && tasks.length > 0" class="doubleClickTip">
           <i class="fas fa-mouse mr-2"></i>
           <span>Double-click on a task to edit</span>
         </div>
@@ -22,22 +26,25 @@
         <!--Tasks list-->
         <ul #todoList [style.marginBottom]="!creatingTaskMode ? '26rem' : '0'">
 
-          <!--New todo-->
+          <!--New task-->
           <app-create-todo
             *ngIf="creatingTaskMode"
             (onClickAway)="enableNewTaskClickAway && toggleDiscardNewTaskModal();"
+            (onTaskCreated)="onTaskCreated()"
           >
           </app-create-todo>
           <!---->
 
-          <li *ngFor="let todo of todos" id="task_{{todo.id}}" [ngClass]="creatingTaskMode && 'taskItem--blur'">
+          <li *ngFor="let task of tasks" id="task_{{task.id}}" [ngClass]="creatingTaskMode && 'taskItem--blur'">
             <app-todo
-              taskId="{{todo.id}}"
-              title='{{todo.title}}'
-              date='{{todo.date}}'
-              priority='{{todo.priority}}'
-              isTaskCompleted='{{todo.completed}}'
+              taskId="{{task.id}}"
+              taskCategoryId="{{task.task_category_id}}"
+              title='{{task.title}}'
+              date='{{task.date}}'
+              priority='{{task.priority}}'
+              isTaskCompleted='{{task.completed}}'
               (onRemoveTaskButtonClick)="toggleDeleteModal($event)"
+              (onUpdateTask)="onTaskUpdated($event)"
             >
             </app-todo>
           </li>
@@ -72,6 +79,7 @@
   <app-confirmation-modal
     title="Would you like to delete this item?"
     (onCancel)="toggleDeleteModal()"
+    (onConfirm)="deleteTask()"
   >
   </app-confirmation-modal>
 </app-basic-modal>

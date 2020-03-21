@@ -11,7 +11,7 @@
       id="input_title"
       type="text"
       [placeholder]="taskPlaceholder"
-      [(ngModel)]="taskValue"
+      [(ngModel)]="taskTitle"
       (keydown.enter)="saveTask()"
       (keydown.tab)="setPlaceholderAsValue($event)"
     >
@@ -25,7 +25,13 @@
         <label>Priority</label>
         <div class="priority" (click)="togglePriority()">
           <i #priorityIcon class="fas fa-dot-circle"></i>
-          <span #priorityText>{{priority.toLocaleUpperCase()}}</span>
+          <span #priorityText>
+            {{
+              priority == '1' ? 'LOW'
+                : priority == '2' ? 'NORMAL'
+                : 'HIGH'
+            }}
+          </span>
         </div>
       </div>
       <!---->
@@ -36,14 +42,14 @@
         <div class="completionTime d-flex align-items-center mr-5">
           <img src="assets/svg/calendar2.svg" alt="Task completion time">
 
-          <input #input_completionDate id="input_completionDate" type="date" />
+          <input [(ngModel)]="taskDate" id="input_completionDate" type="date" />
         </div>
       </div>
       <!---->
     </div>
 
     <!--Confirm creation button-->
-    <button class="createConfirmButton">
+    <button class="createConfirmButton" (click)="saveTask()">
       <i class="fas fa-check"></i>
     </button>
     <!---->

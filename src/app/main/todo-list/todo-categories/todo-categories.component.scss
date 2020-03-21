@@ -14,15 +14,27 @@
   background: linear-gradient(115deg, $grey_light, $grey_light2);
 }
 
+.categoriesTitle{
+  font-size: .82rem;
+  letter-spacing: 3px;
+  font-weight: 400;
+  color: $grey_dark;
+  padding: 1.2rem 0 .6rem 1.2rem;
+}
+
 .taskCategoriesList{
   position: relative;
   overflow-y: scroll;
   direction: rtl;
   height: 100%;
-  list-style-type: none;
+  //list-style-type: none;
   padding: 0;
 
   &__item{
+    position: relative;
+    width: 100%;
+    height: 3rem;
+
     & span{
       &::selection {
         background: transparent;
@@ -59,4 +71,8 @@
     background-color: $grey_dark;
     color: $grey_light;
   }
+}
+
+.nothingFoundText{
+  font-size: .7rem !important;
 }

@@ -1,3 +1,5 @@
+import { TasksApiService } from './../../../services/api/tasks-api.service';
+import { Task } from './../../../models/task';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { TaskSuggestionsService } from 'src/app/services/task-suggestions.service';
 
@@ -8,17 +10,26 @@ import { TaskSuggestionsService } from 'src/app/services/task-suggestions.servic
 })
 export class CreateTodoComponent implements OnInit, AfterViewInit {
   @Output() onClickAway: EventEmitter<any> = new EventEmitter();
+  @Output() onTaskCreated: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('priorityIcon', { static: true }) priorityIcon: ElementRef;
   @ViewChild('priorityText', { static: true }) priorityText: ElementRef;
   @ViewChild('input_title', { static: true }) input_title: ElementRef;
 
-  priority = 'normal';
-  taskPlaceholder: string;
-  taskValue: string = "";
-  _clickAwayOmittedFirst = false;
+  taskTitle = '';
+  taskDate = '';
+  priority = '2';
 
-  constructor(private _tasksSuggestions: TaskSuggestionsService) { }
+  taskPlaceholder: string;
+
+  //  helper / getaround variables
+  _clickAwayOmittedFirst = false;
+  _savingTask = false;
+
+  constructor(
+    private _tasksSuggestions: TaskSuggestionsService,
+    private _tasksApiService: TasksApiService
+  ) { }
 
   ngOnInit() {
     this.input_title.nativeElement.focus();
@@ -36,14 +47,14 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
 
   togglePriority() {
     switch (this.priority) {
-      case 'low':
-        this.priority = 'normal';
+      case '1':
+        this.priority = '2';
         break;
-      case 'normal':
-        this.priority = 'high';
+      case '2':
+        this.priority = '3';
         break;
-      case 'high':
-        this.priority = 'low';
+      case '3':
+        this.priority = '1';
         break;
     }
 
@@ -54,15 +65,15 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
     this.resetPriorityStyles();
 
     switch (this.priority) {
-      case 'low':
+      case '1':
         this.priorityIcon.nativeElement.classList.add('priority__icon--low');
         this.priorityText.nativeElement.classList.add('priority__text--low');
         break;
-      case 'normal':
+      case '2':
         this.priorityIcon.nativeElement.classList.add('priority__icon--normal');
         this.priorityText.nativeElement.classList.add('priority__text--normal');
         break;
-      case 'high':
+      case '3':
         this.priorityIcon.nativeElement.classList.add('priority__icon--high');
         this.priorityText.nativeElement.classList.add('priority__text--high');
         break;
@@ -82,13 +93,37 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
   }
 
   saveTask() {
-    if (this.taskValue !== '') {
-      console.log('saving: ', this.taskValue);
+    if (this.taskTitle !== '') {
+      if (!this._savingTask) {
+        this._savingTask = true;
+
+        const task: Task = {
+          task_category_id: '1',
+          title: this.taskTitle,
+          priority: parseInt(this.priority)
+        };
+
+        if (this.taskDate) {
+          task.date = this.taskDate;
+        }
+
+        console.log('Saving task: ', task);
+
+        this._tasksApiService.createTask(task).subscribe(data => {
+          if (data) {
+            this.onTaskCreated.emit(data);
+
+            this._savingTask = false;
+          }
+        });
+      }
+    } else {
+      alert('Must fill title');
     }
   }
 
-  setPlaceholderAsValue(event: Event){
+  setPlaceholderAsValue(event: Event) {
     event.preventDefault();
-    this.taskValue = this.taskPlaceholder;
+    this.taskTitle = this.taskPlaceholder;
   }
 }

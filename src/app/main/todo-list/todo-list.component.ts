@@ -1,5 +1,9 @@
+import { ColorPaletteService } from './../../services/color-palette.service';
+import { NotificationsManagerService } from './../../services/notifications-manager.service';
+import { Task } from './../../models/task';
+import { TasksApiService } from './../../services/api/tasks-api.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpManagerService } from 'src/app/services/http-manager.service';
+import { HelperFunctionsService } from 'src/app/services/helper-functions.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -17,13 +21,66 @@ export class TodoListComponent implements OnInit {
   //
   enableNewTaskClickAway = true;
 
-  todos: any[];
+  //  temp variables
+  _taskToBeDeleted = '';
 
-  constructor(private httpManager: HttpManagerService) { }
+  //
+
+  tasks: any[];
+
+  constructor(
+    private _tasksApiService: TasksApiService,
+    private _notificationsManager: NotificationsManagerService,
+    private _helperFunctions: HelperFunctionsService,
+    private _colorPalette: ColorPaletteService
+  ) { }
 
   ngOnInit() {
-    this.httpManager.getTodos().subscribe(res => this.todos = [...res.data]);
+    this.getTasks();
   }
+
+  //  api functions
+
+  getTasks() {
+    this.tasks = null;
+    this._tasksApiService.getTasks().subscribe(res => this.tasks = [...res.data]);
+  }
+
+  deleteTask() {
+    if (this._taskToBeDeleted) {
+      this._tasksApiService.deleteTask(this._taskToBeDeleted).subscribe(data => {
+        if (data) {
+          //  success
+          this.toggleDeleteModal();
+          this.getTasks();
+        } else {
+          alert('something went wrong');
+        }
+      });
+    }
+  }
+
+  //
+
+  onTaskCreated() {
+    this.creatingTaskMode = false;
+    this.getTasks();
+  }
+
+  onTaskUpdated(event: any) {
+    const updatedTask: Task = event.data;
+    console.log('updated task: ', updatedTask);
+
+    this._notificationsManager.pushNotification(
+      'Tasks',
+      updatedTask.title,
+      this._helperFunctions.getCurrentTimeIn12HourFormat(),
+      this._colorPalette.getColorHex('red_light')
+    );
+  }
+
+  //
+  //
 
   filterData(filter: string) {
     console.log('test', filter);
@@ -31,7 +88,7 @@ export class TodoListComponent implements OnInit {
 
   toggleDeleteModal(taskId: string = null) {
     if (taskId) {
-      console.log(taskId);
+      this._taskToBeDeleted = taskId;
     }
     this.showDeleteModal = !this.showDeleteModal;
   }

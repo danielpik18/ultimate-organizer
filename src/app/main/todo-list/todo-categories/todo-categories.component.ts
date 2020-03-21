@@ -1,5 +1,6 @@
+import { TaskCategoriesApiService } from './../../../services/api/task-categories-api.service';
+import { TaskCategory } from './../../../models/task-category';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HelperFunctionsService } from 'src/app/services/helper-functions.service';
 
 @Component({
   selector: 'app-todo-categories',
@@ -15,45 +16,39 @@ export class TodoCategoriesComponent implements OnInit {
   //  Modals
   showRemoveModal = false;
 
-  categories: any = [
-    {
-      id: 'A01',
-      name: 'Fitness',
-      faIconClass: 'fas fa-dumbbell',
-      color: 'blue'
-    },
-    {
-      id: 'A03',
-      name: 'Work',
-      faIconClass: 'fas fa-briefcase',
-      color: 'green'
-    },
-    {
-      id: 'A02',
-      name: 'Health',
-      faIconClass: 'fas fa-heartbeat',
-      color: 'red'
-    }
-  ];
+  categories: TaskCategory[];
 
-  constructor() { }
+  constructor(
+    private _taskCategoriesApiService: TaskCategoriesApiService
+  ) { }
 
   ngOnInit() {
+    this.getTaskCategories();
   }
+
+  //  api functions
+
+  getTaskCategories() {
+    this._taskCategoriesApiService.getTaskCategories().subscribe(res => this.categories = [...res.data]);
+  }
+
+  onCategoryCreated(taskCategory: TaskCategory){
+    this.creatingCategory = false;
+    this.getTaskCategories();
+    console.log("Category created: ", taskCategory);
+  }
+
+  //
 
   toggleCreatingCategory() {
     this.creatingCategory = !this.creatingCategory;
   }
 
-  toggleRemoveModal(id: string = null){
-    if(id){
+  toggleRemoveModal(id: string = null) {
+    if (id) {
       console.log('Deleting category with ID: ', id);
     }
     this.showRemoveModal = !this.showRemoveModal;
-  }
-
-  saveCategory(categoryData: string){
-    console.log('saving category with title: ', categoryData);
   }
 
 }

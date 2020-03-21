@@ -2,6 +2,7 @@
 
 @import './scss/fonts';
 @import './scss/colors';
+@import './scss/animations';
 
 body{
   max-height: 100vh;
@@ -124,4 +125,15 @@ body {
   to{
     filter: blur(0);
   }
+}
+
+// Misc / reusabñe.
+
+.nothingFoundText{
+  color: $grey_dark;
+  text-align: center;
+  padding: 2rem 0;
+  font-size: .9rem;
+  width: 100%;
+  animation: fadeInFromTop-veryShort .5s ease-in-out both;
 }

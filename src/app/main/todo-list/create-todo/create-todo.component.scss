@@ -9,15 +9,12 @@
   z-index: $onTopOfClickPreventer;
 
   border-bottom: $grey_light2 2px solid;
-}
-
-.todoWrapper:hover label {
-  color: $grey_dark;
+  cursor: default !important;
 }
 
 label {
   font-size: 0.66rem;
-  color: rgba($grey_dark, 0.7);
+  color: $grey_dark;
   margin: 0 0 0.2rem 0;
 }
 

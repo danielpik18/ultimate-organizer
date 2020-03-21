@@ -1,3 +1,5 @@
+import { TasksApiService } from './../../../services/api/tasks-api.service';
+import { Task } from './../../../models/task';
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, HostListener, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { NotificationsManagerService } from 'src/app/services/notifications-manager.service';
@@ -11,12 +13,14 @@ import { ColorPaletteService } from 'src/app/services/color-palette.service';
 })
 export class TodoComponent implements OnInit, AfterViewInit {
   @Input() taskId: string;
+  @Input() taskCategoryId: string;
   @Input() isTaskCompleted: number;
   @Input() title: string;
   @Input() date: string;
   @Input() priority: string;
 
   @Output() onRemoveTaskButtonClick: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdateTask: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('todoWrapper', { static: true }) todoWrapper: ElementRef;
   @ViewChild('priorityIcon') priorityIcon: ElementRef;
@@ -34,12 +38,10 @@ export class TodoComponent implements OnInit, AfterViewInit {
   editMode = false;
 
   //
-  _tempTaskDataValues: any;
+  _tempTaskValues: Task;
 
   constructor(
-    private _notificationsManager: NotificationsManagerService,
-    private _helperFunctions: HelperFunctionsService,
-    private _colorPalette: ColorPaletteService
+    private _tasksApiService: TasksApiService
   ) { }
 
   ngOnInit() {
@@ -96,22 +98,35 @@ export class TodoComponent implements OnInit, AfterViewInit {
     });
   }
 
+  togglePriority() {
+    switch (this.priority) {
+      case '1':
+        this.priority = '2';
+        break;
+      case '2':
+        this.priority = '3';
+        break;
+      case '3':
+        this.priority = '1';
+        break;
+    }
+
+    this.setPriorityStyles();
+  }
+
   setPriorityStyles() {
     this.resetPriorityStyles();
 
     switch (this.priority) {
       case '1':
-        console.log('here 1')
         this.priorityIcon.nativeElement.classList.add('priority__icon--low');
         this.priorityText.nativeElement.classList.add('priority__text--low');
         break;
       case '2':
-        console.log('here 2')
         this.priorityIcon.nativeElement.classList.add('priority__icon--normal');
         this.priorityText.nativeElement.classList.add('priority__text--normal');
         break;
       case '3':
-        console.log('here 3')
         this.priorityIcon.nativeElement.classList.add('priority__icon--high');
         this.priorityText.nativeElement.classList.add('priority__text--high');
         break;
@@ -133,8 +148,10 @@ export class TodoComponent implements OnInit, AfterViewInit {
   toggleCompleted() {
     if (!this.editMode) {
 
-      if (this.isTaskCompleted == 0) {
+      if (this.isTaskCompleted === 0) {
         this.isTaskCompleted = 1;
+
+        //this._tasksApiService.updateTask(this.taskId, )
       } else {
         this.isTaskCompleted = 0;
       }
@@ -148,9 +165,9 @@ export class TodoComponent implements OnInit, AfterViewInit {
       this.toggleEditModeStyles('on');
 
       //  Temporarily saving the task values before turning edit mode ON
-      this._tempTaskDataValues = {
+      this._tempTaskValues = {
         title: this.title,
-        priority: this.priority,
+        priority: parseInt(this.priority),
         date: this.date
       };
 
@@ -163,14 +180,16 @@ export class TodoComponent implements OnInit, AfterViewInit {
       this.toggleEditModeStyles('off');
 
       //  make an object with the possibly updated values
-      const updatedTaskValues = {
+      const updatedTask: Task = {
         title: this.title,
-        priority: this.priority,
+        priority: parseInt(this.priority),
         date: this.input_date.nativeElement.value
       };
 
-      if (JSON.stringify(this._tempTaskDataValues) !== JSON.stringify(updatedTaskValues)) {
-        this.updateTask(updatedTaskValues);
+      if (JSON.stringify(this._tempTaskValues) !== JSON.stringify(updatedTask)) {
+        this.updateTask(updatedTask);
+
+        console.log('values differ');
       }
 
       this.editModeSubject.next(false);
@@ -196,32 +215,12 @@ export class TodoComponent implements OnInit, AfterViewInit {
     }
   }
 
+  updateTask(task: Task) {
+    this._tasksApiService.updateTask(this.taskId, task).subscribe(data => {
+      if (data) {
+        this.onUpdateTask.emit(data);
+      }
+    });
 
-  togglePriority() {
-    switch (this.priority) {
-      case '1':
-        this.priority = '2';
-        break;
-      case '2':
-        this.priority = '3';
-        break;
-      case '3':
-        this.priority = '1';
-        break;
-    }
-
-    this.setPriorityStyles();
-  }
-
-  updateTask(updatedTaskValues: any) {
-    console.log('updating tasks with values: ', updatedTaskValues);
-
-
-    this._notificationsManager.pushNotification(
-      'Tasks',
-      updatedTaskValues.title,
-      this._helperFunctions.getCurrentTimeIn12HourFormat(),
-      this._colorPalette.getColorHex('red_light')
-    );
   }
 }

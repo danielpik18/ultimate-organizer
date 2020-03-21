@@ -11,7 +11,7 @@ export class TaskCategoryComponent implements OnInit {
   @Input() categoryID: string;
   @Input() categoryName: string;
   @Input() categoryFaIconClass: string;
-  @Input() categoryColorName: string;
+  @Input() colorHex: string;
 
   @Output() onRemoveCategoryButtonClick: EventEmitter<any> = new EventEmitter();
 
