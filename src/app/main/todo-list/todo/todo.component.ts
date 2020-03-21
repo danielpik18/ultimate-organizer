@@ -12,15 +12,21 @@ import { ColorPaletteService } from 'src/app/services/color-palette.service';
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent implements OnInit, AfterViewInit {
+
+  //  Inputs for each task property
   @Input() taskId: string;
   @Input() taskCategoryId: string;
-  @Input() isTaskCompleted: number;
   @Input() title: string;
   @Input() date: string;
   @Input() priority: string;
+  @Input() isTaskCompleted: number;
+
+  //
 
   @Output() onRemoveTaskButtonClick: EventEmitter<any> = new EventEmitter();
   @Output() onUpdateTask: EventEmitter<any> = new EventEmitter();
+
+  //
 
   @ViewChild('todoWrapper', { static: true }) todoWrapper: ElementRef;
   @ViewChild('priorityIcon') priorityIcon: ElementRef;
@@ -32,6 +38,10 @@ export class TodoComponent implements OnInit, AfterViewInit {
   //  Elements for editing task
   @ViewChild('input_title') input_title: ElementRef;
   @ViewChild('input_date') input_date: ElementRef;
+
+  //  The task itself
+  task: Task;
+  //
 
   //  Edit mode
   editModeSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -50,6 +60,16 @@ export class TodoComponent implements OnInit, AfterViewInit {
     this.editModeSubject.subscribe(mode => {
       this.editMode = mode;
     });
+
+
+    //  Instantiate task
+    this.task = {
+      task_category_id: this.taskCategoryId,
+      title: this.title.trim(),
+      priority: parseInt(this.priority),
+      date: this.date,
+      completed: this.isTaskCompleted
+    };
   }
 
   ngAfterViewInit() {
@@ -99,15 +119,15 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   togglePriority() {
-    switch (this.priority) {
-      case '1':
-        this.priority = '2';
+    switch (this.task.priority) {
+      case 1:
+        this.task.priority = 2;
         break;
-      case '2':
-        this.priority = '3';
+      case 2:
+        this.task.priority = 3;
         break;
-      case '3':
-        this.priority = '1';
+      case 3:
+        this.task.priority = 1;
         break;
     }
 
@@ -117,16 +137,16 @@ export class TodoComponent implements OnInit, AfterViewInit {
   setPriorityStyles() {
     this.resetPriorityStyles();
 
-    switch (this.priority) {
-      case '1':
+    switch (this.task.priority) {
+      case 1:
         this.priorityIcon.nativeElement.classList.add('priority__icon--low');
         this.priorityText.nativeElement.classList.add('priority__text--low');
         break;
-      case '2':
+      case 2:
         this.priorityIcon.nativeElement.classList.add('priority__icon--normal');
         this.priorityText.nativeElement.classList.add('priority__text--normal');
         break;
-      case '3':
+      case 3:
         this.priorityIcon.nativeElement.classList.add('priority__icon--high');
         this.priorityText.nativeElement.classList.add('priority__text--high');
         break;
@@ -166,7 +186,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
       //  Temporarily saving the task values before turning edit mode ON
       this._tempTaskValues = {
-        title: this.title,
+        title: this.task.title.trim(),
         priority: parseInt(this.priority),
         date: this.date
       };
@@ -181,7 +201,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
       //  make an object with the possibly updated values
       const updatedTask: Task = {
-        title: this.title,
+        title: this.task.title.trim(),
         priority: parseInt(this.priority),
         date: this.input_date.nativeElement.value
       };
@@ -189,7 +209,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
       if (JSON.stringify(this._tempTaskValues) !== JSON.stringify(updatedTask)) {
         this.updateTask(updatedTask);
 
-        console.log('values differ');
+        console.log('values differ, updating...');
       }
 
       this.editModeSubject.next(false);
@@ -216,11 +236,18 @@ export class TodoComponent implements OnInit, AfterViewInit {
   }
 
   updateTask(task: Task) {
-    this._tasksApiService.updateTask(this.taskId, task).subscribe(data => {
-      if (data) {
-        this.onUpdateTask.emit(data);
-      }
-    });
+    if (task.title) {
+      console.log("Task to update: ", task);
 
+      this._tasksApiService.updateTask(this.taskId, task).subscribe(data => {
+        if (data) {
+          this.onUpdateTask.emit(data);
+        }
+      });
+    } else {
+      this.onUpdateTask.emit();
+      this.task.title = this._tempTaskValues.title;
+      alert("The title cannont be empty")
+    }
   }
 }

@@ -3,12 +3,20 @@
   <div class="categoriesTitle">Categories</div>
 
   <!--Visual elements-->
-  <app-loading-wheel *ngIf="!categories"></app-loading-wheel>
+  <app-loading-wheel
+    *ngIf="!categories"
+    [wheelWidth]="'2.8rem'"
+    [wheelHeight]="'2.8rem'"
+    [top]="'35%'"
+  >
+  </app-loading-wheel>
   <!---->
 
-  <div *ngIf="(categories && categories.length === 0) && !creatingCategory" class="nothingFoundText">
-    <span>You don't have any categories yet.</span>
-  </div>
+  <app-nothing-found-text
+    *ngIf="(categories && categories.length === 0) && !creatingCategory"
+    text="You don't have any categories yet."
+    fontSize=".7rem"
+  ></app-nothing-found-text>
 
   <ul #taskCategoriesList class="taskCategoriesList customScrollbar customScrollbar__3">
 
@@ -21,7 +29,7 @@
 
     <li *ngFor="let category of categories" class="taskCategoriesList__item">
       <app-task-category
-        [categoryID]="category._id"
+        [categoryID]="category.id"
         [categoryName]="category.name"
         [categoryFaIconClass]="category.icon_class"
         [colorHex]="category.color"
@@ -29,6 +37,10 @@
       >
       </app-task-category>
     </li>
+
+    <!--Filler space-->
+    <li style="height: 10rem;"></li>
+    <!---->
 
   </ul>
 
@@ -45,6 +57,7 @@
   <app-confirmation-modal
     title="Would you like to delete this item?"
     (onCancel)="toggleRemoveModal()"
+    (onConfirm)="deleteCategory()"
   >
   </app-confirmation-modal>
 </app-basic-modal>

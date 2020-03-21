@@ -7,9 +7,9 @@
 
   <app-editable-text
     width="85%"
-    [text]="title"
+    [text]="task.title"
     [editing]="editModeSubject"
-    (onTextChange)="editMode && title = $event"
+    (onTextChange)="editMode && task.title = $event"
   >
   </app-editable-text>
 
@@ -22,8 +22,8 @@
           <i #priorityIcon class="fas fa-dot-circle"></i>
           <span #priorityText>
             {{
-              priority == '1' ? 'LOW'
-                : priority == '2' ? 'NORMAL'
+              task.priority === 1 ? 'LOW'
+                : task.priority === 2 ? 'NORMAL'
                 : 'HIGH'
             }}
           </span>

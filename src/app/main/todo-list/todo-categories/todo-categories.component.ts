@@ -16,6 +16,9 @@ export class TodoCategoriesComponent implements OnInit {
   //  Modals
   showRemoveModal = false;
 
+    //  temp variables
+    _categoryToBeDeleted = '';
+
   categories: TaskCategory[];
 
   constructor(
@@ -29,6 +32,7 @@ export class TodoCategoriesComponent implements OnInit {
   //  api functions
 
   getTaskCategories() {
+    this.categories = null;
     this._taskCategoriesApiService.getTaskCategories().subscribe(res => this.categories = [...res.data]);
   }
 
@@ -36,6 +40,20 @@ export class TodoCategoriesComponent implements OnInit {
     this.creatingCategory = false;
     this.getTaskCategories();
     console.log("Category created: ", taskCategory);
+  }
+
+  deleteCategory() {
+    if (this._categoryToBeDeleted) {
+      this._taskCategoriesApiService.deleteTaskCategory(this._categoryToBeDeleted).subscribe(data => {
+        if (data) {
+          //  success
+          this.toggleRemoveModal();
+          this.getTaskCategories();
+        } else {
+          alert('something went wrong');
+        }
+      });
+    }
   }
 
   //
@@ -46,8 +64,10 @@ export class TodoCategoriesComponent implements OnInit {
 
   toggleRemoveModal(id: string = null) {
     if (id) {
-      console.log('Deleting category with ID: ', id);
+      console.log('Category ID received: ', id)
+      this._categoryToBeDeleted = id;
     }
+
     this.showRemoveModal = !this.showRemoveModal;
   }
 

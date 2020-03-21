@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LoadingWheelComponent implements OnInit {
   @Input() wheelWidth: string = '4rem';
   @Input() wheelHeight: string = '4rem';
+  @Input() top: string = '50%';
 
   constructor() { }
 

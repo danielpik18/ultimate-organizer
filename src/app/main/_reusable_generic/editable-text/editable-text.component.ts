@@ -14,7 +14,7 @@ export class EditableTextComponent implements OnInit {
   @Input() display: string;
   @Input() width: string = '100%';
   @Input() color: string;
-  @Input() fontWeight: string = '600';
+  @Input() fontWeight: string = '500';
   @Input() fontSize: string = '.9rem';
   @Input() inputBackground;
 

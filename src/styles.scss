@@ -3,6 +3,7 @@
 @import './scss/fonts';
 @import './scss/colors';
 @import './scss/animations';
+@import './scss//zindexes';
 
 body{
   max-height: 100vh;
@@ -46,6 +47,7 @@ body {
   scrollbar-color: $grey $grey_light;
   scrollbar-width: thin;
   scroll-behavior: smooth;
+  z-index: $customScrollBar;
 
   &__1{
     &::-webkit-scrollbar {

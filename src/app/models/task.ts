@@ -1,7 +1,7 @@
 export interface Task{
-  _id?: string;
+  id?: string;
   task_category_id?: string;
-  title?: string;
+  title: string;
   priority?: number;
   date?: string;
   completed?: number

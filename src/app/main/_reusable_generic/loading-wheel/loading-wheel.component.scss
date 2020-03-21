@@ -4,15 +4,14 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .loadingWheel {
+  position: absolute;
+  left: 50%;
+  transform-origin: 0 0;
+  transform: translate(-50%, -50%);
   color: $grey;
-  position: relative;
-  display: inline-block;
   border: 5px solid;
   border-radius: 50%;
   border-top-color: transparent;
@@ -20,6 +19,9 @@
 
 @keyframes rotate {
   0% {
-    transform: rotate(0); }
+    transform: rotate(0) translate(-50%, -50%);
+  }
   100% {
-    transform: rotate(360deg); } }
+    transform: rotate(360deg) translate(-50%, -50%);
+  }
+}

@@ -1,5 +1,5 @@
 export interface TaskCategory {
-  _id?: string;
+  id?: string;
   name: string;
   color: string;
   icon_class: string;

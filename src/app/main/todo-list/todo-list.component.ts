@@ -26,7 +26,7 @@ export class TodoListComponent implements OnInit {
 
   //
 
-  tasks: any[];
+  tasks: Task[];
 
   constructor(
     private _tasksApiService: TasksApiService,
@@ -68,15 +68,17 @@ export class TodoListComponent implements OnInit {
   }
 
   onTaskUpdated(event: any) {
-    const updatedTask: Task = event.data;
-    console.log('updated task: ', updatedTask);
+    if(event){
+      const updatedTask: Task = event.data;
+      console.log('updated task: ', updatedTask);
 
-    this._notificationsManager.pushNotification(
-      'Tasks',
-      updatedTask.title,
-      this._helperFunctions.getCurrentTimeIn12HourFormat(),
-      this._colorPalette.getColorHex('red_light')
-    );
+      this._notificationsManager.pushNotification(
+        'Tasks',
+        updatedTask.title,
+        this._helperFunctions.getCurrentTimeIn12HourFormat(),
+        this._colorPalette.getColorHex('red_light')
+      );
+    }
   }
 
   //

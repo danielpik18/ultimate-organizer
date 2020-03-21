@@ -27,7 +27,8 @@ import { ClickPreventerComponent } from './_reusable_generic/click-preventer/cli
 import { CreateCategoryComponent } from './todo-list/create-category/create-category.component';
 
 //  Directives
-import { ClickOusideDirective } from '../directives/click-ouside.directive'
+import { ClickOusideDirective } from '../directives/click-ouside.directive';
+import { NothingFoundTextComponent } from './_reusable_generic/nothing-found-text/nothing-found-text.component'
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { ClickOusideDirective } from '../directives/click-ouside.directive'
     IconPickerComponent,
     ClickPreventerComponent,
     CreateCategoryComponent,
+    NothingFoundTextComponent,
   ],
   imports: [
     CommonModule,

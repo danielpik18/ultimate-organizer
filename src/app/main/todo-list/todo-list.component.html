@@ -14,9 +14,10 @@
         <div *ngIf="creatingTaskMode" class="createTaskDarkBg"></div>
         <!---->
 
-        <div *ngIf="(tasks && tasks.length === 0) && !creatingTaskMode" class="nothingFoundText">
-          <span>You haven't created any tasks yet.</span>
-        </div>
+        <app-nothing-found-text
+          *ngIf="(tasks && tasks.length === 0) && !creatingTaskMode"
+          text="You haven't created any tasks yet."
+        ></app-nothing-found-text>
 
         <div *ngIf="tasks && tasks.length > 0" class="doubleClickTip">
           <i class="fas fa-mouse mr-2"></i>
@@ -24,7 +25,7 @@
         </div>
 
         <!--Tasks list-->
-        <ul #todoList [style.marginBottom]="!creatingTaskMode ? '26rem' : '0'">
+        <ul #todoList [style.marginBottom]="!creatingTaskMode ? '16rem' : '0'">
 
           <!--New task-->
           <app-create-todo
