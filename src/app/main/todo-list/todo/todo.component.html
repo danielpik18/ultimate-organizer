@@ -1,7 +1,7 @@
 <div
   #todoWrapper
   class="todoWrapper"
-  (dblclick)="isTaskCompleted == 0 && this.turnOnEditMode();"
+  (dblclick)="task.completed == 0 && this.turnOnEditMode();"
   (clickOutside)="turnOffEditMode()"
 >
 
@@ -52,7 +52,7 @@
   </div>
 
   <!--Remove Button-->
-  <div #removeTaskButton (click)="editMode && onRemoveTaskButtonClick.emit(taskId)" class="removeTaskButton">
+  <div #removeTaskButton (click)="editMode && onRemoveTaskButtonClick.emit(task.id)" class="removeTaskButton">
     <i class="fas fa-trash-alt"></i>
   </div>
   <!---->

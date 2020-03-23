@@ -23,17 +23,19 @@
     <li *ngIf="creatingCategory" class="taskCategoriesList__item">
       <app-create-category
         (onTaskCategoryCreated)="onCategoryCreated($event)"
+        (onClickAway)="toggleCreatingCategory()"
       >
       </app-create-category>
     </li>
 
     <li *ngFor="let category of categories" class="taskCategoriesList__item">
       <app-task-category
-        [categoryID]="category.id"
-        [categoryName]="category.name"
-        [categoryFaIconClass]="category.icon_class"
+        [id]="category.id"
+        [name]="category.name"
+        [iconClass]="category.icon_class"
         [colorHex]="category.color"
         (onRemoveCategoryButtonClick)="toggleRemoveModal($event)"
+        (onUpdateTaskCategory)="onCategoryUpdated($event)"
       >
       </app-task-category>
     </li>
@@ -44,7 +46,15 @@
 
   </ul>
 
-  <button class="addCategoryButton" (click)="toggleCreatingCategory()"><i class="far fa-lg fa-plus-square mr-1"></i> Add new</button>
+  <!-- New Category Button -->
+  <button
+    class="addCategoryButton"
+    (click)="toggleCreatingCategory()">
+    <i class="far fa-lg fa-plus-square mr-1"></i>
+    Add category
+  </button>
+  <!---->
+
 </div>
 
 <!--Remove task modal-->

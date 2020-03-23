@@ -14,8 +14,8 @@ import { ColorPaletteService } from 'src/app/services/color-palette.service';
 export class TodoComponent implements OnInit, AfterViewInit {
 
   //  Inputs for each task property
-  @Input() taskId: string;
-  @Input() taskCategoryId: string;
+  @Input() id: string;
+  @Input() categoryId: string;
   @Input() title: string;
   @Input() date: string;
   @Input() priority: string;
@@ -55,21 +55,21 @@ export class TodoComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.setTaskStateStyles();
-
     this.editModeSubject.subscribe(mode => {
       this.editMode = mode;
     });
 
-
     //  Instantiate task
     this.task = {
-      task_category_id: this.taskCategoryId,
+      id: this.id,
+      task_category_id: this.categoryId,
       title: this.title.trim(),
       priority: parseInt(this.priority),
       date: this.date,
       completed: this.isTaskCompleted
     };
+
+    this.setTaskStateStyles();
   }
 
   ngAfterViewInit() {
@@ -84,7 +84,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
 
     this.resetTaskStateStyles();
 
-    if (this.isTaskCompleted == 1) {
+    if (this.task.completed == 1) {
       wrapperClassList.add('taskState', 'taskState__completed');
       checkmarkClassList.add('completeTaskButton__checkMark', 'completeTaskButton__checkMark--show');
     }
@@ -168,12 +168,22 @@ export class TodoComponent implements OnInit, AfterViewInit {
   toggleCompleted() {
     if (!this.editMode) {
 
-      if (this.isTaskCompleted === 0) {
-        this.isTaskCompleted = 1;
+      if (this.task.completed == 0) {
+        this.task.completed = 1;
 
-        //this._tasksApiService.updateTask(this.taskId, )
+        this._tasksApiService.updateTask(this.task.id, this.task).subscribe(data => {
+          if(data){
+            console.log('Task completed:' , data);
+          }
+        });
       } else {
-        this.isTaskCompleted = 0;
+        this.task.completed = 0;
+
+        this._tasksApiService.updateTask(this.task.id, this.task).subscribe(data => {
+          if(data){
+            console.log('Task uncompleted:', data);
+          }
+        });
       }
 
       this.setTaskStateStyles();
@@ -239,7 +249,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
     if (task.title) {
       console.log("Task to update: ", task);
 
-      this._tasksApiService.updateTask(this.taskId, task).subscribe(data => {
+      this._tasksApiService.updateTask(this.task.id, task).subscribe(data => {
         if (data) {
           this.onUpdateTask.emit(data);
         }

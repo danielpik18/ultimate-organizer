@@ -11,10 +11,13 @@ import { TaskCategoriesApiService } from 'src/app/services/api/task-categories-a
 })
 export class CreateCategoryComponent implements OnInit {
   @Output() onTaskCategoryCreated: EventEmitter<any> = new EventEmitter();
+  @Output() onClickAway: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('categoryIcon', { static: true }) categoryIcon: ElementRef;
 
   editModeSubject: BehaviorSubject<any> = new BehaviorSubject(true);
+
+  //  helpers / getarounds
   _clickAwayOmittedFirst = false;
 
   categoryTitle: string = "";
@@ -48,14 +51,18 @@ export class CreateCategoryComponent implements OnInit {
         icon_class: `${this.categoryIcon.nativeElement.classList[2]} ${this.categoryIcon.nativeElement.classList[3]}`
       };
 
+      console.log('creating category...')
+
       this._taskCategoriesApi.createTaskCategory(taskCategory).subscribe(data => {
         if (data) {
           this.onTaskCategoryCreated.emit(data);
 
         } else {
-          console.log("Task not created, something went wrong.");
+          console.log("Task category not created, something went wrong.");
         }
       });
+    } else {
+      this.onClickAway.emit();
     }
   }
 }

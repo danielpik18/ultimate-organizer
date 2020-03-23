@@ -26,6 +26,14 @@ export class TaskCategoriesApiService extends BaseApiService{
     );
   }
 
+  updateTaskCategory(id: string, taskCategory: TaskCategory): Observable<any> {
+    return this.http.put(`${this.apiUrl}/task_categories/${id}`, JSON.stringify(taskCategory), this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   deleteTaskCategory(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/task_categories/${id}`)
     .pipe(

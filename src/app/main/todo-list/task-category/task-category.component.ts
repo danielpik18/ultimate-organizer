@@ -1,3 +1,5 @@
+import { TaskCategoriesApiService } from './../../../services/api/task-categories-api.service';
+import { TaskCategory } from './../../../models/task-category';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ColorPaletteService } from 'src/app/services/color-palette.service';
@@ -8,14 +10,21 @@ import { ColorPaletteService } from 'src/app/services/color-palette.service';
   styleUrls: ['./task-category.component.scss']
 })
 export class TaskCategoryComponent implements OnInit {
-  @Input() categoryID: string;
-  @Input() categoryName: string;
-  @Input() categoryFaIconClass: string;
+  @Input() id: string;
+  @Input() name: string;
+  @Input() iconClass: string;
   @Input() colorHex: string;
 
   @Output() onRemoveCategoryButtonClick: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdateTaskCategory: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('categoryIcon', { static: true }) categoryIcon: ElementRef;
+
+  // the task category itself
+  taskCategory: TaskCategory;
+
+  // temp
+  _tempTaskCategoryValues: TaskCategory;
 
   //  Edit mode
   editModeSubject: BehaviorSubject<any> = new BehaviorSubject(false);
@@ -23,22 +32,88 @@ export class TaskCategoryComponent implements OnInit {
   tasksWrapperElement: Element;
 
   constructor(
+    private _taskCategoriesApi: TaskCategoriesApiService,
     public _colorPalette: ColorPaletteService
   ) { }
 
   ngOnInit() {
     this.editModeSubject.subscribe(mode => this.editMode = mode);
+
+    //  Instantiate task category
+
+    this.taskCategory = {
+      id: this.id,
+      name: this.name,
+      color: this.colorHex,
+      icon_class: this.iconClass
+    };
   }
 
   changeIcon(iconClassNames: string) {
+    /*
     this.categoryIcon.nativeElement.classList.remove(this.categoryIcon.nativeElement.classList.item(3));
 
     iconClassNames.split(" ").forEach(className => {
       this.categoryIcon.nativeElement.classList.add(className);
     });
+    */
+
+    this.taskCategory.icon_class = iconClassNames;
+
+    console.log("Changing icon to: ", iconClassNames);
   }
 
   changeIconColor(color: string) {
-    this.categoryIcon.nativeElement.style.color = color;
+    this.taskCategory.color = color;
   }
+
+  turnOnEditMode() {
+    if (!this.editMode) {
+      //  Temporarily saving the task values before turning edit mode ON
+      this._tempTaskCategoryValues = {
+        name: this.taskCategory.name.trim(),
+        color: this.taskCategory.color,
+        icon_class: this.taskCategory.icon_class
+      };
+
+      this.editModeSubject.next(true);
+    }
+  }
+
+  turnOffEditMode() {
+    if (this.editMode) {
+      //  make an object with the possibly updated values
+      const updatedTaskCategory: TaskCategory = {
+        name: this.taskCategory.name.trim(),
+        color: this.taskCategory.color,
+        icon_class: this.taskCategory.icon_class
+      };
+
+      if (JSON.stringify(this._tempTaskCategoryValues) !== JSON.stringify(updatedTaskCategory)) {
+        this.updateCategory(updatedTaskCategory);
+
+        console.log('values differ, updating...');
+      }
+
+     this.editModeSubject.next(false);
+    }
+  }
+
+
+  updateCategory(taskCategory: TaskCategory) {
+    if (taskCategory.name) {
+      console.log("Task category to update: ", taskCategory);
+
+      this._taskCategoriesApi.updateTaskCategory(this.taskCategory.id, taskCategory).subscribe(data => {
+        if (data) {
+          this.onUpdateTaskCategory.emit(data);
+        }
+      });
+    } else {
+      this.onUpdateTaskCategory.emit();
+      this.taskCategory.name = this._tempTaskCategoryValues.name;
+      alert("The name cannont be empty")
+    }
+  }
+
 }

@@ -1,14 +1,14 @@
 <div
   class="wrapper"
-  (dblclick)="editModeSubject.next(true)"
-  (clickOutside)="editModeSubject.next(false)"
+  (dblclick)="turnOnEditMode()"
+  (clickOutside)="turnOffEditMode()"
 >
 
   <div class="d-flex align-items-center w-100">
     <div>
       <app-icon-picker
         *ngIf="editMode"
-        [iconsColor]="colorHex"
+        [iconsColor]="taskCategory.color"
         (onIconClick)="changeIcon($event)"
         (onColorChange)="changeIconColor($event)"
       >
@@ -16,25 +16,26 @@
       <i
         #categoryIcon
         class="categoryIcon mr-3"
-        [ngClass]="categoryFaIconClass"
-        [style.color]="colorHex"
+        [ngClass]="taskCategory.icon_class"
+        [style.color]="taskCategory.color"
       >
       </i>
     </div>
 
     <app-editable-text
-      [text]="categoryName"
+      [text]="taskCategory.name"
       [fontSize]="'0.78rem'"
       [fontWeight]="600"
       [editing]='editModeSubject'
-      width="85%"
-      display='flex'
+      [width]="'100%'"
+      [display]="'flex'"
+      (onTextChange)="editMode && taskCategory.name = $event"
     >
     </app-editable-text>
   </div>
 
   <div *ngIf="editMode" class="removeCategoryButton" >
-    <i class="fas fa-trash" (click)="onRemoveCategoryButtonClick.emit(categoryID);"></i>
+    <i class="fas fa-trash" (click)="onRemoveCategoryButtonClick.emit(taskCategory.id);"></i>
   </div>
 
 </div>

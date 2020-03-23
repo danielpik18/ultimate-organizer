@@ -38,8 +38,8 @@
 
           <li *ngFor="let task of tasks" id="task_{{task.id}}" [ngClass]="creatingTaskMode && 'taskItem--blur'">
             <app-todo
-              taskId="{{task.id}}"
-              taskCategoryId="{{task.task_category_id}}"
+              id="{{task.id}}"
+              categoryId="{{task.task_category_id}}"
               title='{{task.title}}'
               date='{{task.date}}'
               priority='{{task.priority}}'

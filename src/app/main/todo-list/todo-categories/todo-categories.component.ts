@@ -19,6 +19,9 @@ export class TodoCategoriesComponent implements OnInit {
     //  temp variables
     _categoryToBeDeleted = '';
 
+    // helpers / getarounds
+    _newCategoryClickAwayEnabled = false;
+
   categories: TaskCategory[];
 
   constructor(
@@ -34,12 +37,6 @@ export class TodoCategoriesComponent implements OnInit {
   getTaskCategories() {
     this.categories = null;
     this._taskCategoriesApiService.getTaskCategories().subscribe(res => this.categories = [...res.data]);
-  }
-
-  onCategoryCreated(taskCategory: TaskCategory){
-    this.creatingCategory = false;
-    this.getTaskCategories();
-    console.log("Category created: ", taskCategory);
   }
 
   deleteCategory() {
@@ -59,7 +56,11 @@ export class TodoCategoriesComponent implements OnInit {
   //
 
   toggleCreatingCategory() {
-    this.creatingCategory = !this.creatingCategory;
+    if(this.creatingCategory){
+      this.creatingCategory = false;
+    } else {
+      this.creatingCategory = true;
+    }
   }
 
   toggleRemoveModal(id: string = null) {
@@ -69,6 +70,34 @@ export class TodoCategoriesComponent implements OnInit {
     }
 
     this.showRemoveModal = !this.showRemoveModal;
+  }
+
+  onCategoryCreated(taskCategory: TaskCategory){
+    this.creatingCategory = false;
+    this.getTaskCategories();
+    console.log("Category created: ", taskCategory);
+  }
+
+  onCategoryUpdated(event: any) {
+    if(event){
+      const updatedTaskCategroy: TaskCategory = event.data;
+      console.log('updated task category: ', updatedTaskCategroy);
+
+      /*
+      this._notificationsManager.pushNotification(
+        'Tasks',
+        updatedTaskCategroy.title,
+        this._helperFunctions.getCurrentTimeIn12HourFormat(),
+        this._colorPalette.getColorHex('red_light')
+      );
+      */
+    }
+  }
+
+  onNewCategoryClickAway(){
+    if(!this._newCategoryClickAwayEnabled){
+
+    }
   }
 
 }
