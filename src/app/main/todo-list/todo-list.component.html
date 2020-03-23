@@ -1,74 +1,80 @@
-<div class="wrapper">
-  <app-click-preventer *ngIf="creatingTaskMode"></app-click-preventer>
 
-  <div class="container">
-    <div class="row">
-      <div class="col col-4" style="position: initial;">
-        <app-todo-categories></app-todo-categories>
+  <div class="gridContainer">
+    <div *ngIf="_creatingTaskMode" class="clickPreventerWrapper">
+      <app-click-preventer></app-click-preventer>
+    </div>
+
+    <!-- Categories -->
+      <app-todo-categories
+        (onCategorySelected)="onTaskCategorySelected($event)"
+      >
+      </app-todo-categories>
+    <!---->
+
+    <div #tasksWrapper class="tasksWrapper">
+      <div class="doubleClickTip">
+        <i class="fas fa-mouse mr-2"></i>
+        <span>Double-click on a task to edit</span>
       </div>
 
-      <div #tasksWrapper class="col col-8 tasksWrapper customScrollbar customScrollbar__1">
+      <!--Visual elements-->
+      <div *ngIf="!tasks" class="h-100" style="position: relative;">
+        <app-loading-wheel></app-loading-wheel>
+      </div>
+      <div *ngIf="_creatingTaskMode" class="createTaskDarkBg"></div>
+      <!---->
 
-        <!--Visual elements-->
-        <app-loading-wheel *ngIf="!tasks"></app-loading-wheel>
-        <div *ngIf="creatingTaskMode" class="createTaskDarkBg"></div>
-        <!---->
+      <app-nothing-found-text
+        *ngIf="(tasks && tasks.length === 0) && !_creatingTaskMode"
+        text="You haven't created any tasks yet."
+      ></app-nothing-found-text>
 
-        <app-nothing-found-text
-          *ngIf="(tasks && tasks.length === 0) && !creatingTaskMode"
-          text="You haven't created any tasks yet."
-        ></app-nothing-found-text>
+      <!--Tasks list -->
+      <ul class="customScrollbar customScrollbar__1">
 
-        <div *ngIf="tasks && tasks.length > 0" class="doubleClickTip">
-          <i class="fas fa-mouse mr-2"></i>
-          <span>Double-click on a task to edit</span>
-        </div>
-
-        <!--Tasks list-->
-        <ul #todoList [style.marginBottom]="!creatingTaskMode ? '16rem' : '0'">
-
-          <!--New task-->
-          <app-create-todo
-            *ngIf="creatingTaskMode"
-            (onClickAway)="enableNewTaskClickAway && toggleDiscardNewTaskModal();"
-            (onTaskCreated)="onTaskCreated()"
-          >
-          </app-create-todo>
-          <!---->
-
-          <li *ngFor="let task of tasks" id="task_{{task.id}}" [ngClass]="creatingTaskMode && 'taskItem--blur'">
-            <app-todo
-              id="{{task.id}}"
-              categoryId="{{task.task_category_id}}"
-              title='{{task.title}}'
-              date='{{task.date}}'
-              priority='{{task.priority}}'
-              isTaskCompleted='{{task.completed}}'
-              (onRemoveTaskButtonClick)="toggleDeleteModal($event)"
-              (onUpdateTask)="onTaskUpdated($event)"
-            >
-            </app-todo>
-          </li>
-
-        </ul>
-        <!---->
-
-        <!--Create new task button-->
-        <div class="createTaskButton" (click)="toggleCreatingTaskMode('on')">
-          <i class="fas fa-plus-circle"></i>
-        </div>
-        <!---->
-
-        <app-filter-data-button
-          (onFilterChange)="filterData($event)"
-          [filterOptions]="['completed', 'overtime', 'pending']"
-          defaultFilter='completed'
+        <!--New task -->
+        <app-create-todo
+          *ngIf="_creatingTaskMode"
+          [selectedCategory]="selectedTaskCategory"
+          (onClickAway)="_newTaskClickAwayEnabled && toggleDiscardNewTaskModal();"
+          (onTaskCreated)="onTaskCreated()"
         >
-        </app-filter-data-button>
+        </app-create-todo>
+        <!---->
+
+        <li *ngFor="let task of tasks" id="task_{{task.id}}" [ngClass]="_creatingTaskMode && 'taskItem--blur'">
+          <app-todo
+            id="{{task.id}}"
+            categoryId="{{task.task_category_id}}"
+            title='{{task.title}}'
+            date='{{task.date}}'
+            priority='{{task.priority}}'
+            isTaskCompleted='{{task.completed}}'
+            (onRemoveTaskButtonClick)="toggleDeleteModal($event)"
+            (onUpdateTask)="onTaskUpdated($event)"
+          >
+          </app-todo>
+        </li>
+
+        <li style="height: 14rem"></li>
+
+      </ul>
+      <!---->
+
+      <!--Create new task button-->
+      <div class="createTaskButton" (click)="toggleCreatingTaskMode('on')">
+        <i class="fas fa-plus-circle"></i>
       </div>
+      <!---->
+
+      <app-filter-data-button
+        (onFilterChange)="filterData($event)"
+        [filterOptions]="['completed', 'priority', 'date']"
+        [defaultFilterId]="'completed'"
+      >
+      </app-filter-data-button>
     </div>
   </div>
-</div>
 
 <!--Remove task modal-->
 <app-basic-modal
@@ -78,7 +84,7 @@
   (onBackdropClick)="toggleDeleteModal()"
 >
   <app-confirmation-modal
-    title="Would you like to delete this item?"
+    title="Would you like to delete this task?"
     (onCancel)="toggleDeleteModal()"
     (onConfirm)="deleteTask()"
   >

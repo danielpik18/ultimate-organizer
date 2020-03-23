@@ -1,10 +1,7 @@
 import { TasksApiService } from './../../../services/api/tasks-api.service';
 import { Task } from './../../../models/task';
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, HostListener, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { NotificationsManagerService } from 'src/app/services/notifications-manager.service';
-import { HelperFunctionsService } from 'src/app/services/helper-functions.service';
-import { ColorPaletteService } from 'src/app/services/color-palette.service';
 
 @Component({
   selector: 'app-todo',
@@ -197,7 +194,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
       //  Temporarily saving the task values before turning edit mode ON
       this._tempTaskValues = {
         title: this.task.title.trim(),
-        priority: parseInt(this.priority),
+        priority: this.task.priority,
         date: this.date
       };
 
@@ -212,7 +209,7 @@ export class TodoComponent implements OnInit, AfterViewInit {
       //  make an object with the possibly updated values
       const updatedTask: Task = {
         title: this.task.title.trim(),
-        priority: parseInt(this.priority),
+        priority: this.task.priority,
         date: this.input_date.nativeElement.value
       };
 

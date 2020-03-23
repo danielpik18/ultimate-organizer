@@ -1,6 +1,9 @@
 <div class="wrapper">
 
-  <div class="categoriesTitle">Categories</div>
+  <div class="categoriesTitle">
+    <i class="fas fa-cubes mr-2"></i>
+    <span>Categories</span>
+  </div>
 
   <!--Visual elements-->
   <app-loading-wheel
@@ -13,14 +16,14 @@
   <!---->
 
   <app-nothing-found-text
-    *ngIf="(categories && categories.length === 0) && !creatingCategory"
+    *ngIf="(categories && categories.length === 0) && !_creatingCategory"
     text="You don't have any categories yet."
     fontSize=".7rem"
   ></app-nothing-found-text>
 
   <ul #taskCategoriesList class="taskCategoriesList customScrollbar customScrollbar__3">
 
-    <li *ngIf="creatingCategory" class="taskCategoriesList__item">
+    <li *ngIf="_creatingCategory" class="taskCategoriesList__item">
       <app-create-category
         (onTaskCategoryCreated)="onCategoryCreated($event)"
         (onClickAway)="toggleCreatingCategory()"
@@ -28,14 +31,19 @@
       </app-create-category>
     </li>
 
-    <li *ngFor="let category of categories" class="taskCategoriesList__item">
+    <li
+      *ngFor="let category of categories"
+      class="taskCategoriesList__item"
+    >
       <app-task-category
         [id]="category.id"
         [name]="category.name"
         [iconClass]="category.icon_class"
         [colorHex]="category.color"
+        [selected]="_selectedCategory == category.id ? true : false"
         (onRemoveCategoryButtonClick)="toggleRemoveModal($event)"
         (onUpdateTaskCategory)="onCategoryUpdated($event)"
+        (onSelect)="selectCategory(category.id)"
       >
       </app-task-category>
     </li>
@@ -65,7 +73,7 @@
   (onBackdropClick)="toggleRemoveModal()"
 >
   <app-confirmation-modal
-    title="Would you like to delete this item?"
+    title="Would you like to delete this category?"
     (onCancel)="toggleRemoveModal()"
     (onConfirm)="deleteCategory()"
   >

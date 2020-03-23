@@ -1,6 +1,6 @@
 import { TasksApiService } from './../../../services/api/tasks-api.service';
 import { Task } from './../../../models/task';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { TaskSuggestionsService } from 'src/app/services/task-suggestions.service';
 
 @Component({
@@ -11,6 +11,8 @@ import { TaskSuggestionsService } from 'src/app/services/task-suggestions.servic
 export class CreateTodoComponent implements OnInit, AfterViewInit {
   @Output() onClickAway: EventEmitter<any> = new EventEmitter();
   @Output() onTaskCreated: EventEmitter<any> = new EventEmitter();
+
+  @Input() selectedCategory: string;
 
   @ViewChild('priorityIcon', { static: true }) priorityIcon: ElementRef;
   @ViewChild('priorityText', { static: true }) priorityText: ElementRef;
@@ -98,7 +100,7 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
         this._savingTask = true;
 
         const task: Task = {
-          task_category_id: '1',
+          task_category_id: this.selectedCategory,
           title: this.taskTitle,
           priority: parseInt(this.priority)
         };

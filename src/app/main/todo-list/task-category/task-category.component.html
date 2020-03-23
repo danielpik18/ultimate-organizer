@@ -1,7 +1,8 @@
 <div
+  #wrapper
   class="wrapper"
-  (dblclick)="turnOnEditMode()"
-  (clickOutside)="turnOffEditMode()"
+  (click)="!editMode && onSelect.emit()"
+  (clickOutside)="!_clickAwayEnabled ? _clickAwayEnabled = true : turnOffEditMode();"
 >
 
   <div class="d-flex align-items-center w-100">
@@ -17,15 +18,16 @@
         #categoryIcon
         class="categoryIcon mr-3"
         [ngClass]="taskCategory.icon_class"
-        [style.color]="taskCategory.color"
+        [style.color]="(selected && !editMode) ? _colorPalette.getColorHex('grey_light2') : taskCategory.color"
       >
       </i>
     </div>
 
     <app-editable-text
       [text]="taskCategory.name"
-      [fontSize]="'0.78rem'"
+      [fontSize]="'0.7rem'"
       [fontWeight]="600"
+      [color]="(selected && !editMode) && _colorPalette.getColorHex('grey_light2')"
       [editing]='editModeSubject'
       [width]="'100%'"
       [display]="'flex'"
@@ -34,8 +36,16 @@
     </app-editable-text>
   </div>
 
+  <!-- Remove category button-->
   <div *ngIf="editMode" class="removeCategoryButton" >
-    <i class="fas fa-trash" (click)="onRemoveCategoryButtonClick.emit(taskCategory.id);"></i>
+    <i class="far fa-times-circle" (click)="onRemoveCategoryButtonClick.emit(taskCategory.id);"></i>
   </div>
+  <!---->
+
+  <!-- Edit category button-->
+  <div *ngIf="!editMode" class="editCategoryButton" >
+    <i class="fas fa-pencil-alt" (click)="turnOnEditMode();"></i>
+  </div>
+  <!---->
 
 </div>

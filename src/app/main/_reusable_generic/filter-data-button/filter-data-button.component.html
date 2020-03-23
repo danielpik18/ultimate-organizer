@@ -8,7 +8,7 @@
       <h6 class="filterByText">Order by:</h6>
 
       <div #filterOptionsWrapper class="filterOptionsWrapper">
-        <div  class="form-check" *ngFor="let option of filterOptions">
+        <div class="form-check" *ngFor="let option of filterOptions">
           <input
             class="form-check-input"
             type="radio"
@@ -16,7 +16,7 @@
             [checked]="option === 'completed' ? true : false"
             value="{{option}}"
             id={{option}}
-            (click)="onFilterSelected()"
+            (click)="selectFilter(option)"
           >
           <label class="form-check-label ml-2" (click)="selectFilter(option)">
             {{option[0].toLocaleUpperCase() + option.slice(1)}}

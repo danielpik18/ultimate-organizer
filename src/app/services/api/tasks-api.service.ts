@@ -14,8 +14,16 @@ export class TasksApiService extends BaseApiService {
     super();
   }
 
-  getTasks(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/tasks`);
+  getTasks(orderBy: string, taskCategoryId: string = ''): Observable<any> {
+    let url = `${this.apiUrl}/tasks`;
+
+    if(taskCategoryId){
+      url += `/${taskCategoryId}`;
+    }
+
+    url += `?order_by=${orderBy}`;
+
+    return this.http.get(url);
   }
 
   getTask(id: string): Observable<any> {

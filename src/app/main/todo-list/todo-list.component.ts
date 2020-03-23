@@ -11,21 +11,23 @@ import { HelperFunctionsService } from 'src/app/services/helper-functions.servic
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-  @ViewChild('todoList', { static: true }) todoList: ElementRef;
   @ViewChild('tasksWrapper', { static: true }) tasksWrapper: ElementRef;
 
+  // modals
   showDeleteModal = false;
   showDiscardNewTaskModal = false;
-  creatingTaskMode = false;
 
-  //
-  enableNewTaskClickAway = true;
+  // helpers / getarounds
+  _creatingTaskMode = false;
+  _newTaskClickAwayEnabled = true;
 
   //  temp variables
   _taskToBeDeleted = '';
 
   //
 
+  selectedTaskCategory = '';
+  selectedFilter = 'completed';
   tasks: Task[];
 
   constructor(
@@ -36,14 +38,13 @@ export class TodoListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getTasks();
   }
 
   //  api functions
 
   getTasks() {
     this.tasks = null;
-    this._tasksApiService.getTasks().subscribe(res => this.tasks = [...res.data]);
+    this._tasksApiService.getTasks(this.selectedFilter, this.selectedTaskCategory).subscribe(res => this.tasks = [...res.data]);
   }
 
   deleteTask() {
@@ -60,10 +61,10 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  //
+  // Output catchers
 
   onTaskCreated() {
-    this.creatingTaskMode = false;
+    this._creatingTaskMode = false;
     this.getTasks();
   }
 
@@ -81,11 +82,18 @@ export class TodoListComponent implements OnInit {
     }
   }
 
+  onTaskCategorySelected(task_category_id: string){
+    this.selectedTaskCategory = task_category_id;
+    this.getTasks();
+  }
+
   //
   //
 
   filterData(filter: string) {
-    console.log('test', filter);
+    console.log('Selected filter: ', filter);
+    this.selectedFilter = filter;
+    this.getTasks();
   }
 
   toggleDeleteModal(taskId: string = null) {
@@ -99,7 +107,7 @@ export class TodoListComponent implements OnInit {
     this.showDiscardNewTaskModal = !this.showDiscardNewTaskModal;
 
     setTimeout(() => {
-      this.enableNewTaskClickAway = !this.enableNewTaskClickAway;
+      this._newTaskClickAwayEnabled = !this._newTaskClickAwayEnabled;
     }, 400);
 
   }
@@ -107,8 +115,8 @@ export class TodoListComponent implements OnInit {
   toggleCreatingTaskMode(mode: string) {
     switch (mode) {
       case 'on':
-        if (!this.creatingTaskMode) {
-          this.creatingTaskMode = true;
+        if (!this._creatingTaskMode) {
+          this._creatingTaskMode = true;
 
           setTimeout(() => {
             this.tasksWrapper.nativeElement.scrollTop = 0;
@@ -116,8 +124,8 @@ export class TodoListComponent implements OnInit {
         }
         break;
       case 'off':
-        if (this.creatingTaskMode) {
-          this.creatingTaskMode = false;
+        if (this._creatingTaskMode) {
+          this._creatingTaskMode = false;
         }
         break;
     }

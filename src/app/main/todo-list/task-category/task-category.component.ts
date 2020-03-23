@@ -1,6 +1,6 @@
 import { TaskCategoriesApiService } from './../../../services/api/task-categories-api.service';
 import { TaskCategory } from './../../../models/task-category';
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ColorPaletteService } from 'src/app/services/color-palette.service';
 
@@ -9,27 +9,33 @@ import { ColorPaletteService } from 'src/app/services/color-palette.service';
   templateUrl: './task-category.component.html',
   styleUrls: ['./task-category.component.scss']
 })
-export class TaskCategoryComponent implements OnInit {
+export class TaskCategoryComponent implements OnInit, OnChanges {
   @Input() id: string;
   @Input() name: string;
   @Input() iconClass: string;
   @Input() colorHex: string;
 
+  @Input() selected: boolean;
+
   @Output() onRemoveCategoryButtonClick: EventEmitter<any> = new EventEmitter();
   @Output() onUpdateTaskCategory: EventEmitter<any> = new EventEmitter();
+  @Output() onSelect: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('categoryIcon', { static: true }) categoryIcon: ElementRef;
+  @ViewChild('wrapper', { static: true }) wrapper: ElementRef;
 
-  // the task category itself
+  // the category itself
   taskCategory: TaskCategory;
 
   // temp
   _tempTaskCategoryValues: TaskCategory;
 
+  //   helpers / getarounds
+  _clickAwayEnabled = false;
+
   //  Edit mode
   editModeSubject: BehaviorSubject<any> = new BehaviorSubject(false);
   editMode = false;
-  tasksWrapperElement: Element;
 
   constructor(
     private _taskCategoriesApi: TaskCategoriesApiService,
@@ -49,15 +55,22 @@ export class TaskCategoryComponent implements OnInit {
     };
   }
 
+  ngOnChanges() {
+    //console.log(`ID: ${this.id}, Selected: ${this.selected}`);
+
+    this.applySelectedStyles();
+  }
+
+  applySelectedStyles() {
+    if (this.selected && !this.wrapper.nativeElement.classList.contains('activeCategory')) {
+      this.wrapper.nativeElement.classList.add('activeCategory');
+
+    } else if (this.wrapper.nativeElement.classList.contains('activeCategory')) {
+      this.wrapper.nativeElement.classList.remove('activeCategory')
+    }
+  }
+
   changeIcon(iconClassNames: string) {
-    /*
-    this.categoryIcon.nativeElement.classList.remove(this.categoryIcon.nativeElement.classList.item(3));
-
-    iconClassNames.split(" ").forEach(className => {
-      this.categoryIcon.nativeElement.classList.add(className);
-    });
-    */
-
     this.taskCategory.icon_class = iconClassNames;
 
     console.log("Changing icon to: ", iconClassNames);
@@ -68,6 +81,8 @@ export class TaskCategoryComponent implements OnInit {
   }
 
   turnOnEditMode() {
+    console.log('Turning edit mode ON', this.taskCategory.name);
+
     if (!this.editMode) {
       //  Temporarily saving the task values before turning edit mode ON
       this._tempTaskCategoryValues = {
@@ -77,6 +92,8 @@ export class TaskCategoryComponent implements OnInit {
       };
 
       this.editModeSubject.next(true);
+      this.applySelectedStyles();
+      this._clickAwayEnabled = false;
     }
   }
 
@@ -95,7 +112,8 @@ export class TaskCategoryComponent implements OnInit {
         console.log('values differ, updating...');
       }
 
-     this.editModeSubject.next(false);
+      this.editModeSubject.next(false);
+      this.applySelectedStyles();
     }
   }
 

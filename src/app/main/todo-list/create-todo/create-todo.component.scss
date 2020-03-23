@@ -3,6 +3,9 @@
 @import "./../../../../scss/zindexes";
 
 .todoWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 7.8rem !important;
   background-color: $grey_light2 !important;
   animation: fadeInFromBottom-short 0.6s ease-out both;

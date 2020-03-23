@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-filter-data-button',
   templateUrl: './filter-data-button.component.html',
   styleUrls: ['./filter-data-button.component.scss']
 })
-export class FilterDataButtonComponent implements OnInit, AfterViewInit {
+export class FilterDataButtonComponent implements OnInit {
   @ViewChild('filterPopover', { static: true }) filterPopover: ElementRef;
   @ViewChild('filterOptionsWrapper') filterOptionsWrapper: ElementRef;
   @Input() filterOptions: string[];
@@ -15,14 +15,6 @@ export class FilterDataButtonComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    this.selectFilter(this.defaultFilterId);
-  }
-
-  onFilterSelected() {
-    this.onFilterChange.emit('holahola');
   }
 
   togglePopover(justClose = false) {
@@ -41,6 +33,8 @@ export class FilterDataButtonComponent implements OnInit, AfterViewInit {
         currentInputElement.checked = true;
       }
     }
+
+    this.onFilterChange.emit(filterID);
   }
 
 }

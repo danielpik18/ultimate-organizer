@@ -1,6 +1,6 @@
 import { TaskCategoriesApiService } from './../../../services/api/task-categories-api.service';
 import { TaskCategory } from './../../../models/task-category';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-todo-categories',
@@ -8,21 +8,25 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./todo-categories.component.scss']
 })
 export class TodoCategoriesComponent implements OnInit {
+  @Output() onCategorySelected: EventEmitter<any> = new EventEmitter();
+
   @ViewChild('taskCategoriesList', { static: true }) taskCategoriesList: ElementRef;
 
-  //  Creating category
-  creatingCategory = false;
-
-  //  Modals
+  //  Modals stuff
   showRemoveModal = false;
 
-    //  temp variables
-    _categoryToBeDeleted = '';
+  //  temp variables
+  _categoryToBeDeleted = '';
+  _selectedCategory = '';
 
-    // helpers / getarounds
-    _newCategoryClickAwayEnabled = false;
+  // helpers / getarounds
+  _creatingCategory = false;
 
+
+  //  The actual categories
   categories: TaskCategory[];
+
+
 
   constructor(
     private _taskCategoriesApiService: TaskCategoriesApiService
@@ -36,7 +40,14 @@ export class TodoCategoriesComponent implements OnInit {
 
   getTaskCategories() {
     this.categories = null;
-    this._taskCategoriesApiService.getTaskCategories().subscribe(res => this.categories = [...res.data]);
+    this._taskCategoriesApiService.getTaskCategories().subscribe(res => {
+      this.categories = [...res.data];
+
+      // Select first returned category, if there isn't any selected
+      if(!this._selectedCategory){
+        this.selectCategory(res.data[0].id);
+      }
+    });
   }
 
   deleteCategory() {
@@ -56,10 +67,10 @@ export class TodoCategoriesComponent implements OnInit {
   //
 
   toggleCreatingCategory() {
-    if(this.creatingCategory){
-      this.creatingCategory = false;
+    if(this._creatingCategory){
+      this._creatingCategory = false;
     } else {
-      this.creatingCategory = true;
+      this._creatingCategory = true;
     }
   }
 
@@ -73,7 +84,7 @@ export class TodoCategoriesComponent implements OnInit {
   }
 
   onCategoryCreated(taskCategory: TaskCategory){
-    this.creatingCategory = false;
+    this._creatingCategory = false;
     this.getTaskCategories();
     console.log("Category created: ", taskCategory);
   }
@@ -82,21 +93,17 @@ export class TodoCategoriesComponent implements OnInit {
     if(event){
       const updatedTaskCategroy: TaskCategory = event.data;
       console.log('updated task category: ', updatedTaskCategroy);
-
-      /*
-      this._notificationsManager.pushNotification(
-        'Tasks',
-        updatedTaskCategroy.title,
-        this._helperFunctions.getCurrentTimeIn12HourFormat(),
-        this._colorPalette.getColorHex('red_light')
-      );
-      */
     }
   }
 
-  onNewCategoryClickAway(){
-    if(!this._newCategoryClickAwayEnabled){
 
+
+  //
+
+  selectCategory(id: string){
+    if(id !== this._selectedCategory){
+      this._selectedCategory = id;
+      this.onCategorySelected.emit(id);
     }
   }
 
