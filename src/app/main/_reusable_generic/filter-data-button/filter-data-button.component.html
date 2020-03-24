@@ -20,7 +20,7 @@
             class="form-check-input"
             type="radio"
             name="filterOptionsRadioButtons"
-            [checked]="option === 'completed' ? true : false"
+            [checked]="option === defaultFilter"
             value="{{option}}"
             id={{option}}
             (click)="selectFilter(option)"

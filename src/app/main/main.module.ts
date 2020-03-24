@@ -30,6 +30,10 @@ import { CreateCategoryComponent } from './todo-list/create-category/create-cate
 import { ClickOusideDirective } from '../directives/click-ouside.directive';
 import { NothingFoundTextComponent } from './_reusable_generic/nothing-found-text/nothing-found-text.component'
 
+// Services
+import { CookieService } from 'ngx-cookie-service';
+
+
 
 @NgModule({
   declarations: [
@@ -57,6 +61,9 @@ import { NothingFoundTextComponent } from './_reusable_generic/nothing-found-tex
     CommonModule,
     DragDropModule,
     FormsModule
+  ],
+  providers: [
+    CookieService
   ],
   exports: []
 })

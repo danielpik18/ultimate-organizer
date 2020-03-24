@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { ColorPaletteService } from './../../services/color-palette.service';
 import { NotificationsManagerService } from './../../services/notifications-manager.service';
 import { Task } from './../../models/task';
@@ -33,12 +34,28 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private _tasksApiService: TasksApiService,
+    private _cookieService: CookieService,
     private _notificationsManager: NotificationsManagerService,
     private _helperFunctions: HelperFunctionsService,
     private _colorPalette: ColorPaletteService
   ) { }
 
   ngOnInit() {
+    this.getCookies();
+  }
+
+  getCookies() {
+    if (this._cookieService.get('tasks_order_by')) {
+      this.selectedFilter = this._cookieService.get('tasks_order_by');
+    }
+
+    if (this._cookieService.get('tasks_order_by_orientation')) {
+      this.selectedOrientation = this._cookieService.get('tasks_order_by_orientation');
+
+    }
+
+    console.log('Filter: ', this.selectedFilter);
+    console.log('Orientation: ', this.selectedOrientation);
   }
 
   //  api functions
@@ -91,13 +108,14 @@ export class TodoListComponent implements OnInit {
   }
 
   onFilterChanged(filter: string) {
-    console.log('Selected filter: ', filter);
     this.selectedFilter = filter;
+    this._cookieService.set('tasks_order_by', filter);
     this.getTasks();
   }
 
   onOrientationChanged(orientation: string) {
     this.selectedOrientation = orientation;
+    this._cookieService.set('tasks_order_by_orientation', orientation);
     this.getTasks();
   }
 

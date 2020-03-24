@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-filter-data-button',
@@ -10,20 +10,19 @@ export class FilterDataButtonComponent implements OnInit {
   @ViewChild('filterOptionsWrapper') filterOptionsWrapper: ElementRef;
 
   @Input() filterOptions: string[];
-  @Input() defaultFilterId: string;
+  @Input() defaultFilter: string;
+  @Input() orientation: string = 'DESC';
 
   @Output() onFilterChange: EventEmitter<any> = new EventEmitter();
   @Output() onOrientationChange: EventEmitter<any> = new EventEmitter();
-
-  orientation = 'DESC';
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  toggleOrientation(){
-    if(this.orientation === 'DESC'){
+  toggleOrientation() {
+    if (this.orientation === 'DESC') {
       this.orientation = 'ASC';
     } else {
       this.orientation = 'DESC';
@@ -40,7 +39,7 @@ export class FilterDataButtonComponent implements OnInit {
     }
   }
 
-  selectFilter(filterID: string){
+  selectFilter(filterID: string) {
     for (let index = 0; index < this.filterOptionsWrapper.nativeElement.childElementCount; index++) {
       const currentInputElement = this.filterOptionsWrapper.nativeElement.children[index].children[0];
 
