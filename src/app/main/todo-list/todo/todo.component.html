@@ -43,7 +43,7 @@
     </div>
 
     <!--Complete button-->
-    <button #completeTaskButton class="completeTaskButton" (click)="toggleCompleted()">
+    <button #completeTaskButton class="completeTaskButton" (click)="toggleCompleted()" tabindex="-1">
       <div class="completeTaskButton__backgroundCircle"></div>
       <div #completeTaskButtonCheckmark class="completeTaskButton__checkMark"></div>
     </button>
@@ -52,7 +52,11 @@
   </div>
 
   <!--Remove Button-->
-  <div #removeTaskButton (click)="editMode && onRemoveTaskButtonClick.emit(task.id)" class="removeTaskButton">
+  <div
+    #removeTaskButton
+    (click)="editMode && onRemoveTaskButtonClick.emit(task.id)"
+    class="removeTaskButton"
+  >
     <i class="fas fa-trash-alt"></i>
   </div>
   <!---->

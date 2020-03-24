@@ -28,6 +28,10 @@ label {
   outline: none;
   background-color: rgba(white, 0.5);
   color: $grey_dark2;
+
+  &::placeholder{
+    color: $grey_dark;
+  }
 }
 
 .createConfirmButton {

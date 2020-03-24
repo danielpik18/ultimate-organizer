@@ -254,7 +254,6 @@ export class TodoComponent implements OnInit, AfterViewInit {
     } else {
       this.onUpdateTask.emit();
       this.task.title = this._tempTaskValues.title;
-      alert("The title cannont be empty")
     }
   }
 }
