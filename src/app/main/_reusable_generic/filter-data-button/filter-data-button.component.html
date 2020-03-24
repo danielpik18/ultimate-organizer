@@ -5,7 +5,14 @@
 
   <div  #filterPopover class="filterPopover" (clickOutside)="togglePopover(true)">
     <div>
-      <h6 class="filterByText">Order by:</h6>
+      <div class="d-flex justify-content-between align-items-center">
+        <h6 class="filterByText">Order tasks by:</h6>
+
+        <button class="orientationButton" (click)="toggleOrientation(); $event.stopPropagation();">
+          <i *ngIf="orientation === 'ASC'" class="fas fa-arrow-circle-up"></i>
+          <i *ngIf="orientation === 'DESC'" class="fas fa-arrow-circle-down"></i>
+        </button>
+      </div>
 
       <div #filterOptionsWrapper class="filterOptionsWrapper">
         <div class="form-check" *ngFor="let option of filterOptions">

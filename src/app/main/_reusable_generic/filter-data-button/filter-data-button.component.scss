@@ -52,8 +52,24 @@
 
 .filterByText{
   font-weight: 600;
-  font-size: .8rem;
+  font-size: .7rem;
   letter-spacing: 1px;
+}
+
+.orientationButton{
+  padding: 0;
+  outline: none;
+  border: none;
+  background: none;
+  font-size: 1.3rem;
+  color: $grey_dark;
+  cursor: pointer;
+
+  transition: color .15s ease-in-out;
+
+  &:hover{
+    color: $grey_dark2;
+  }
 }
 
 .form-check{

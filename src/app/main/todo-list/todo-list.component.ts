@@ -28,6 +28,7 @@ export class TodoListComponent implements OnInit {
 
   selectedTaskCategory = '';
   selectedFilter = 'completed';
+  selectedOrientation = 'DESC';
   tasks: Task[];
 
   constructor(
@@ -44,7 +45,9 @@ export class TodoListComponent implements OnInit {
 
   getTasks() {
     this.tasks = null;
-    this._tasksApiService.getTasks(this.selectedFilter, this.selectedTaskCategory).subscribe(res => this.tasks = [...res.data]);
+    this._tasksApiService
+      .getTasks(this.selectedFilter, this.selectedOrientation, this.selectedTaskCategory)
+      .subscribe(res => this.tasks = [...res.data]);
   }
 
   deleteTask() {
@@ -69,7 +72,7 @@ export class TodoListComponent implements OnInit {
   }
 
   onTaskUpdated(event: any) {
-    if(event){
+    if (event) {
       const updatedTask: Task = event.data;
       console.log('updated task: ', updatedTask);
 
@@ -82,19 +85,26 @@ export class TodoListComponent implements OnInit {
     }
   }
 
-  onTaskCategorySelected(task_category_id: string){
+  onTaskCategorySelected(task_category_id: string) {
     this.selectedTaskCategory = task_category_id;
     this.getTasks();
   }
 
-  //
-  //
-
-  filterData(filter: string) {
+  onFilterChanged(filter: string) {
     console.log('Selected filter: ', filter);
     this.selectedFilter = filter;
     this.getTasks();
   }
+
+  onOrientationChanged(orientation: string) {
+    this.selectedOrientation = orientation;
+    this.getTasks();
+  }
+
+  //
+  //
+
+
 
   toggleDeleteModal(taskId: string = null) {
     if (taskId) {

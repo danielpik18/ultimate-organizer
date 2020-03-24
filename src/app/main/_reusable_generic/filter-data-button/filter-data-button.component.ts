@@ -8,13 +8,28 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter }
 export class FilterDataButtonComponent implements OnInit {
   @ViewChild('filterPopover', { static: true }) filterPopover: ElementRef;
   @ViewChild('filterOptionsWrapper') filterOptionsWrapper: ElementRef;
+
   @Input() filterOptions: string[];
   @Input() defaultFilterId: string;
+
   @Output() onFilterChange: EventEmitter<any> = new EventEmitter();
+  @Output() onOrientationChange: EventEmitter<any> = new EventEmitter();
+
+  orientation = 'DESC';
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleOrientation(){
+    if(this.orientation === 'DESC'){
+      this.orientation = 'ASC';
+    } else {
+      this.orientation = 'DESC';
+    }
+
+    this.onOrientationChange.emit(this.orientation);
   }
 
   togglePopover(justClose = false) {

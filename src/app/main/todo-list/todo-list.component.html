@@ -68,9 +68,10 @@
       <!---->
 
       <app-filter-data-button
-        (onFilterChange)="filterData($event)"
         [filterOptions]="['completed', 'priority', 'date']"
         [defaultFilterId]="'completed'"
+        (onFilterChange)="onFilterChanged($event)"
+        (onOrientationChange)="onOrientationChanged($event)"
       >
       </app-filter-data-button>
     </div>
