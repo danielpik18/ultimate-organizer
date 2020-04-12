@@ -12,7 +12,7 @@ import { HelperFunctionsService } from 'src/app/services/helper-functions.servic
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
-  @ViewChild('tasksWrapper', { static: true }) tasksWrapper: ElementRef;
+  @ViewChild('tasksList', { static: true }) tasksList: ElementRef;
 
   // modals
   showDeleteModal = false;
@@ -53,9 +53,6 @@ export class TodoListComponent implements OnInit {
       this.selectedOrientation = this._cookieService.get('tasks_order_by_orientation');
 
     }
-
-    console.log('Filter: ', this.selectedFilter);
-    console.log('Orientation: ', this.selectedOrientation);
   }
 
   //  api functions
@@ -147,7 +144,7 @@ export class TodoListComponent implements OnInit {
           this._creatingTaskMode = true;
 
           setTimeout(() => {
-            this.tasksWrapper.nativeElement.scrollTop = 0;
+            this.tasksList.nativeElement.scrollTop = 0;
           }, 0);
         }
         break;

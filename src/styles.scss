@@ -23,6 +23,10 @@ body {
   scroll-behavior: smooth;
 }
 
+button{
+  outline: none !important;
+}
+
 //**********************************************************************************
 //  Bootstrap tweaks
 //**********************************************************************************
@@ -129,7 +133,8 @@ body {
   }
 }
 
-// Misc / reusabñe.
+
+// Misc / reusable.
 
 .nothingFoundText{
   color: $grey_dark;
@@ -138,4 +143,15 @@ body {
   font-size: .9rem;
   width: 100%;
   animation: fadeInFromTop-veryShort .5s ease-in-out both;
+}
+
+.inputErrorMessage{
+  font-size: .8rem;
+  color: $red_light;
+  padding: .4rem 0;
+  animation: fadeInFromTop-veryShort .45s ease-out both;
+}
+
+.inputErrorBorder{
+  border: $red_light 1px solid !important;
 }

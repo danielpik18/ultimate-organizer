@@ -18,6 +18,7 @@
     [value]="text"
     [placeholder]="placeholder"
     (change)="returnInputValue()"
+    (keydown.enter)="returnInputValue()"
 
     [style.display]="display && display"
     [style.backgroundColor]="inputBackground && inputBackground"

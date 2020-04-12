@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthGuardService } from 'src/app/services/auth-guard.service';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from './../../services/api/auth.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,17 +11,28 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   //@Output() onLogin: EventEmitter<any> = new EventEmitter();
 
+  email: string;
+  password: string;
+
+  authUsr;
+
   constructor(
-    private authGuard: AuthGuardService,
+    private _auth: AuthService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this._auth.authUser.subscribe(authUser => {
+      this.authUsr = authUser;
+    });
   }
 
-  login(){
-    this.authGuard.loggedIn = true;
-    this.router.navigate(['/']);
+  login() {
+    this._auth.login(this.email, this.password).subscribe(data => {
+      if (data) {
+        console.log('Data: ', data);
+      }
+    });
   }
 
 }

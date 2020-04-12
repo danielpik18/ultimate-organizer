@@ -52,10 +52,9 @@ $testlist: ();
   left: 33%;
   bottom: 0;
   width: 3.6rem;
-  height: 3rem;
+  height: 2.8rem;
   background: linear-gradient($green, $green_light);
   border: none;
-  outline: none;
   border-radius: 0 50% 0 0;
   opacity: .85;
   transition: opacity .4s ease-in-out;
@@ -68,7 +67,7 @@ $testlist: ();
 
 
   & i {
-    margin-top: .6rem;
+    margin-top: .4rem;
     font-size: 1.8rem;
     color: $grey_light2;
   }

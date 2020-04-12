@@ -75,6 +75,13 @@ export class TodoComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  //
+
+  test(){
+    console.log('Heyheyhey');
+  }
+
   setTaskStateStyles() {
     const wrapperClassList: DOMTokenList = this.todoWrapper.nativeElement.classList;
     const checkmarkClassList: DOMTokenList = this.completeTaskButtonCheckmark.nativeElement.classList;

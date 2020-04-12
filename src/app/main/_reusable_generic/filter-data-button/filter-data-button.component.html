@@ -1,16 +1,16 @@
 <div class="wrapper">
-  <div class="filterButton" (click)="togglePopover(false); $event.stopPropagation();">
+  <button class="filterButton" (click)="togglePopover(false); $event.stopPropagation();">
     <i class="fas fa-lg fa-cogs"></i>
-  </div>
+  </button>
 
   <div  #filterPopover class="filterPopover" (clickOutside)="togglePopover(true)">
     <div>
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-between align-items-end">
         <h6 class="filterByText">Order tasks by:</h6>
 
         <button class="orientationButton" (click)="toggleOrientation(); $event.stopPropagation();">
-          <i *ngIf="orientation === 'ASC'" class="fas fa-arrow-circle-up"></i>
-          <i *ngIf="orientation === 'DESC'" class="fas fa-arrow-circle-down"></i>
+          <i *ngIf="orientation === 'ASC'" class="fas fa-sort-amount-up"></i>
+          <i *ngIf="orientation === 'DESC'" class="fas fa-sort-amount-down"></i>
         </button>
       </div>
 

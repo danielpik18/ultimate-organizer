@@ -1,0 +1,15 @@
+@import './../../../scss/colors';
+
+.wrapper{
+  position: absolute;
+  top: 2%;
+  right: 2%;
+}
+
+.logoutButton{
+  outline: none;
+  border: none;
+  background: transparent;
+  color: $grey_light2;
+  font-weight: bold;
+}

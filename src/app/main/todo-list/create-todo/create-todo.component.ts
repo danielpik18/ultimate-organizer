@@ -27,6 +27,7 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
   //  helper / getaround variables
   _clickAwayOmittedFirst = false;
   _savingTask = false;
+  _formSubmitErrors = false;
 
   constructor(
     private _tasksSuggestions: TaskSuggestionsService,
@@ -120,7 +121,7 @@ export class CreateTodoComponent implements OnInit, AfterViewInit {
         });
       }
     } else {
-      alert('Must fill title');
+      this._formSubmitErrors = true;
     }
   }
 

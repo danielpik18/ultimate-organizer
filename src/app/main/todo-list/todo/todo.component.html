@@ -3,6 +3,7 @@
   class="todoWrapper"
   (dblclick)="task.completed == 0 && this.turnOnEditMode();"
   (clickOutside)="turnOffEditMode()"
+  (keydown.enter)="editMode && turnOffEditMode()"
 >
 
   <app-editable-text

@@ -11,7 +11,7 @@
       </app-todo-categories>
     <!---->
 
-    <div #tasksWrapper class="tasksWrapper">
+    <div class="tasksWrapper">
       <div class="doubleClickTip">
         <i class="fas fa-mouse mr-2"></i>
         <span>Double-click on a task to edit</span>
@@ -30,7 +30,7 @@
       ></app-nothing-found-text>
 
       <!--Tasks list -->
-      <ul class="customScrollbar customScrollbar__1">
+      <ul #tasksList class="customScrollbar customScrollbar__1">
 
         <!--New task -->
         <app-create-todo
@@ -62,13 +62,13 @@
       <!---->
 
       <!--Create new task button-->
-      <div class="createTaskButton" (click)="toggleCreatingTaskMode('on')">
+      <button class="createTaskButton" (click)="toggleCreatingTaskMode('on')">
         <i class="fas fa-plus-circle"></i>
-      </div>
+      </button>
       <!---->
 
       <app-filter-data-button
-        [filterOptions]="['priority', 'completed', 'date']"
+        [filterOptions]="['completed', 'priority', 'date']"
         [defaultFilter]="selectedFilter"
         [orientation]="selectedOrientation"
         (onFilterChange)="onFilterChanged($event)"

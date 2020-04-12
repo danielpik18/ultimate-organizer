@@ -1,4 +1,5 @@
 @import './../../../../scss/colors';
+@import './../../../../scss/zindexes';
 
 .wrapper{
 }
@@ -8,7 +9,7 @@
   bottom: 0;
   right: 0;
   width: 3.6rem;
-  height: 3rem;
+  height: 2.8rem;
   border: $grey_dark;
   background: linear-gradient($blue, $blue_light);
   border-radius: 50% 0 0 0;
@@ -18,7 +19,7 @@
   opacity: .85;
   cursor: pointer;
   transition: opacity .4s ease-out;
-  z-index: 25;
+  z-index: $slightlyAbove;
 
   & i {
     font-size: 1.6rem;
@@ -58,7 +59,6 @@
 
 .orientationButton{
   padding: 0;
-  outline: none;
   border: none;
   background: none;
   font-size: 1.3rem;
